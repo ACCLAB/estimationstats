@@ -1,3 +1,4 @@
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import bootstrap_contrast as bs
 import pandas as pd
@@ -6,6 +7,8 @@ import base64
 from flask import Flask, send_file, request
 from flask import render_template
 from flask_material import Material
+
+mpl.use('Agg') # Set appropriate rendering backend.
 
 app = Flask(__name__)
 Material(app)

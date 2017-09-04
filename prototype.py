@@ -11,7 +11,7 @@ from flask import render_template
 from flask_material import Material
 
 
-app = Flask(__name__)
+app=Flask(__name__)
 Material(app)
 
 
@@ -19,21 +19,22 @@ Material(app)
 def index():
     return render_template('index.html')
 
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    df = pd.read_csv(request.files['file'])
-    bs.contrastplot(df,
-                    idx=(('Control', 'Group1',), ('Control', 'Group3'), ('Control', 'Group5')),
-                    color_col='Gender'
-                    )
-    img = io.BytesIO()
+    df=pd.read_csv(request.files['file'])
+    f,b=bs.contrastplot(df,
+                        idx=(('Control', 'Group1',),
+                        ('Control', 'Group3'),
+                        ('Control', 'Group5')),
+                    color_col='Gender')
+    stats=b.to_html()
+    img=io.BytesIO()
     plt.savefig(img, format='png', bbox_inches='tight')
     img.seek(0)
 
-    plot_url = base64.b64encode(img.getvalue()).decode()
-    return plot_url;
+    plot_url=base64.b64encode(img.getvalue()).decode()
+    return plot_url
 
 
-if __name__ == '__main__':
+if __name__=='__main__':
     app.run()

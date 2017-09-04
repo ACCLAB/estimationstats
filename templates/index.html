@@ -4,7 +4,9 @@
 
 {% block content %}
   <div class="container">
+
     <h5>&nbsp;</h5>
+
     <form id="upload-file" action="#" enctype="multipart/form-data">
       <div class="file-field input-field">
         <div class="btn">
@@ -19,17 +21,27 @@
         </div>
       </div>
     </form>
+
+    <div id="stats">
+      <div class="stats">
+
+      </div>
+    </div>
+
     <div id="plot_container">
       <div class="file-download">
         <a id="download-file-btn" class="waves-effect waves-light"><i class="medium material-icons dp48">file_download</i></a>
       </div>
     </div>
+
     <div>
       <div class="progress loader">
           <div class="indeterminate"></div>
       </div>
     </div>
+
   </div>
+
   <div class="modal-overlay"></div>
 {% endblock %}
 
@@ -61,7 +73,9 @@
                   var $plot = $('<img>');
                   img = 'data:image/png;base64,' + data;
                   $plot.attr('src', img);
-                  $plot.appendTo($('#plot_container'))
+                  $plot.appendTo($('#plot_container'));
+
+                  // var $stats = $('<img>');
               },
               complete: function () {
                   // Hide loader

@@ -1,4 +1,6 @@
-import matplotlib as mpl
+import matplotlib
+matplotlib.use('Agg') # Set appropriate rendering backend.
+
 import matplotlib.pyplot as plt
 import bootstrap_contrast as bs
 import pandas as pd
@@ -8,7 +10,6 @@ from flask import Flask, send_file, request
 from flask import render_template
 from flask_material import Material
 
-mpl.use('Agg') # Set appropriate rendering backend.
 
 app = Flask(__name__)
 Material(app)

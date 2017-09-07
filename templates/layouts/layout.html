@@ -3,8 +3,9 @@
 {% import "material/wtf.html" as wtf %}
 
 {% block styles %}
-  {{ super()}}
+{#  {{ super()}}#}
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <link href="../../static/css/custom.css" rel="stylesheet" media="screen">
 {% endblock %}
 
@@ -18,7 +19,9 @@
   </nav>
 {% endblock %}
 {% block scripts %}
-  {{ super()}}
+{#  {{ super()}}#}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <script type="text/javascript">
       $(".button-collapse").sideNav();
   </script>

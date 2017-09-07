@@ -4,9 +4,7 @@
 
 {% block content %}
   <div class="container">
-
     <h5>&nbsp;</h5>
-
     <form id="upload-file" action="#" enctype="multipart/form-data">
       <div class="file-field input-field">
         <div class="btn">
@@ -29,62 +27,89 @@
     </div>
 
     <div id="plot_container">
-      <div class="file-download">
-        <a id="download-file-btn" class="waves-effect waves-light"><i class="medium material-icons dp48">file_download</i></a>
-      </div>
     </div>
-
     <div>
       <div class="progress loader">
           <div class="indeterminate"></div>
       </div>
     </div>
-
   </div>
-
   <div class="modal-overlay"></div>
+  <div class="fixed-action-btn">
+    <a id="download-file-btn" class="btn-floating btn-large waves-effect waves-light"><i class="medium material-icons dp48">file_download</i></a>
+    <ul>
+      <li><a class="btn-floating red" onclick="downloadFile('svg')"><i class="material-text">SVG</i></a></li>
+      <li><a class="btn-floating yellow darken-1" onclick="downloadFile('png')"><i class="material-text">PNG</i></a></li>
+      <li><a class="btn-floating green" onclick="downloadFile('csv')"><i class="material-text">CSV</i></a></li>
+    </ul>
+  </div>
 {% endblock %}
 
 {% block scripts %}
   {{ super()}}
   <script type="text/javascript">
-    var file, img;
+    var csvDelimiter = ',';
+    var file, downloadData;
+
+    var uploadFile = function (file) {
+      // Show loader
+      $('.modal-overlay').show();
+      $('.loader').show();
+
+      // Create form data
+      var form_data = new FormData(document.getElementById('upload-file'));
+      form_data.append('file', file);
+      var form = document.getElementById('upload-file');
+      var formData = new FormData(form);
+      $.ajax({
+          type: 'POST',
+          url: '/upload',
+          data: form_data,
+          contentType: false,
+          cache: false,
+          processData: false,
+          async: true,
+          success: function (data) {
+              downloadData = data;
+              $('#plot_container img').remove();
+              var $plot = $('<img>');
+              var img = 'data:image/svg+xml;base64,' + downloadData.svg;
+              $plot.attr('src', img);
+              $plot.appendTo($('#plot_container'))
+          },
+          complete: function () {
+              // Hide loader
+              $('.modal-overlay').hide();
+              $('.loader').hide();
+          }
+      });
+    };
+
+    var downloadFile = function(fileType) {
+      if (file && downloadData) {
+        var link = document.createElement('a');
+        link.setAttribute('href', createFileContent(fileType));
+        link.setAttribute('download', 'download_' + file.name.replace('.csv', '.' + fileType));
+        link.click();
+      }
+    };
+
+    var createFileContent = function(fileType) {
+      var content  = '';
+      if (fileType === 'csv') {
+        content += 'data:text/csv;encoding:=utf-8,';
+        content += csvDelimiter + downloadData.columns.join(csvDelimiter);
+        downloadData.csv.forEach(function(rowData, index){
+          content +=  '\n' + index + csvDelimiter + rowData.join(csvDelimiter);
+        });
+        content = encodeURI(content);
+      } else {
+        content += 'data:image/' + fileType + (fileType === 'svg' ? '+xml' : '') + ';base64,' + downloadData[fileType];
+      }
+      return content;
+    };
+
     $(function () {
-        var uploadFile = function (file) {
-          // Show loader
-          $('.modal-overlay').show();
-          $('.loader').show();
-
-          // Create formdata
-          var form_data = new FormData(document.getElementById('upload-file'));
-          form_data.append('file', file);
-          var form = document.getElementById('upload-file');
-          var formData = new FormData(form);
-          $.ajax({
-              type: 'POST',
-              url: '/upload',
-              data: form_data,
-              contentType: false,
-              cache: false,
-              processData: false,
-              async: true,
-              success: function (data) {
-                  $('#plot_container img').remove();
-                  var $plot = $('<img>');
-                  img = 'data:image/png;base64,' + data;
-                  $plot.attr('src', img);
-                  $plot.appendTo($('#plot_container'));
-
-                  // var $stats = $('<img>');
-              },
-              complete: function () {
-                  // Hide loader
-                  $('.modal-overlay').hide();
-                  $('.loader').hide();
-              }
-          });
-        };
-
         $('#upload-file-btn').click(function () {
             file = $('#file-id')[0].files[0];
             if (file) {
@@ -92,15 +117,6 @@
               if (fileExtension === 'csv') {
                   uploadFile(file);
               }
-            }
-        });
-
-        $('#download-file-btn').click(function () {
-            if (file && img) {
-              var link = document.createElement('a');
-              link.setAttribute('href', img);
-              link.setAttribute('download', file.name.replace('.csv', '.png'));
-              link.click();
             }
         });
     });

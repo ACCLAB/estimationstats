@@ -215,3 +215,7 @@ footer.page-footer {
 .file-download a, .file-upload a {
     color: #26a69a;
 }
+
+.fixed-action-btn ul li i.material-text {
+    font-size: 1rem;
+}

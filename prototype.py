@@ -6,8 +6,7 @@ import bootstrap_contrast as bs
 import pandas as pd
 import io
 import base64
-from flask import Flask, send_file, request
-from flask import render_template
+from flask import Flask, request, render_template, jsonify
 from flask_material import Material
 
 
@@ -28,13 +27,22 @@ def upload_file():
                         ('Control', 'Group5')),
                     color_col='Gender')
     stats=b.to_html()
+
     img=io.BytesIO()
     plt.savefig(img, format='png', bbox_inches='tight')
     img.seek(0)
+    png=base64.b64encode(img.getvalue()).decode()
 
-    plot_url=base64.b64encode(img.getvalue()).decode()
-    return plot_url
+    plt.savefig(img, format='svg', bbox_inches='tight')
+    img.seek(0)
+    svg=base64.b64encode(img.getvalue()).decode()
 
+    return jsonify(
+        png=png,
+        svg=svg,
+        csv=b.as_matrix().tolist(),
+        columns=list(b)
+    );
 
 if __name__=='__main__':
     app.run()

@@ -1,4 +1,4 @@
-bootstrap-contrast==0.320.1
+bootstrap-contrast==0.323.0
 scipy==0.19.1
 numpy==1.13.1
 matplotlib==2.0.2

@@ -73,7 +73,7 @@
               downloadData = data;
               $('#plot_container img').remove();
               var $plot = $('<img>');
-              var img = 'data:image/svg+xml;base64,' + downloadData.svg;
+              var img = 'data:image/png;base64,' + downloadData.png;
               $plot.attr('src', img);
               $plot.appendTo($('#plot_container'))
           },

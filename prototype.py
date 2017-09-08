@@ -9,7 +9,7 @@ import base64
 from flask import Flask, request, render_template, jsonify
 from flask_material import Material
 
-
+# Initialise Flask app and Material CSS layout.
 app=Flask(__name__)
 Material(app)
 
@@ -20,7 +20,18 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    # Ensure that text is rendered as text and not as paths.
+    plt.rcParams['svg.fonttype'] = 'none'
+
+    # Common settings for saving as PNG and SVG.
+    savefig_kwargs={'transparent':True,
+                    'frameon':False, # ensures no white background on plot
+                    'bbox_inches':'tight'}
+
+    # Read in the uploaded file.
     df=pd.read_csv(request.files['file'])
+
+    # Compute contrast statistics and create the contrast plot.
     f,b=bs.contrastplot(df,
                         idx=(('Control', 'Group1',),
                         ('Control', 'Group3'),
@@ -28,15 +39,20 @@ def upload_file():
                     color_col='Gender')
     stats=b.to_html()
 
+    # Prepare PNG output.
     img=io.BytesIO()
-    plt.savefig(img, format='png', bbox_inches='tight')
+    plt.savefig(img,
+                format='png', **savefig_kwargs)
     img.seek(0)
     png=base64.b64encode(img.getvalue()).decode()
 
-    plt.savefig(img, format='svg', bbox_inches='tight')
+    # Prepare SVG output.
+    plt.savefig(img,
+                format='svg', **savefig_kwargs)
     img.seek(0)
     svg=base64.b64encode(img.getvalue()).decode()
 
+    # Return all desired outputs.
     return jsonify(
         png=png,
         svg=svg,

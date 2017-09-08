@@ -1,0 +1,8 @@
+# test csv folder
+test-csv/
+
+# system files
+.DS_Store
+
+# pycache files
+__pycache__/

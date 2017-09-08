@@ -39,18 +39,18 @@ def upload_file():
                     color_col='Gender')
     stats=b.to_html()
 
+    # Prepare SVG output.
+    plt.savefig(img,
+                format='svg', **savefig_kwargs)
+    img.seek(0)
+    svg=base64.b64encode(img.getvalue()).decode()
+
     # Prepare PNG output.
     img=io.BytesIO()
     plt.savefig(img,
                 format='png', **savefig_kwargs)
     img.seek(0)
     png=base64.b64encode(img.getvalue()).decode()
-
-    # Prepare SVG output.
-    plt.savefig(img,
-                format='svg', **savefig_kwargs)
-    img.seek(0)
-    svg=base64.b64encode(img.getvalue()).decode()
 
     # Return all desired outputs.
     return jsonify(

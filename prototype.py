@@ -57,7 +57,8 @@ def upload_file():
         png=png,
         svg=svg,
         csv=b.as_matrix().tolist(),
-        columns=list(b)
+        columns=list(b),
+        table_html=b.to_html()
     );
 
 if __name__=='__main__':

@@ -219,3 +219,7 @@ footer.page-footer {
 .fixed-action-btn ul li i.material-text {
     font-size: 1rem;
 }
+
+table {
+    margin-top: 20px;
+}

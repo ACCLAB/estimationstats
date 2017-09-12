@@ -20,21 +20,18 @@
       </div>
     </form>
 
-    <div id="stats">
-      <div class="stats">
-
-      </div>
-    </div>
-
     <div id="plot_container">
     </div>
-    <div id="table_container">
+
+    <div id="stats_table_container">
     </div>
+
     <div>
       <div class="progress loader">
           <div class="indeterminate"></div>
       </div>
     </div>
+
   </div>
   <div class="modal-overlay"></div>
   <div class="fixed-action-btn">
@@ -79,7 +76,7 @@
               $plot.attr('src', img);
               $plot.appendTo($('#plot_container'));
 
-              $('#table_container').html(data.table_html);
+              $('#stats_table_container').html(data.table_html);
           },
           complete: function () {
               // Hide loader

@@ -31,12 +31,20 @@ def upload_file():
     # Read in the uploaded file.
     df=pd.read_csv(request.files['file'])
 
-    # Compute contrast statistics and create the contrast plot.
-    f,b=bs.contrastplot(df,
-                        idx=(('Control', 'Group1',),
+    # Plot arguments
+    plotType=request.form['plotType']
+    kwargs={'color_col':'Gender'}
+    if plotType=='3': # hub and spoke plot
+        kwargs['idx']=df.columns[:-1]
+    else: # two group plot
+        kwargs['idx']=(('Control', 'Group1',),
                         ('Control', 'Group3'),
-                        ('Control', 'Group5')),
-                    color_col='Gender')
+                        ('Control', 'Group5'))
+        if plotType == '1':  # paired plot
+            kwargs['paired']=True
+
+    # Compute contrast statistics and create the contrast plot.
+    f,b=bs.contrastplot(df, **kwargs)
     stats=b.to_html()
 
     # Prepare PNG output.

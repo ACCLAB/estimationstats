@@ -58,8 +58,7 @@
       // Create form data
       var form_data = new FormData(document.getElementById('upload-file'));
       form_data.append('file', file);
-      var form = document.getElementById('upload-file');
-      var formData = new FormData(form);
+      form_data.append('plotType', plotType);
       $.ajax({
           type: 'POST',
           url: '/upload',

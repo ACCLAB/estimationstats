@@ -223,3 +223,30 @@ footer.page-footer {
 table {
     margin-top: 20px;
 }
+
+nav {
+    color: #000000;
+}
+
+nav a.side-menu {
+    display: block!important;
+    color: #26a69a;
+}
+
+nav a.side-menu i.medium {
+    font-size: 3rem;
+}
+
+nav a.plot-type.active {
+    color: #26a69a;
+}
+
+nav h1 {
+    font-size: 2em!important;
+}
+
+
+nav ul li {
+    padding: 0 10px;
+}
+

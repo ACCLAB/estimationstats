@@ -18,10 +18,10 @@
       <li>Choose your plot</li>
       <li><div class="divider"></div></li>
       <li>Two groups</li>
-      <li><a class="waves-effect active plot-type" href="#!" onclick="changePlot(this, 1)">Paired</a></li>
-      <li><a class="waves-effect plot-type" href="#!" onclick="changePlot(this, 2)">Unpaired</a></li>
+      <li><a class="waves-effect active plot-type" href="#!" onclick="changePlot(this, 'two-group-paired')">Paired</a></li>
+      <li><a class="waves-effect plot-type" href="#!" onclick="changePlot(this, 'two-group-unpaired')">Unpaired</a></li>
       <li><div class="divider"></div></li>
-      <li><a class="waves-effect plot-type" href="#!" onclick="changePlot(this, 3)">Hub and Spoke</a></li>
+      <li><a class="waves-effect plot-type hub-spoke" href="#!" onclick="changePlot(this, 'hub-spoke')">Hub and Spoke</a></li>
     </ul>
     <a href="#" data-activates="slide-out" class="button-collapse side-menu"><i class="medium material-icons">menu</i></a>
     <div class="container">
@@ -38,7 +38,7 @@
   <script type="text/javascript">
     $(".button-collapse").sideNav();
 
-    var plotType = 1; // Default is paired plot
+    var plotType = 'two-group-paired'; // Default is paired plot
     var changePlot = function(element, type) {
       plotType = type;
 

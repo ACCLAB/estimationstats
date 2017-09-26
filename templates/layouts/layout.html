@@ -18,8 +18,8 @@
       <li>Choose your plot</li>
       <li><div class="divider"></div></li>
       <li>Two groups</li>
-      <li><a class="waves-effect active plot-type" href="#!" onclick="changePlot(this, 'two-group-paired')">Paired</a></li>
-      <li><a class="waves-effect plot-type" href="#!" onclick="changePlot(this, 'two-group-unpaired')">Unpaired</a></li>
+      <li><a class="waves-effect plot-type" href="#!" onclick="changePlot(this, 'two-group-paired')">Paired</a></li>
+      <li><a class="waves-effect plot-type active" href="#!" onclick="changePlot(this, 'two-group-unpaired')">Unpaired</a></li>
       <li><div class="divider"></div></li>
       <li><a class="waves-effect plot-type hub-spoke" href="#!" onclick="changePlot(this, 'hub-spoke')">Hub and Spoke</a></li>
     </ul>
@@ -27,6 +27,9 @@
     <div class="container">
       <div class="nav-wrapper">
         <a id="logo-container" href="#" class="navigationactionbarcontentscreentitle">Contrast Plot (Prototype)</a>
+      </div>
+      <div class="nav-sub-title">
+        <span id="sub-title">Two groups unpaired</span>
       </div>
     </div>
   </nav>
@@ -38,7 +41,12 @@
   <script type="text/javascript">
     $(".button-collapse").sideNav();
 
-    var plotType = 'two-group-paired'; // Default is paired plot
+    var plotNames = {
+        'two-group-paired': 'Two groups paired',
+        'two-group-unpaired': 'Two groups unpaired',
+        'hub-spoke': 'Hub and Spoke'
+    };
+    var plotType = 'two-group-unpaired'; // Default is unpaired plot
     var changePlot = function(element, type) {
       plotType = type;
 
@@ -46,8 +54,12 @@
       $('.button-collapse').sideNav('hide');
 
       // Active selected type
-        $('.plot-type').removeClass('active');
-        $(element).addClass('active');
+      $('.plot-type').removeClass('active');
+      $(element).addClass('active');
+
+      // Change page title
+      document.title = plotNames[plotType];
+      $('#sub-title').text(plotNames[plotType]);
     };
 
   </script>

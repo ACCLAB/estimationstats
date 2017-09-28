@@ -1,41 +1,42 @@
 {% extends "layouts/layout.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Two groups unpaired{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <h5>&nbsp;</h5>
-    <form id="upload-file" action="#" enctype="multipart/form-data">
-      <div class="file-field input-field">
-        <div class="btn">
-          <span>File</span>
-          <input id="file-id" type="file" name="file" accept=".csv">
+  <div class="main">
+    <div class="container">
+      <h5>&nbsp;</h5>
+      <form id="upload-file" action="#" enctype="multipart/form-data">
+        <div class="file-field input-field">
+          <div class="btn btn-large">
+            <span><i class="medium material-icons left">insert_drive_file</i>Choose CSV</span>
+            <input id="file-id" type="file" name="file" accept=".csv">
+          </div>
+          <div class="file-path-wrapper">
+            <input id="file-path" class="file-path validate" type="text">
+          </div>
+          <div class="file-upload">
+            <a id="upload-file-btn" class="waves-effect waves-light btn btn-large"><i class="medium material-icons left">file_upload</i>Upload/Analyze</a>
+          </div>
         </div>
-        <div class="file-path-wrapper">
-          <input id="file-path" class="file-path validate" type="text">
-        </div>
-        <div class="file-upload">
-          <a id="upload-file-btn" class="waves-effect waves-light"><i class="medium material-icons dp48">file_upload</i></a>
+      </form>
+
+      <div id="plot_container">
+      </div>
+
+      <div id="stats_table_container">
+      </div>
+
+      <div>
+        <div class="progress loader">
+            <div class="indeterminate"></div>
         </div>
       </div>
-    </form>
-
-    <div id="plot_container">
     </div>
-
-    <div id="stats_table_container">
-    </div>
-
-    <div>
-      <div class="progress loader">
-          <div class="indeterminate"></div>
-      </div>
-    </div>
-
   </div>
   <div class="modal-overlay"></div>
   <div class="fixed-action-btn">
-    <a id="download-file-btn" class="btn-floating btn-large waves-effect waves-light"><i class="medium material-icons dp48">file_download</i></a>
+    <a id="download-file-btn" class="waves-effect waves-light btn"><i class="medium material-icons left">file_download</i>Download</a>
     <ul>
       <li><a class="btn-floating red" onclick="downloadFile('svg')"><i class="material-text">SVG</i></a></li>
       <li><a class="btn-floating yellow darken-1" onclick="downloadFile('png')"><i class="material-text">PNG</i></a></li>

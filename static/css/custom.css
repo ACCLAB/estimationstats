@@ -6,6 +6,10 @@
  * Made By MaterializeCSS.com
  */
 
+html {
+    font-family: "CooperHewittMedium", "Roboto", sans-serif;
+}
+
 nav ul a,
 nav .brand-logo {
     color: #444;
@@ -28,6 +32,16 @@ p {
 
 .parallax-container .section {
     width: 100%;
+}
+
+@media only screen and (min-width: 993px) {
+    .main {
+        padding-left: 300px;
+    }
+
+    .container {
+        width: 85%;
+    }
 }
 
 @media only screen and (max-width: 992px) {
@@ -149,8 +163,8 @@ footer.page-footer {
 
 .file-field input.file-path {
     margin-left: 0px;
-    margin-right: 100px;
-    width: calc(100% - 100px);
+    margin-right: 250px;
+    width: calc(100% - 250px);
 }
 
 .file-field .file-upload {
@@ -212,12 +226,13 @@ footer.page-footer {
     display: block;
 }
 
-.file-download a, .file-upload a {
-    color: #26a69a;
-}
-
 .fixed-action-btn ul li i.material-text {
     font-size: 1rem;
+}
+
+.fixed-action-btn a {
+    height: 3rem;
+    line-height: 3rem;
 }
 
 table {
@@ -226,6 +241,7 @@ table {
 
 nav {
     color: #000000;
+    height: 75px;
 }
 
 nav a.side-menu {
@@ -251,6 +267,12 @@ nav ul li {
 
 nav ul li a.plot-type.hub-spoke{
     padding: 0!important;
+}
+
+nav .nav-sub-title {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 1.15rem;
 }
 
 .side-nav .divider {

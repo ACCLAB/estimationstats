@@ -23,7 +23,7 @@ class Analyze(Resource):
                           'bbox_inches': 'tight'}
 
         # Read in the uploaded file.
-        df = pd.read_csv(request.files['file'], index_col=0)
+        df = pd.read_csv(request.files['file'])
 
         # Create dict for kwargs.
         kwargs = {}

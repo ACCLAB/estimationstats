@@ -6,4 +6,6 @@ pandas==0.20.3
 seaborn==0.8
 gunicorn==19.0.0
 Flask==0.12.2
+Flask-Cors==3.0.3
 Flask-Material==0.1.1
+Flask-RESTful==0.3.6

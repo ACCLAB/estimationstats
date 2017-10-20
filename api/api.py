@@ -40,9 +40,9 @@ class Analyze(Resource):
         plotType = request.form['plotType']
         # If 'color' or 'colour' is a column in `df`,
         # use it to determine the color.
-        color_col = df_in.columns[df_in.columns.str.upper().str.contains(r'COLOU?R')]
-            if len(color_col)==1: # only if one unambiguous color column exists.
-            kwargs = {'color_col': color_col}
+        color_col = df.columns[df.columns.str.upper().str.contains(r'COLOU?R')]
+        if len(color_col)==1: # only if one unambiguous color column exists.
+            kwargs = {'color_col': color_col[0]}
 
         if plotType == 'two-independent-groups':
             # two independent groups plot

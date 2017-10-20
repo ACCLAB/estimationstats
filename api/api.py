@@ -4,6 +4,7 @@ matplotlib.use('Agg') # Set appropriate rendering backend.
 import matplotlib.pyplot as plt
 import bootstrap_contrast as bs
 import pandas as pd
+import numpy as np
 import io
 import base64
 from flask import request, jsonify
@@ -17,26 +18,50 @@ class Analyze(Resource):
 
         # Common settings for saving as PNG and SVG.
         savefig_kwargs = {'transparent': True,
-                          'frameon': False,  # ensures no white background on plot
+                          # ensure no white background on plot
+                          'frameon': False,
                           'bbox_inches': 'tight'}
 
         # Read in the uploaded file.
         df = pd.read_csv(request.files['file'], index_col=0)
 
+        # Handle the columns for plotting.
+        dt = df.dtypes
+        numerical_cols = dt[dt!='object'].index.tolist()
+
+        first_two_columns = (numerical_cols[0], numerical_cols[1])
+
+        if np.mod( len(numerical_cols), 2 ) == 1:
+            numerical_cols = numerical_cols[:-1]
+
+        paired_columns = [ tuple(numerical_cols[i:i + 2]) for i in range(0, len(numerical_cols), 2) ]
+
         # Plot arguments
         plotType = request.form['plotType']
-        kwargs = {'color_col': 'Gender'}
-        if plotType == 'two-independent-groups':  # two independent groups plot
-            kwargs['idx'] = df.columns[:-1] # FIXME set arguments for two independent groups plot
-        elif plotType == 'paired':  # paired plot
-            kwargs['idx'] = (df.columns[0], df.columns[1])
+        if plotType == 'two-independent-groups':
+            # two independent groups plot
+            kwargs['idx'] = first_two_columns
+            kwargs['paired'] = False
+
+        elif plotType == 'paired':
+            # paired plot
+            kwargs['idx'] = first_two_columns
             kwargs['paired'] = True
-        elif plotType == 'multi':  # Multiple groups plot
-            kwargs['idx'] = df.columns[:-1] # FIXME set arguments for multiple groups plot
-        elif plotType == 'multi-paired':  # Multi-paired plot
-            kwargs['idx'] = df.columns[:-1] # FIXME set arguments for Multi-paired plot
+
+        elif plotType == 'multi':
+            # Multiple groups plot
+            kwargs['idx'] = paired_columns
+            kwargs['paired'] = False
+
+        elif plotType == 'multi-paired':
+            # Multi-paired plot
+            # FIXME set arguments for Multi-paired plot
+            kwargs['idx'] = paired_columns
+            kwargs['paired'] = True
+
         else:  # Shared control plot
-            kwargs['idx'] = df.columns[:-1]
+            kwargs['idx'] = numerical_cols
+            kwargs['paired'] = False
 
         # Compute contrast statistics and create the contrast plot.
         f, b = bs.contrastplot(df, **kwargs)
@@ -62,4 +87,4 @@ class Analyze(Resource):
             csv=b.as_matrix().tolist(),
             columns=list(b),
             table_html=stats
-        );
+            )

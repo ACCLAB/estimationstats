@@ -25,6 +25,9 @@ class Analyze(Resource):
         # Read in the uploaded file.
         df = pd.read_csv(request.files['file'], index_col=0)
 
+        # Create dict for kwargs.
+        kwargs = {}
+
         # Handle the columns for plotting.
         dt = df.dtypes
         numerical_cols = dt[dt!='object'].index.tolist()

@@ -14,5 +14,11 @@ export const fileTypes = {
 	CSV: { extension: 'csv', name: 'CSV' }
 };
 
+/** Define input types */
+export const inputDataTypes = {
+	COPY_PASTE: { type: 'copy_paste', name: 'Copy-paste' },
+	CSV: { type: 'csv', name: 'Upload CSV' }
+};
+
 /** Csv content delimiter */
 export const CSV_DELIMITER = ',';

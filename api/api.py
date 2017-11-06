@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import io
 import base64
-from flask import request, jsonify
+from flask import request, jsonify, abort
 from flask_restful import Resource
 
 
@@ -22,78 +22,95 @@ class Analyze(Resource):
                           'frameon': False,
                           'bbox_inches': 'tight'}
 
-        # Read in the uploaded file.
-        df = pd.read_csv(request.files['file'])
+        try:
+            # Analyze by uploading csv file
+            if request.files:
+                # Read in the uploaded file.
+                df = pd.read_csv(request.files['file'])
+                # Plot arguments
+                plotType = request.form['plotType']
 
-        # Create dict for kwargs.
-        kwargs = {}
+            # Analyze by input data
+            elif request.json:
+                # Create dataframe from post data
+                columns = request.json['columns']
+                data = request.json['data']
+                df = pd.DataFrame.from_records(data, columns=columns)
+                # Plot arguments
+                plotType = request.json['plotType']
 
-        # Handle the columns for plotting.
-        dt = df.dtypes
-        numerical_cols = dt[dt!='object'].index.tolist()
+            else:
+                return {}
 
-        first_two_columns = (numerical_cols[0], numerical_cols[1])
+            # Create dict for kwargs.
+            kwargs = {}
 
-        if np.mod( len(numerical_cols), 2 ) == 1:
-            numerical_cols = numerical_cols[:-1]
+            # Handle the columns for plotting.
+            dt = df.dtypes
+            numerical_cols = dt[dt != 'object'].index.tolist()
 
-        paired_columns = [ tuple(numerical_cols[i:i + 2]) for i in range(0, len(numerical_cols), 2) ]
+            first_two_columns = (numerical_cols[0], numerical_cols[1])
 
-        # Plot arguments
-        plotType = request.form['plotType']
-        # If 'color' or 'colour' is a column in `df`,
-        # use it to determine the color.
-        color_col = df.columns[df.columns.str.upper().str.contains(r'COLOU?R')]
-        if len(color_col)==1: # only if one unambiguous color column exists.
-            kwargs = {'color_col': color_col[0]}
+            if np.mod(len(numerical_cols), 2) == 1:
+                numerical_cols = numerical_cols[:-1]
 
-        if plotType == 'two-independent-groups':
-            # two independent groups plot
-            kwargs['idx'] = first_two_columns
-            kwargs['paired'] = False
+            paired_columns = [tuple(numerical_cols[i:i + 2]) for i in range(0, len(numerical_cols), 2)]
 
-        elif plotType == 'paired':
-            # paired plot
-            kwargs['idx'] = first_two_columns
-            kwargs['paired'] = True
+            # If 'color' or 'colour' is a column in `df`,
+            # use it to determine the color.
+            color_col = df.columns[df.columns.str.upper().str.contains(r'COLOU?R')]
+            if len(color_col) == 1:  # only if one unambiguous color column exists.
+                kwargs = {'color_col': color_col[0]}
 
-        elif plotType == 'multi':
-            # Multiple groups plot
-            kwargs['idx'] = paired_columns
-            kwargs['paired'] = False
+            if plotType == 'two-independent-groups':
+                # two independent groups plot
+                kwargs['idx'] = first_two_columns
+                kwargs['paired'] = False
 
-        elif plotType == 'multi-paired':
-            # Multi-paired plot
-            # FIXME set arguments for Multi-paired plot
-            kwargs['idx'] = paired_columns
-            kwargs['paired'] = True
+            elif plotType == 'paired':
+                # paired plot
+                kwargs['idx'] = first_two_columns
+                kwargs['paired'] = True
 
-        else:  # Shared control plot
-            kwargs['idx'] = numerical_cols
-            kwargs['paired'] = False
+            elif plotType == 'multi':
+                # Multiple groups plot
+                kwargs['idx'] = paired_columns
+                kwargs['paired'] = False
 
-        # Compute contrast statistics and create the contrast plot.
-        f, b = bs.contrastplot(df, **kwargs)
-        stats = b.to_html()
+            elif plotType == 'multi-paired':
+                # Multi-paired plot
+                # FIXME set arguments for Multi-paired plot
+                kwargs['idx'] = paired_columns
+                kwargs['paired'] = True
 
-        # Prepare PNG output.
-        img = io.BytesIO()
-        plt.savefig(img,
-                    format='png', **savefig_kwargs)
-        img.seek(0)
-        png = base64.b64encode(img.getvalue()).decode()
+            else:  # Shared control plot
+                kwargs['idx'] = numerical_cols
+                kwargs['paired'] = False
 
-        # Prepare SVG output.
-        plt.savefig(img,
-                    format='svg', **savefig_kwargs)
-        img.seek(0)
-        svg = base64.b64encode(img.getvalue()).decode()
+            # Compute contrast statistics and create the contrast plot.
+            f, b = bs.contrastplot(df, **kwargs)
+            stats = b.to_html()
 
-        # Return all desired outputs.
-        return jsonify(
-            png=png,
-            svg=svg,
-            csv=b.as_matrix().tolist(),
-            columns=list(b),
-            table_html=stats
+            # Prepare PNG output.
+            img = io.BytesIO()
+            plt.savefig(img,
+                        format='png', **savefig_kwargs)
+            img.seek(0)
+            png = base64.b64encode(img.getvalue()).decode()
+
+            # Prepare SVG output.
+            plt.savefig(img,
+                        format='svg', **savefig_kwargs)
+            img.seek(0)
+            svg = base64.b64encode(img.getvalue()).decode()
+
+            # Return all desired outputs.
+            return jsonify(
+                png=png,
+                svg=svg,
+                csv=b.as_matrix().tolist(),
+                columns=list(b),
+                table_html=stats
             )
+        except:
+            abort(400, 'Unable to analyze the data')

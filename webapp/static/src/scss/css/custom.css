@@ -336,6 +336,10 @@ p .text {
     margin-top: 20px;
 }
 
+.input-types {
+    margin-bottom: 20px;
+}
+
 [type="radio"] + label:before, [type="radio"] + label:after {
     height: 30px!important;
     width: 30px!important;
@@ -348,3 +352,12 @@ p .text {
     color: #000;
 }
 
+#toast-container {
+    width: 50%!important;
+    right: 25%!important;
+}
+
+#toast-container .toast {
+    background-color: #ffcdd2!important;
+    color: #ef5350;
+}

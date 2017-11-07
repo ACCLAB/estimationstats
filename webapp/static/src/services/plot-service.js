@@ -5,7 +5,7 @@
 import axios from '@/utils/axios-ex.js';
 
 /**
- *  Analyze inputed file data
+ *  Analyze by uploading csv file
  *
  * @param {File} file csv file data
  * @param {String} plotType analyze plot type

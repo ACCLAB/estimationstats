@@ -30,15 +30,6 @@ class Analyze(Resource):
                 # Plot arguments
                 plotType = request.form['plotType']
 
-            # Analyze by input data
-            elif request.json:
-                # Create dataframe from post data
-                columns = request.json['columns']
-                data = request.json['data']
-                df = pd.DataFrame.from_records(data, columns=columns)
-                # Plot arguments
-                plotType = request.json['plotType']
-
             else:
                 return {}
 

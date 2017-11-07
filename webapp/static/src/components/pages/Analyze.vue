@@ -123,7 +123,7 @@ export default {
 			fileTypes: constants.fileTypes,
 			fileExtension: constants.fileTypes.PNG.extension, // Default is download PNG
 			inputDataTypes: constants.inputDataTypes,
-			curentInputType: constants.inputDataTypes.CSV.type, // Default is upload csv file
+			curentInputType: constants.inputDataTypes.COPY_PASTE.type, // Default is copy paste data
 			analyzedData: {},
 			fileName: '',
 			isAnalyzing: false,
@@ -189,23 +189,27 @@ export default {
 		onAnalyze() {
 			// Clear analyzed data
 			this.analyzedData = {};
+			// Get file for analyze
+			let file = this.curentInputType === constants.inputDataTypes.COPY_PASTE.type ? this.createCsvByInputData() : this.file;
 
-			let analyze;
-			if (this.curentInputType === constants.inputDataTypes.COPY_PASTE.type) {
-				analyze = this.analyzeByInputData;
-			} else {
-				analyze = this.analyzeByUploadFile;
+			// Get file name and file extension
+			let [fileName, fileExtension] = file.name.split('.');
+			if (fileExtension === constants.fileTypes.CSV.extension) {
+				// Show preloader
+				this.isAnalyzing = true;
+
+				// Analyze csv file data
+				plotService.analyze(file, this.plotType).then(data => {
+					this.analyzedData = data;
+					this.fileName = fileName;
+
+					// Hide preloader
+					this.isAnalyzing = false;
+				}, () => {
+					// Hide preloadery
+					this.isAnalyzing = false;
+				});
 			}
-			analyze().then(({ analyzedData, fileName }) => {
-				this.analyzedData = analyzedData;
-				this.fileName = fileName;
-
-				// Hide preloader
-				this.isAnalyzing = false;
-			}, () => {
-				// Hide preloadery
-				this.isAnalyzing = false;
-			});
 		},
 		onDownload() {
 			downloadUtil.downloadByContent(`${this.fileName}.${this.fileExtension}`, this.createFileContent());
@@ -221,7 +225,7 @@ export default {
 					content += 'data:text/csv;encoding:=utf-8,';
 					content += constants.CSV_DELIMITER + this.analyzedData.columns.join(constants.CSV_DELIMITER);
 					this.analyzedData.csv.forEach((rowData, index) => {
-						content += '\n' + index + constants.CSV_DELIMITER + rowData.join(constants.CSV_DELIMITER);
+						content += constants.CSV_NEW_LINE + index + constants.CSV_DELIMITER + rowData.join(constants.CSV_DELIMITER);
 					});
 					content = encodeURI(content);
 				} else if (!_.isEmpty(this.analyzedData[this.fileExtension])) {
@@ -231,91 +235,52 @@ export default {
 			}
 			return content;
 		},
-		analyzeByUploadFile() {
-			if (this.file) {
-				// Analyze csv file data
-				let [fileName, fileExtension] = this.file.name.split('.');
-				if (fileExtension === constants.fileTypes.CSV.extension) {
-					// Show preloader
-					this.isAnalyzing = true;
-					return plotService.analyzeByUploadFile(this.file, this.plotType).then(data => {
-						return { analyzedData: data, fileName };
-					}, error => {
-						return Promise.reject(error);
-					});
-				}
-			}
-		},
-		analyzeByInputData() {
-			let _sourceData = _.cloneDeep(this.hot.getSourceData());
-			this.hot.updateSettings({
-				minRows: 0,
-				minCols: 0
-			});
+		createCsvByInputData() {
+			// Clone source data
+			let sourceData = _.cloneDeep(this.hot.getSourceData());
 
-			// Remove empty columns
-			let col = 0;
 			let totalCol = this.hot.countCols();
-			while (col < totalCol) {
-				if (this.hot.isEmptyCol(col)) {
-					this.hot.alter('remove_col', col);
-					totalCol--;
-				} else {
-					col++;
-				}
-			}
-
-			// Remove empty rows
-			let row = 0;
 			let totalRow = this.hot.countRows();
-			while (row < totalRow) {
-				if (this.hot.isEmptyRow(row)) {
-					this.hot.alter('remove_row', row);
-					totalRow--;
-				} else {
-					row++;
+			let [firstCol, lastCol, firstRow, lastRow] = [-1, -1, -1, -1];
+
+			// Find first & last column has data
+			for (let col = 0; col < totalCol; col++) {
+				if (!this.hot.isEmptyCol(col)) {
+					if (firstCol < 0) {
+						firstCol = col;
+					}
+					lastCol = col;
 				}
 			}
 
-			// Get trimmed data for analyze
-			let data = _.cloneDeep(this.hot.getSourceData());
+			// Find first & last row has data
+			for (let row = 0; row < totalRow; row++) {
+				if (!this.hot.isEmptyRow(row)) {
+					if (firstRow < 0) {
+						firstRow = row;
+					}
+					lastRow = row;
+				}
+			}
 
-			// Update hot table to settings and data before trim
-			this.hot.updateSettings({
-				data: _sourceData,
-				minRows: 16,
-				minCols: 16
+			// Remove unnecessary rows
+			let analyzeData = _.drop(_.take(sourceData, lastRow + 1), firstRow);
+			// Remove unnecessary columns
+			analyzeData = _.map(analyzeData, row => {
+				return _.drop(_.take(row, lastCol + 1), firstCol);
 			});
 
-			// Analyze input data
-			if (!_.isEmpty(data)) {
-				// First row is column name
-				let unnamedCount = 0;
-				let columns = _.map(data[0], name => {
-					if (_.isEmpty(name)) {
-						name = `Unnamed: ${unnamedCount}`;
-						unnamedCount++;
-					}
-					return name;
-				});
+			// Convert data to csv content
+			let csvContent = _.map(analyzeData, row => {
+				return row.join(constants.CSV_DELIMITER);
+			}).join(constants.CSV_NEW_LINE);
 
-				// Data row is start from second row
-				let analyzeData = _.map(_.drop(data), row => {
-					// Convert value to number
-					return _.map(row, cell => {
-						let val = _.toNumber(cell);
-						return _.isNaN(val) ? cell : val;
-					});
-				});
+			// Create csv file
+			let csvFile = new File([csvContent], `${this.plotName}.csv`, {
+				type: 'text/csv'
+			});
 
-				// Show preloader
-				this.isAnalyzing = true;
-				return plotService.analyze(columns, analyzeData, this.plotType).then(data => {
-					return { analyzedData: data, fileName: this.plotName };
-				}, error => {
-					return Promise.reject(error);
-				});
-			}
+			return csvFile;
 		}
 	},
 	components: {

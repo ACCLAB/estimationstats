@@ -22,3 +22,6 @@ export const inputDataTypes = {
 
 /** Csv content delimiter */
 export const CSV_DELIMITER = ',';
+
+/** Csv newline character */
+export const CSV_NEW_LINE = '\n';

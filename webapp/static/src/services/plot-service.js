@@ -11,7 +11,7 @@ import axios from '@/utils/axios-ex.js';
  * @param {String} plotType analyze plot type
  * @return {Object} Promise
  */
-export function analyzeByUploadFile(file, plotType) {
+export function analyze(file, plotType) {
 	// Create form data contains file and plot type
 	let formData = new FormData();
 	formData.append('file', file);
@@ -23,21 +23,6 @@ export function analyzeByUploadFile(file, plotType) {
 			'Content-Type': 'multipart/form-data'
 		}
 	}).then(response => {
-		return response.data;
-	});
-}
-
-/**
- *  Analyze inputted data
- *
- * @param {String[]} columns column name
- * @param {Object[]} data data for analyzing
- * @param {String} plotType analyze plot type
- * @return {Object} Promise
- */
-export function analyze(columns, data, plotType) {
-	// Call analyze api
-	return axios.post('/analyze', { columns, data, plotType }).then(response => {
 		return response.data;
 	});
 }

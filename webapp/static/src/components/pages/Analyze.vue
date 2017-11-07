@@ -27,6 +27,7 @@
 					</span>
 				</div>
 				<div class="col s11 offset-s1" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
+					<span> The first row of the data MUST be names of groups. </span>
 					<HotTable :settings="hotSettings"></HotTable>
 				</div>
 				<div class="file-field input-field col s6 offset-s1 file-field input-field" v-show="curentInputType === inputDataTypes.CSV.type">
@@ -130,11 +131,14 @@ export default {
 			hotDataChangeTrigger: 0,
 			hot: null, // Handsontable instance
 			hotSettings: { // Handsontable config
-				minRows: 16,
-				minCols: 16,
+				width: 700,
+				height: 300,
+				minRows: 12,
+				minCols: 10,
+				colWidths: 100,
+				rowHeights: 30,
 				colHeaders: true,
 				rowHeaders: true,
-				height: 400,
 				manualColumnResize: true,
 				contextMenu: true,
 				afterInit() {

@@ -27,7 +27,7 @@
 					</span>
 				</div>
 				<div class="col s11 offset-s1" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-					<span> The first row of the data MUST be names of groups. </span>
+					<span class="text"> The first row of the data MUST be names of groups. </span>
 					<HotTable :settings="hotSettings"></HotTable>
 				</div>
 				<div class="file-field input-field col s6 offset-s1 file-field input-field" v-show="curentInputType === inputDataTypes.CSV.type">

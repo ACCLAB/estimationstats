@@ -6,3 +6,6 @@ test-csv/
 
 # pycache files
 __pycache__/
+
+# log files
+npm-debug.log

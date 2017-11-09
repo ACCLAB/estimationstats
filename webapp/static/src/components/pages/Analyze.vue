@@ -27,6 +27,7 @@
 					</span>
 				</div>
 				<div class="col s11 offset-s1" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
+					<span class="text"> The first row of the data MUST be names of groups. </span>
 					<HotTable :settings="hotSettings"></HotTable>
 				</div>
 				<div class="file-field input-field col s6 offset-s1 file-field input-field" v-show="curentInputType === inputDataTypes.CSV.type">
@@ -88,6 +89,16 @@
 			<span class="text">
 				Download results. Plots are available as SVG vector graphics or PNG images. The table of effect sizes can be downloaded as a CSV spreadsheet.
 			</span>
+
+			<div class="row">
+				<div class="col s4 file-types offset-s1">
+					<span v-for="fileType in fileTypes" :key="fileType.extension">
+						<input type="radio" :id="fileType.extension" v-model="fileExtension" :value="fileType.extension" />
+						<label :for="fileType.extension">{{ fileType.name }}</label>
+					</span>
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="file-field input-field col s2 offset-s1">
 					<div class="btn btn-large" @click="onDownload" :class="{disabled:_.isEmpty(analyzedData)}">
@@ -97,13 +108,8 @@
 						</span>
 					</div>
 				</div>
-				<div class="col s4 file-types">
-					<span v-for="fileType in fileTypes" :key="fileType.extension">
-						<input type="radio" :id="fileType.extension" v-model="fileExtension" :value="fileType.extension" />
-						<label :for="fileType.extension">{{ fileType.name }}</label>
-					</span>
-				</div>
 			</div>
+
 		</p>
 	</div>
 </template>
@@ -130,11 +136,14 @@ export default {
 			hotDataChangeTrigger: 0,
 			hot: null, // Handsontable instance
 			hotSettings: { // Handsontable config
-				minRows: 16,
-				minCols: 16,
+				width: 700,
+				height: 300,
+				minRows: 12,
+				minCols: 10,
+				colWidths: 100,
+				rowHeights: 30,
 				colHeaders: true,
 				rowHeaders: true,
-				height: 400,
 				manualColumnResize: true,
 				contextMenu: true,
 				afterInit() {

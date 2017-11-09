@@ -7,7 +7,7 @@
  */
 
 html {
-    font-family: "CooperHewittMedium", "Roboto", sans-serif !important;
+    font-family: "CooperHewittBook", "Roboto", sans-serif !important;
 }
 
 nav ul a,
@@ -16,9 +16,11 @@ nav .brand-logo {
 }
 
 p {
-    font-family: "CooperHewittBook";
-    font-size: 1.2em;
-    line-height: 2rem;
+    line-height: 2.25rem;
+}
+
+p, span.text {
+    font-size: 1.3rem;
 }
 
 a.active, a:hover {
@@ -160,10 +162,9 @@ footer.page-footer {
     background-color: #1565C0 !important;
 }
 
-.file-field .btn, .file-field .btn-large {
+.file-field .btn, .btn-large {
     position: static;
     float: left;
-    font-size: 1.3em;
     text-transform: none;
     height: 3.5rem!important;
     line-height: 3.5rem!important;
@@ -172,13 +173,14 @@ footer.page-footer {
     text-align: center;
 }
 
-.file-field .btn-large span {
+.btn-large span {
+    font-size: 1.3rem;
     display: inline-block;
 }
 
-.file-field .btn-large i {
-    font-size: 2em;
-    margin-right: 10px;
+.btn-large i {
+    font-size: 3rem!important;
+    margin-right: 10px!important;
 }
 
 .file-field input {
@@ -280,7 +282,6 @@ table {
 
 nav h1 {
     font-family: "CooperHewittBold";
-    font-size: 4em!important;
     text-transform: uppercase;
     margin: 0 0 0 320px!important;
 }
@@ -294,26 +295,24 @@ nav ul.side-nav {
 }
 
 .side-nav .main-menu, .title {
-    font-size: 2em;
+    font-size: 2rem;
     font-family: "CooperHewittSemibold";
     margin-top: 20px;
 }
 
 .side-nav .sub-menu {
     font-family: "CooperHewittMedium";
-    font-size: 1.2em;
     list-style-type: disc;
     list-style-position: inside;
     line-height: 25px;
 }
 
 .side-nav .sub-menu a {
+    font-size: 1.3rem;
     margin-left: -10px;
-    font-size: 1em;
-    font-weight: 200;
-    line-height: 25px;
+    line-height: 2rem;
     padding: 0;
-    height: 25px;
+    height: 2rem;
     display: inline-block;
 }
 
@@ -322,18 +321,9 @@ nav ul.side-nav {
 }
 
 i.circle-number {
-    font-size: 170%;
+    font-size: 2rem;
     font-style: normal;
-    line-height: 36px;
-}
-
-p .text {
-    font-size: 1.1em;
-    line-height: 35px;
-}
-
-.file-types {
-    margin-top: 20px;
+    line-height: 2rem;
 }
 
 .input-types {
@@ -346,10 +336,10 @@ p .text {
 }
 
 [type="radio"]:not(:checked) + label, [type="radio"]:checked + label {
-    font-size: 1.3em!important;
+    font-size: 1.3rem!important;
     font-family: "CooperHewittBook";
     padding: 8px 20px 0px 45px!important;
-    color: #000;
+    color: rgba(0, 0, 0, 0.87);
 }
 
 #toast-container {

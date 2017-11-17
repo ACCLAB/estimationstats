@@ -1,116 +1,119 @@
 <template>
 	<div>
-		<div class="title">{{ plotName }}</div>
-		<p>
-			<span class="left">
+		<div class="page-title">{{ plotName }}</div>
+		<div class="row">
+			<div class="col number">
 				<i class="circle-number left">&#9450;</i>
-			</span>
-			<span class="text">
-				This is the estimation-statistics counterpart to Student’s t-test.
-				<br> The function will generate an m-diff plot: a Gardner-Altman mean difference plot for two independent groups
-				<router-link :to="{ name: 'user-guide', params: { plotType: plotType }}">See user guide.</router-link>
-			</span>
-		</p>
-		<p>
-			<span class="left">
-				<i class="circle-number left">&#9312;</i>
-			</span>
-			<span class="text">
-				Input your data. You can either enter data into a table, upload a CSV spreadsheet, or link to a Google spreadsheet.
-				<br> Spreadsheets must have two labelled columns.
-			</span>
-			<div class="row">
-				<div class="col s11 offset-s1 input-types">
-					<span v-for="inputDataType in inputDataTypes" :key="inputDataType.type">
-						<input type="radio" :id="inputDataType.type" v-model="curentInputType" :value="inputDataType.type" />
-						<label :for="inputDataType.type">{{ inputDataType.name }}</label>
-					</span>
-				</div>
-				<div class="col s11 offset-s1" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-					<span class="text"> The first row of the data MUST be names of groups. </span>
-					<HotTable :settings="hotSettings"></HotTable>
-				</div>
-				<div class="file-field input-field col s6 offset-s1 file-field input-field" v-show="curentInputType === inputDataTypes.CSV.type">
-					<div class="btn btn-large">
-						<span>
-							<i class="medium material-icons left pe-7s-file"></i>
-							<span>Choose file</span>
-							<input :ref="'file'" type="file" name="file" accept=".csv" @change="onSelectFile">
-						</span>
-					</div>
-					<div class="file-path-wrapper">
-						<input id="file-path" class="file-path validate" type="text">
-					</div>
-				</div>
 			</div>
-		</p>
-		<p>
-			<span class="left">
-				<i class="circle-number left">&#9313;</i>
-			</span>
-			<span class="text">
-				Analyze your data and display in an m-diff plot.
-			</span>
-			<div class="row">
-				<div class="file-field input-field col s11 offset-s1">
-					<div class="btn btn-large" :class="{disabled:isAnalyzing || !analyable}" @click="onAnalyze">
-						<span>
-							<i class="medium material-icons left pe-7s-display1"></i>
-							<span class="left">Analyze</span>
+			<div class="col content">
+				The two independent groups function is estimation statistics' counterpart to Student’s t-test. The function will generate an m-diff plot: a Gardner-Altman mean difference plot for two independent groups.
+				<router-link :to="{ name: 'user-guide', params: { plotType: plotType }}">See user guide.</router-link>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">&#9312;</i>
+			</div>
+			<div class="col content">
+				<div class="row col">
+					Input your data. You can either enter data into a table, or upload a CSV spreadsheet.
+					<br> Either format must have two labelled columns.
+				</div>
+				<div class="row">
+					<div class="col s12 input-types">
+						<span v-for="inputDataType in inputDataTypes" :key="inputDataType.type">
+							<input type="radio" :id="inputDataType.type" v-model="curentInputType" :value="inputDataType.type" />
+							<label :for="inputDataType.type">{{ inputDataType.name }}</label>
 						</span>
 					</div>
-					<div class="preloader-wrapper active" v-show="isAnalyzing">
-						<div class="spinner-layer spinner-blue-only">
-							<div class="circle-clipper left">
-								<div class="circle"></div>
-							</div>
-							<div class="gap-patch">
-								<div class="circle"></div>
-							</div>
-							<div class="circle-clipper right">
-								<div class="circle"></div>
-							</div>
+					<div class="col s12" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
+						<span class="text"> The first row of the data MUST be names of groups. </span>
+						<HotTable :settings="hotSettings"></HotTable>
+					</div>
+					<div class="file-field input-field col s11 file-field input-field blue-text" v-show="curentInputType === inputDataTypes.CSV.type">
+						<div class="btn btn-large">
+							<span>
+								<i class="medium material-icons left pe-7s-file"></i>
+								<span>Choose file</span>
+								<input :ref="'file'" type="file" name="file" accept=".csv" @change="onSelectFile">
+							</span>
+						</div>
+						<div class="file-path-wrapper">
+							<input id="file-path" class="file-path validate" type="text">
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="file-field input-field col s11 offset-s1">
-					<template v-if="_.has(analyzedData, 'png')">
-						<img :src="`data:image/png;base64,${analyzedData.png}`">
-					</template>
-				</div>
+		</div>
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">&#9313;</i>
 			</div>
-		</p>
-		<p>
-			<span class="left">
-				<i class="circle-number left">&#9314;</i>
-			</span>
-			<span class="text">
-				Download results. Plots are available as SVG vector graphics or PNG images. The table of effect sizes can be downloaded as a CSV spreadsheet.
-			</span>
-
-			<div class="row">
-				<div class="col s4 file-types offset-s1">
-					<span v-for="fileType in fileTypes" :key="fileType.extension">
-						<input type="radio" :id="fileType.extension" v-model="fileExtension" :value="fileType.extension" />
-						<label :for="fileType.extension">{{ fileType.name }}</label>
-					</span>
+			<div class="col content">
+				<div class="row col">
+					Analyze your data and display as an m-diff plot.
 				</div>
-			</div>
-
-			<div class="row">
-				<div class="file-field input-field col s2 offset-s1">
-					<div class="btn btn-large" @click="onDownload" :class="{disabled:_.isEmpty(analyzedData)}">
-						<span>
-							<i class="medium material-icons left pe-7s-cloud-download"></i>
-							<span class="left">Download</span>
-						</span>
+				<div class="row">
+					<div class="file-field input-field col s12">
+						<div class="btn btn-large" :class="{disabled:isAnalyzing || !analyable}" @click="onAnalyze">
+							<span>
+								<i class="medium material-icons left pe-7s-display1"></i>
+								<span class="left">Analyze</span>
+							</span>
+						</div>
+						<div class="preloader-wrapper active" v-show="isAnalyzing">
+							<div class="spinner-layer spinner-blue-only">
+								<div class="circle-clipper left">
+									<div class="circle"></div>
+								</div>
+								<div class="gap-patch">
+									<div class="circle"></div>
+								</div>
+								<div class="circle-clipper right">
+									<div class="circle"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="file-field input-field col s12">
+						<template v-if="_.has(analyzedData, 'png')">
+							<img :src="`data:image/png;base64,${analyzedData.png}`">
+						</template>
 					</div>
 				</div>
 			</div>
-
-		</p>
+		</div>
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">&#9314;</i>
+			</div>
+			<div class="col content">
+				<div class="row col">
+					Download results. Plots are available as SVG vector graphics or PNG images. The table of statistics can be downloaded as a CSV text file.
+				</div>
+				<div class="row">
+					<div class="col s12 file-types">
+						<span v-for="fileType in fileTypes" :key="fileType.extension">
+							<input type="radio" :id="fileType.extension" v-model="fileExtension" :value="fileType.extension" />
+							<label :for="fileType.extension">{{ fileType.name }}</label>
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="file-field input-field col s12">
+						<div class="btn btn-large" @click="onDownload" :class="{disabled:_.isEmpty(analyzedData)}">
+							<span>
+								<i class="medium material-icons left pe-7s-cloud-download"></i>
+								<span class="left">Download</span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 

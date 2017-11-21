@@ -12,8 +12,7 @@ Vue.use(VueBreadcrumbs, {
 		<router-link exact class="breadcrumb-item black-text" :to="{ name: 'home' }">Estimation stats</router-link>
 		<template v-for="(crumb, key) in $breadcrumbs">
 			/
-			<router-link v-if="key < $breadcrumbs.length - 1" exact class="breadcrumb-item black-text" :to="linkProp(crumb)" :key="key">{{ crumb | crumbText }}</router-link>
-			<template v-else>{{ crumb | crumbText }}</template>
+			<router-link active-class="" exact class="breadcrumb-item black-text" :to="crumb.meta.anchor ? crumb.meta.anchor : linkProp(crumb)" :key="key">{{ crumb | crumbText }}</router-link>
 		</template>
 	</nav>`
 });

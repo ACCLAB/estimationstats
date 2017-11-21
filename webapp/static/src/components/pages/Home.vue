@@ -1,6 +1,6 @@
 <template>
 	<div id="home">
-		<br>
+		<div class="row"></div>
 		<div class="row">
 			<div class="col s6 offset-s6">
 				<img width="100%" src="./../../../static/img/Curve.svg">
@@ -14,10 +14,10 @@
 				<span class="title sub-title grey-text text-darken-1">Analyze your data with effect sizes</span>
 			</div>
 		</div>
-		<br>
+		<div class="row"></div>
 		<div class="row">
 			<div class="col s12">
-				<span class="title">Start</span>
+				<span id="start" class="title">Start</span>
 				<div class="divider heavy"></div>
 			</div>
 			<div class="col s6">
@@ -36,7 +36,7 @@
 		<div class="row"></div>
 		<div class="row">
 			<div class="col s12">
-				<span class="title">Plot</span>
+				<span id="plot" class="title">Plot</span>
 				<div class="divider heavy"></div>
 			</div>
 			<div class="col s6">

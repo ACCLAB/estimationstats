@@ -90,6 +90,7 @@ class Analyze(Resource):
             png = base64.b64encode(img.getvalue()).decode()
 
             # Prepare SVG output.
+            img = io.BytesIO()
             plt.savefig(img,
                         format='svg', **savefig_kwargs)
             img.seek(0)

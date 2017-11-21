@@ -3,7 +3,7 @@
 		<div class="page-title">{{ plotName }}</div>
 		<div class="row">
 			<div class="col number">
-				<i class="circle-number left">&#9450;</i>
+				<i class="circle-number left">0</i>
 			</div>
 			<div class="col content">
 				The two independent groups function is estimation statistics' counterpart to Student’s t-test. The function will generate an m-diff plot: a Gardner-Altman mean difference plot for two independent groups.
@@ -13,7 +13,7 @@
 		<br>
 		<div class="row">
 			<div class="col number">
-				<i class="circle-number left">&#9312;</i>
+				<i class="circle-number left">1</i>
 			</div>
 			<div class="col content">
 				<div class="row col">
@@ -48,7 +48,7 @@
 		</div>
 		<div class="row">
 			<div class="col number">
-				<i class="circle-number left">&#9313;</i>
+				<i class="circle-number left">2</i>
 			</div>
 			<div class="col content">
 				<div class="row col">
@@ -88,7 +88,7 @@
 		</div>
 		<div class="row">
 			<div class="col number">
-				<i class="circle-number left">&#9314;</i>
+				<i class="circle-number left">3</i>
 			</div>
 			<div class="col content">
 				<div class="row col">
@@ -139,6 +139,7 @@ export default {
 			hotDataChangeTrigger: 0,
 			hot: null, // Handsontable instance
 			hotSettings: { // Handsontable config
+				data: [['Control', 'Group 1', 'Group 2', 'Group 3', 'Group 4', 'Color']], // Init data
 				width: 700,
 				height: 300,
 				minRows: 12,

@@ -2,25 +2,51 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Meta from 'vue-meta';
 import Home from '@/components/pages/Home';
-import Analyze from '@/components/pages/Analyze';
 import UserGuide from '@/components/pages/UserGuide';
 import Introduction from '@/components/pages/Introduction';
 import About from '@/components/pages/About';
 import GetCode from '@/components/pages/GetCode';
+const Analyze = () => import('@/components/pages/Analyze');
 
 Vue.use(Router);
 Vue.use(Meta);
 
-export default new Router({
-	linkActiveClass: 'active',
-	scrollBehavior(to, from, savedPosition) {
-		// Scroll to top
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve({ x: 0, y: 0 });
-			}, 500);
+const scrollBehavior = function (to, from, savedPosition) {
+	return new Promise((resolve, reject) => {
+		// wait for the out transition to complete (if necessary)
+		router.app.$root.$once('triggerScroll', () => {
+			let position = (() => {
+				if (savedPosition) {
+					// savedPosition is only available for popstate navigations.
+					return savedPosition;
+				} else {
+					const position = {};
+
+					// scroll to anchor by returning the selector
+					if (to.hash) {
+						position.selector = to.hash;
+
+						if (document.querySelector(to.hash)) {
+							return position;
+						}
+
+						// if the returned position is falsy or an empty object,
+						// will retain current scroll position.
+						return false;
+					} else {
+						return { x: 0, y: 0 };
+					}
+				}
+			})();
+
+			resolve(position);
 		});
-	},
+	});
+};
+
+const router = new Router({
+	linkActiveClass: 'active',
+	scrollBehavior,
 	routes: [
 		{
 			path: '/',
@@ -36,7 +62,8 @@ export default new Router({
 			name: 'introduction',
 			component: Introduction,
 			meta: {
-				breadcrumb: 'Introduction'
+				anchor: '/#start',
+				breadcrumb: 'Start'
 			}
 		},
 		{
@@ -44,7 +71,8 @@ export default new Router({
 			name: 'about',
 			component: About,
 			meta: {
-				breadcrumb: 'About'
+				anchor: '/#start',
+				breadcrumb: 'Start'
 			}
 		},
 		{
@@ -52,7 +80,8 @@ export default new Router({
 			name: 'get-code',
 			component: GetCode,
 			meta: {
-				breadcrumb: 'Get code'
+				anchor: '/#start',
+				breadcrumb: 'Start'
 			}
 		},
 		{
@@ -61,6 +90,7 @@ export default new Router({
 			component: Analyze,
 			props: true,
 			meta: {
+				anchor: '/#plot',
 				breadcrumb: 'Plot'
 			}
 		},
@@ -70,8 +100,11 @@ export default new Router({
 			component: UserGuide,
 			props: true,
 			meta: {
-				breadcrumb: 'User guide'
+				anchor: '/#start',
+				breadcrumb: 'Start'
 			}
 		}
 	]
 });
+
+export default router;

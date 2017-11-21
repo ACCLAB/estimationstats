@@ -139,7 +139,7 @@ export default {
 			hotDataChangeTrigger: 0,
 			hot: null, // Handsontable instance
 			hotSettings: { // Handsontable config
-				data: [['Control', 'Group 1', 'Group 2', 'Group 3', 'Group 4', 'Gender']], // Init data
+				data: [['Control', 'Group 1', 'Group 2', 'Group 3', 'Group 4', 'Color']], // Init data
 				width: 700,
 				height: 300,
 				minRows: 12,

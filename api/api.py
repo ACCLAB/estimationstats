@@ -47,32 +47,35 @@ class Analyze(Resource):
 
             paired_columns = [tuple(numerical_cols[i:i + 2]) for i in range(0, len(numerical_cols), 2)]
 
-            # If 'color' or 'colour' is a column in `df`,
-            # use it to determine the color.
-            color_col = df.columns[df.columns.str.upper().str.contains(r'COLOU?R')]
-            if len(color_col) == 1:  # only if one unambiguous color column exists.
-                kwargs = {'color_col': color_col[0]}
+            # # If 'color' or 'colour' is a column in `df`,
+            # # use it to determine the color.
+            # color_col = df.columns[df.columns.str.upper().str.contains(r'COLOU?R')]
+            # if len(color_col) == 1:  # only if one unambiguous color column exists.
+            #     kwargs = {'color_col': color_col[0]}
 
             if plotType == 'two-independent-groups':
                 # two independent groups plot
                 kwargs['idx'] = first_two_columns
                 kwargs['paired'] = False
+                kwargs['fig_size'] = (6/np.sqrt(2),7)
 
             elif plotType == 'paired':
                 # paired plot
                 kwargs['idx'] = first_two_columns
                 kwargs['paired'] = True
+                kwargs['fig_size'] = (6/np.sqrt(2),7)
 
             elif plotType == 'multi':
                 # Multiple groups plot
                 kwargs['idx'] = paired_columns
                 kwargs['paired'] = False
+                kwargs['float_contrast'] = False
 
             elif plotType == 'multi-paired':
                 # Multi-paired plot
-                # FIXME set arguments for Multi-paired plot
                 kwargs['idx'] = paired_columns
                 kwargs['paired'] = True
+                kwargs['float_contrast'] = False
 
             else:  # Shared control plot
                 kwargs['idx'] = numerical_cols
@@ -90,6 +93,7 @@ class Analyze(Resource):
             png = base64.b64encode(img.getvalue()).decode()
 
             # Prepare SVG output.
+            img = io.BytesIO()
             plt.savefig(img,
                         format='svg', **savefig_kwargs)
             img.seek(0)

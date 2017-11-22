@@ -57,22 +57,25 @@ class Analyze(Resource):
                 # two independent groups plot
                 kwargs['idx'] = first_two_columns
                 kwargs['paired'] = False
+                kwargs['fig_size'] = (6/np.sqrt(2),7)
 
             elif plotType == 'paired':
                 # paired plot
                 kwargs['idx'] = first_two_columns
                 kwargs['paired'] = True
+                kwargs['fig_size'] = (6/np.sqrt(2),7)
 
             elif plotType == 'multi':
                 # Multiple groups plot
                 kwargs['idx'] = paired_columns
                 kwargs['paired'] = False
+                kwargs['float_contrast'] = False
 
             elif plotType == 'multi-paired':
                 # Multi-paired plot
-                # FIXME set arguments for Multi-paired plot
                 kwargs['idx'] = paired_columns
                 kwargs['paired'] = True
+                kwargs['float_contrast'] = False
 
             else:  # Shared control plot
                 kwargs['idx'] = numerical_cols

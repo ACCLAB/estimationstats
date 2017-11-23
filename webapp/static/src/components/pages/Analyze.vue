@@ -17,8 +17,7 @@
 			</div>
 			<div class="col content">
 				<div class="row col">
-					Input your data. You can either enter data into a table, or upload a CSV spreadsheet.
-					<br> Either format must have two labelled columns.
+					You can either enter data directly into the table below, or upload data as a CSV spreadsheet.
 				</div>
 				<div class="row">
 					<div class="col s12 input-types">
@@ -28,7 +27,8 @@
 						</span>
 					</div>
 					<div class="col s12" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-						<span class="text"> The first row of the data MUST be names of groups. </span>
+						<span class="text"> The sepal widths from the <a href='https://en.wikipedia.org/wiki/Iris_flower_data_set'>iris dataset</a> is preloaded below.
+							<br> The first row of the data MUST be names of groups. </span>
 						<HotTable :settings="hotSettings"></HotTable>
 					</div>
 					<div class="file-field input-field col s11 file-field input-field blue-text" v-show="curentInputType === inputDataTypes.CSV.type">
@@ -139,7 +139,24 @@ export default {
 			hotDataChangeTrigger: 0,
 			hot: null, // Handsontable instance
 			hotSettings: { // Handsontable config
-				data: [['Control', 'Group 1', 'Group 2', 'Group 3', 'Group 4', 'Color']], // Init data
+				data: [['setosa', 'versicolor', 'virginica'],
+				[5.1, 7, 6.3], [4.9, 6.4, 5.8], [4.7, 6.9, 7.1],
+				[4.6, 5.5, 6.3], [5, 6.5, 6.5], [5.4, 5.7, 7.6],
+				[4.6, 6.3, 4.9], [5, 4.9, 7.3], [4.4, 6.6, 6.7],
+				[4.9, 5.2, 7.2], [5.4, 5, 6.5], [4.8, 5.9, 6.4],
+				[4.8, 6, 6.8], [4.3, 6.1, 5.7], [5.8, 5.6, 5.8],
+				[5.7, 6.7, 6.4], [5.4, 5.6, 6.5], [5.1, 5.8, 7.7],
+				[5.7, 6.2, 7.7], [5.1, 5.6, 6], [5.4, 5.9, 6.9],
+				[5.1, 6.1, 5.6], [4.6, 6.3, 7.7], [5.1, 6.1, 6.3],
+				[4.8, 6.4, 6.7], [5, 6.6, 7.2], [5, 6.8, 6.2],
+				[5.2, 6.7, 6.1], [5.2, 6, 6.4], [4.7, 5.7, 7.2],
+				[4.8, 5.5, 7.4], [5.4, 5.5, 7.9], [5.2, 5.8, 6.4],
+				[5.5, 6, 6.3], [4.9, 5.4, 6.1], [5, 6, 7.7],
+				[5.5, 6.7, 6.3], [4.9, 6.3, 6.4], [4.4, 5.6, 6],
+				[5.1, 5.5, 6.9], [5, 5.5, 6.7], [4.5, 6.1, 6.9],
+				[4.4, 5.8, 5.8], [5, 5, 6.8], [5.1, 5.6, 6.7],
+				[4.8, 5.7, 6.7], [5.1, 5.7, 6.3], [4.6, 6.2, 6.5],
+				[5.3, 5.1, 6.2], [5, 5.7, 5.9]], // Init data
 				width: 700,
 				height: 300,
 				minRows: 12,

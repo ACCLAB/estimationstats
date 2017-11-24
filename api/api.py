@@ -42,8 +42,8 @@ class Analyze(Resource):
 
             first_two_columns = (numerical_cols[0], numerical_cols[1])
 
-            if np.mod(len(numerical_cols), 2) == 1:
-                numerical_cols = numerical_cols[:-1]
+            # if np.mod(len(numerical_cols), 2) == 1:
+            #     numerical_cols = numerical_cols[:-1]
 
             paired_columns = [tuple(numerical_cols[i:i + 2]) for i in range(0, len(numerical_cols), 2)]
 
@@ -94,8 +94,7 @@ class Analyze(Resource):
 
             # Prepare SVG output.
             img = io.BytesIO()
-            plt.savefig(img,
-                        format='svg', **savefig_kwargs)
+            plt.savefig(img, format='svg', **savefig_kwargs)
             img.seek(0)
             svg = base64.b64encode(img.getvalue()).decode()
 

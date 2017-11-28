@@ -13,9 +13,14 @@ import _ from 'lodash';
 */
 export function downloadByContent(fileName, content) {
 	if (!_.isEmpty(content)) {
+		// Create mouse click event
+		let event = document.createEvent('MouseEvents');
+		event.initMouseEvent('click', true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+
+		// Create download hyperlink
 		let link = document.createElement('a');
 		link.setAttribute('href', content);
 		link.setAttribute('download', `download_${fileName}`);
-		link.click();
+		link.dispatchEvent(event);
 	}
 }

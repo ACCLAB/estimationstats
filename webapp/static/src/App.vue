@@ -5,7 +5,7 @@
 				<header-view v-if="!$route.meta.noHeader"></header-view>
 			</transition>
 			<transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in" :duration="500" @after-enter="afterEnter">
-				<router-view class="main-content" :key="$route.params.plotType"></router-view>
+				<router-view class="main-content" :key="$route.fullPath"></router-view>
 			</transition>
 			<footer-view></footer-view>
 		</div>

@@ -37,6 +37,10 @@ class Analyze(Resource):
             kwargs = {}
             kwargs['show_std'] = True
 
+            # Add y-axis label
+            if 'yaxisLabel' in request.form:
+                kwargs['swarm_label'] = request.form['yaxisLabel']
+
             # Handle the columns for plotting.
             dt = df.dtypes
             numerical_cols = dt[dt != 'object'].index.tolist()

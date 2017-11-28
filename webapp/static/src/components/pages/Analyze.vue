@@ -27,7 +27,7 @@
 						</span>
 					</div>
 					<div class="col s12" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-						<span class="text"> The sepal widths from the <a href='https://en.wikipedia.org/wiki/Iris_flower_data_set'>iris dataset</a> is preloaded below.
+						<span class="text"> A paired dataset is preloaded below. There are four sets of paired samples (n=15) giving the same paired t-test p-value despite vastly different graphical relationships. (Taken from S. Champely's <a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset.)
 							<br> The first row of the data MUST be names of groups. </span>
 						<HotTable :settings="hotSettings"></HotTable>
 					</div>
@@ -139,24 +139,22 @@ export default {
 			hotDataChangeTrigger: 0,
 			hot: null, // Handsontable instance
 			hotSettings: { // Handsontable config
-				data: [['setosa', 'versicolor', 'virginica'],
-				[5.1, 7, 6.3], [4.9, 6.4, 5.8], [4.7, 6.9, 7.1],
-				[4.6, 5.5, 6.3], [5, 6.5, 6.5], [5.4, 5.7, 7.6],
-				[4.6, 6.3, 4.9], [5, 4.9, 7.3], [4.4, 6.6, 6.7],
-				[4.9, 5.2, 7.2], [5.4, 5, 6.5], [4.8, 5.9, 6.4],
-				[4.8, 6, 6.8], [4.3, 6.1, 5.7], [5.8, 5.6, 5.8],
-				[5.7, 6.7, 6.4], [5.4, 5.6, 6.5], [5.1, 5.8, 7.7],
-				[5.7, 6.2, 7.7], [5.1, 5.6, 6], [5.4, 5.9, 6.9],
-				[5.1, 6.1, 5.6], [4.6, 6.3, 7.7], [5.1, 6.1, 6.3],
-				[4.8, 6.4, 6.7], [5, 6.6, 7.2], [5, 6.8, 6.2],
-				[5.2, 6.7, 6.1], [5.2, 6, 6.4], [4.7, 5.7, 7.2],
-				[4.8, 5.5, 7.4], [5.4, 5.5, 7.9], [5.2, 5.8, 6.4],
-				[5.5, 6, 6.3], [4.9, 5.4, 6.1], [5, 6, 7.7],
-				[5.5, 6.7, 6.3], [4.9, 6.3, 6.4], [4.4, 5.6, 6],
-				[5.1, 5.5, 6.9], [5, 5.5, 6.7], [4.5, 6.1, 6.9],
-				[4.4, 5.8, 5.8], [5, 5, 6.8], [5.1, 5.6, 6.7],
-				[4.8, 5.7, 6.7], [5.1, 5.7, 6.3], [4.6, 6.2, 6.5],
-				[5.3, 5.1, 6.2], [5, 5.7, 5.9]], // Init data
+				data: [['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'],
+				[8.885, 10.135, 8, -35, 3.375, 6.625, 0.54, -0.54],
+				[14.38, 11.94, 7, -30, -0.3, 2.3, 1.98, 0.02],
+				[8.015, 6.025, 17, -25, 10.025, 11.975, 1.1, 0.9],
+				[5.835, 3.045, 15, -20, 2.35, 3.65, 3.42, 0.58],
+				[5.47, 1.87, 12, -15, 7.675, 8.325, 2.54, 1.46],
+				[12.06, 12.64, 5, -10, 9, 9, 1.655, 2.345],
+				[11.72, 9.66, 6, -5, 7.325, 6.675, 4.865, 1.135],
+				[10.315, 9.265, 19, 0, 6.65, 5.35, 3.98, 2.02],
+				[5.065, 6.155, 16, 5, 4.975, 3.025, 3.1, 2.9],
+				[8.235, 10.785, 11, 10, 3.3, 0.7, 2.215, 3.785],
+				[15.08, 12.36, 18, 15, 11.625, 8.375, 6.305, 1.695],
+				[13.485, 10.175, 9, 20, 17.765, 8.235, 5.42, 2.58],
+				[11.3, 12.38, 14, 25, 17.09, 6.91, 4.54, 3.46],
+				[9.82, 9.66, 13, 30, 19.41, 8.59, 3.655, 4.345],
+				[9.565, 6.955, 10, 35, 20.735, 9.265, 2.775, 5.225]], // Init data
 				width: 700,
 				height: 300,
 				minRows: 12,

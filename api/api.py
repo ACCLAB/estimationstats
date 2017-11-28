@@ -35,6 +35,7 @@ class Analyze(Resource):
 
             # Create dict for kwargs.
             kwargs = {}
+            kwargs['show_std'] = True
 
             # Handle the columns for plotting.
             dt = df.dtypes

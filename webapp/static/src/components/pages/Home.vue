@@ -17,14 +17,14 @@
 		<div class="row"></div>
 		<div class="row">
 			<div class="col s12">
-				<span id="start" class="title">Start</span>
+				<span id="begin" class="title">Begin</span>
 				<div class="divider heavy"></div>
 			</div>
 			<div class="col s6">
-				<router-link :to="{ name: 'introduction'}">Introduction</router-link>
+				<router-link :to="{ name: 'Background'}">Background</router-link>
 			</div>
 			<div class="col s6">
-				<router-link :to="{ name: 'about'}">About this site</router-link>
+				<router-link :to="{ name: 'about'}">About</router-link>
 			</div>
 			<div class="col s6">
 				<router-link :to="{ name: 'user-guide', params: { plotType: plotTypes.UNPAIRED.type }}">User guide</router-link>
@@ -74,4 +74,3 @@ export default {
 	}
 };
 </script>
-

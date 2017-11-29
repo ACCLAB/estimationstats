@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Meta from 'vue-meta';
 import Home from '@/components/pages/Home';
 import UserGuide from '@/components/pages/UserGuide';
-import Introduction from '@/components/pages/Introduction';
+import Background from '@/components/pages/Background';
 import About from '@/components/pages/About';
 import GetCode from '@/components/pages/GetCode';
 const Analyze = () => import('@/components/pages/Analyze');
@@ -58,12 +58,12 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/introduction',
-			name: 'introduction',
-			component: Introduction,
+			path: '/Background',
+			name: 'Background',
+			component: Background,
 			meta: {
-				anchor: '/#start',
-				breadcrumb: 'Start'
+				anchor: '/#begin',
+				breadcrumb: 'Begin'
 			}
 		},
 		{

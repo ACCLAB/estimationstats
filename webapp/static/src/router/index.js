@@ -71,8 +71,8 @@ const router = new Router({
 			name: 'about',
 			component: About,
 			meta: {
-				anchor: '/#start',
-				breadcrumb: 'Start'
+				anchor: '/#begin',
+				breadcrumb: 'Begin'
 			}
 		},
 		{
@@ -80,8 +80,8 @@ const router = new Router({
 			name: 'get-code',
 			component: GetCode,
 			meta: {
-				anchor: '/#start',
-				breadcrumb: 'Start'
+				anchor: '/#begin',
+				breadcrumb: 'Begin'
 			}
 		},
 		{
@@ -100,8 +100,8 @@ const router = new Router({
 			component: UserGuide,
 			props: true,
 			meta: {
-				anchor: '/#start',
-				breadcrumb: 'Start'
+				anchor: '/#begin',
+				breadcrumb: 'Begin'
 			}
 		}
 	]

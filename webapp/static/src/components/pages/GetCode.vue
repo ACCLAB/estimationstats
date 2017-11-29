@@ -1,6 +1,7 @@
 <template>
 	<div>
-		Get code content.
+		The code is available as a Python package on <a href='https://github.com/josesho/bootstrap_contrast' target='_blank'>Github</a>.
+		<br><br>A Matlab version of the code will be available soon.
 	</div>
 </template>
 

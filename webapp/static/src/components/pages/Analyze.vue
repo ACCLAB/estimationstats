@@ -6,7 +6,21 @@
 				<i class="circle-number left">0</i>
 			</div>
 			<div class="col content">
-				The two independent groups function is estimation statistics' counterpart to Student’s t-test. The function will generate an m-diff plot: a Gardner-Altman mean difference plot for two independent groups.
+				<template v-if="plotType === plotTypes.UNPAIRED.type">
+					This page does estimation statistics' counterpart to Student’s t-test: the two-independent-groups mean difference plot.
+				</template>
+				<template v-else-if="plotType === plotTypes.PAIRED.type">
+					This page will generate the estimation version of the paired t-test: the paired mean difference plot.
+				</template>
+				<template v-else-if="plotType === plotTypes.MULTI.type">
+					Use this page to make a single plot of several sets of two-groups data. This enables side-by-side comparison of multiple mean differences.
+				</template>
+				<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
+					Use this page to make a single plot of multiple sets of paired data. Useful for side-by-side comparison of multiple mean differences.
+				</template>
+				<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
+					Use this page to make a plot of experiments that share one reference control group.
+				</template>
 				<router-link :to="{ name: 'user-guide', params: { plotType: plotType }}">See user guide.</router-link>
 			</div>
 		</div>
@@ -27,7 +41,8 @@
 						</span>
 					</div>
 					<div class="col s12" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-						<span class="text"> A paired dataset is preloaded below. There are four sets of paired samples (n=15) giving the same paired t-test p-value despite vastly different graphical relationships. (Taken from S. Champely's <a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset.)
+						<span class="text"> A paired dataset is preloaded below. There are four sets of paired samples (n=15) giving the same paired t-test p-value despite vastly different graphical relationships. (Taken from S. Champely's
+							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset.)
 							<br> The first row of the data MUST be names of groups. </span>
 						<HotTable :settings="hotSettings"></HotTable>
 					</div>
@@ -49,6 +64,22 @@
 		<div class="row">
 			<div class="col number">
 				<i class="circle-number left">2</i>
+			</div>
+			<div class="col content">
+				<div class="row col no-margin-bot">
+					Enter the title for the swarmplot y-axis (i.e. the units of measurement your data is in.)
+				</div>
+				<div class="row">
+					<div class="input-field col s12 m6 l6">
+						<input id="yaxis" type="text" v-model="yaxisLabel">
+						<label for="yaxis" class="">y-axis label</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">3</i>
 			</div>
 			<div class="col content">
 				<div class="row col">
@@ -88,7 +119,7 @@
 		</div>
 		<div class="row">
 			<div class="col number">
-				<i class="circle-number left">3</i>
+				<i class="circle-number left">4</i>
 			</div>
 			<div class="col content">
 				<div class="row col">
@@ -133,6 +164,8 @@ export default {
 			fileExtension: constants.fileTypes.PNG.extension, // Default is download PNG
 			inputDataTypes: constants.inputDataTypes,
 			curentInputType: constants.inputDataTypes.COPY_PASTE.type, // Default is copy paste data
+			plotTypes: constants.plotTypes,
+			yaxisLabel: '',
 			analyzedData: {},
 			fileName: '',
 			isAnalyzing: false,
@@ -227,7 +260,7 @@ export default {
 				this.isAnalyzing = true;
 
 				// Analyze csv file data
-				plotService.analyze(file, this.plotType).then(data => {
+				plotService.analyze(file, this.plotType, this.yaxisLabel).then(data => {
 					this.analyzedData = data;
 					this.fileName = fileName;
 
@@ -304,9 +337,11 @@ export default {
 			}).join(constants.CSV_NEW_LINE);
 
 			// Create csv file
-			let csvFile = new File([csvContent], `${this.plotName}.csv`, {
+			let csvFile = new Blob([csvContent], {
 				type: 'text/csv'
 			});
+			csvFile.lastModifiedDate = new Date();
+			csvFile.name = `${this.plotName}.csv`;
 
 			return csvFile;
 		}

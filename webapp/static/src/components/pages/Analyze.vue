@@ -61,14 +61,16 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col number">
 				<i class="circle-number left">2</i>
 			</div>
 			<div class="col content">
 				<div class="row col no-margin-bot">
-					Enter the title for the swarmplot y-axis (i.e. the units of measurement your data is in.)
+					Enter the title for the swarmplot y-axis.
 				</div>
+				<br> <!--Not sure why I need these TWO linebreaks? -->
 				<div class="row">
 					<div class="input-field col s12 m6 l6">
 						<input id="yaxis" type="text" v-model="yaxisLabel">
@@ -77,9 +79,60 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col number">
 				<i class="circle-number left">3</i>
+			</div>
+			<div class="col content">
+				<div class="row col no-margin-bot">
+					Enter custom y-axis limits for the swarm panel.
+					<br>
+					If you leave these blank, they will be automatically scaled.
+				</div>
+				<br><br> <!--Not sure why I need these TWO linebreaks?-->
+				<div class="row">
+					<div class="input-field col s12 m6 l3">
+						<input id="yaxis" type="number" step="any" v-model="swarmYlimLower">
+						<label for="yaxis" class="">lower limit</label>
+					</div>
+
+					<div class="input-field col s12 m6 l3">
+						<input id="yaxis" type="number" step="any" v-model="swarmYlimUpper">
+						<label for="yaxis" class="">upper limit</label>
+					</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">4</i>
+			</div>
+			<div class="col content">
+				<div class="row col no-margin-bot">
+					Enter custom y-axis limits for the contrast panel.
+					<br>
+					If you leave these blank, they will be automatically scaled.
+				</div>
+				<br><br> <!--Not sure why I need these TWO linebreaks?-->
+				<div class="row">
+					<div class="input-field col s12 m6 l3">
+						<input id="yaxis" type="number" step="any" v-model="conYlimLower">
+						<label for="yaxis" class="">lower limit</label>
+					</div>
+
+					<div class="input-field col s12 m6 l3">
+						<input id="yaxis" type="number" step="any" v-model="conYlimUpper">
+						<label for="yaxis" class="">upper limit</label>
+					</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">5</i>
 			</div>
 			<div class="col content">
 				<div class="row col">
@@ -108,6 +161,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="row">
 					<div class="file-field input-field col s12">
 						<template v-if="_.has(analyzedData, 'png')">
@@ -117,9 +171,10 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col number">
-				<i class="circle-number left">4</i>
+				<i class="circle-number left">6</i>
 			</div>
 			<div class="col content">
 				<div class="row col">
@@ -133,6 +188,7 @@
 						</span>
 					</div>
 				</div>
+
 				<div class="row">
 					<div class="file-field input-field col s12">
 						<div class="btn btn-large" @click="onDownload" :class="{disabled:_.isEmpty(analyzedData)}">

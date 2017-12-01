@@ -35,11 +35,25 @@ class Analyze(Resource):
 
             # Create dict for kwargs.
             kwargs = {}
-            kwargs['show_std'] = True
+            kwargs['show_std'] = False
+
+            # print([k for k in request.form.keys()])
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:
                 kwargs['swarm_label'] = request.form['yaxisLabel']
+
+            # Add swarm ylims
+            if 'swarm_ylimLower' in request.form and 'swarm_ylimUpper' in request.form:
+                low = np.float(request.form['swarm_ylimLower'])
+                high = np.float(request.form['swarm_ylimUpper'])
+                kwargs['swarm_ylim'] = (low, high)
+
+            # Add swarm ylims
+            if 'con_ylimLower' in request.form and 'con_ylimLower' in request.form:
+                low = np.float(request.form['con_ylimLower'])
+                high = np.float(request.form['con_ylimUpper'])
+                kwargs['contrast_ylim'] = (low, high)
 
             # Handle the columns for plotting.
             dt = df.dtypes
@@ -50,7 +64,8 @@ class Analyze(Resource):
             # if np.mod(len(numerical_cols), 2) == 1:
             #     numerical_cols = numerical_cols[:-1]
 
-            paired_columns = [tuple(numerical_cols[i:i + 2]) for i in range(0, len(numerical_cols), 2)]
+            paired_columns = [tuple(numerical_cols[i:i + 2])
+            for i in range(0, len(numerical_cols), 2)]
 
             # # If 'color' or 'colour' is a column in `df`,
             # # use it to determine the color.

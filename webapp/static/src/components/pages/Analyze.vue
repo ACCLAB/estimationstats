@@ -222,6 +222,10 @@ export default {
 			curentInputType: constants.inputDataTypes.COPY_PASTE.type, // Default is copy paste data
 			plotTypes: constants.plotTypes,
 			yaxisLabel: '',
+			swarmYlimLower: '',
+			swarmYlimUpper: '',
+			conYlimLower: '',
+			conYlimUpper: '',
 			analyzedData: {},
 			fileName: '',
 			isAnalyzing: false,

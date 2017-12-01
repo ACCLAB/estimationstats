@@ -11,6 +11,10 @@ import axios from '@/utils/axios-ex.js';
  * @param {File} file csv file data
  * @param {String} plotType analyze plot type
  * @param {String} yaxisLabel y-axis label
+ // * @param {String} swarmYlimLower
+ // * @param {String} swarmYlimUpper
+ // * @param {String} conYlimLower
+ // * @param {String} conYlimUpper
  * @return {Object} Promise
  */
 export function analyze(file, plotType, yaxisLabel) {
@@ -21,6 +25,18 @@ export function analyze(file, plotType, yaxisLabel) {
 	if (!_.isEmpty(yaxisLabel)) {
 		formData.append('yaxisLabel', yaxisLabel);
 	}
+	// if (!_.isEmpty(swarmYlimLower)) {
+	// 	formData.append('swarmYlimLower', swarmYlimLower);
+	// }
+	// if (!_.isEmpty(swarmYlimUpper)) {
+	// 	formData.append('swarmYlimUpper', swarmYlimUpper);
+	// }
+	// if (!_.isEmpty(conYlimLower)) {
+	// 	formData.append('conYlimLower', conYlimLower);
+	// }
+	// if (!_.isEmpty(conYlimUpper)) {
+	// 	formData.append('conYlimUpper', conYlimUpper);
+	// }
 
 	// Call analyze api
 	return axios.post('/analyze', formData, {

@@ -67,10 +67,11 @@
 				<i class="circle-number left">2</i>
 			</div>
 			<div class="col content">
-				<div class="row col no-margin-bot">
-					Enter the title for the swarmplot y-axis.
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Enter the title for the swarmplot y-axis.
+					</div>
 				</div>
-				<br> <!--Not sure why I need these TWO linebreaks? -->
 				<div class="row">
 					<div class="input-field col s12 m6 l6">
 						<input id="yaxis" type="text" v-model="yaxisLabel">
@@ -85,23 +86,23 @@
 				<i class="circle-number left">3</i>
 			</div>
 			<div class="col content">
-				<div class="row col no-margin-bot">
-					Enter custom y-axis limits for the swarm panel.
-					<br>
-					If you leave these blank, they will be automatically scaled.
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Enter custom y-axis limits for the swarm panel.
+						<br> If you leave these blank, they will be automatically scaled.
+					</div>
 				</div>
-				<br><br> <!--Not sure why I need these TWO linebreaks?-->
 				<div class="row">
 					<div class="input-field col s12 m6 l3">
-						<input id="yaxis" type="number" step="any" v-model="swarmYlimLower">
-						<label for="yaxis" class="">lower limit</label>
+						<input id="swarmYlimLower" type="number" step="any" v-model="swarmYlimLower">
+						<label for="swarmYlimLower" class="">lower limit</label>
 					</div>
 
 					<div class="input-field col s12 m6 l3">
-						<input id="yaxis" type="number" step="any" v-model="swarmYlimUpper">
-						<label for="yaxis" class="">upper limit</label>
+						<input id="swarmYlimUpper" type="number" step="any" v-model="swarmYlimUpper">
+						<label for="swarmYlimUpper" class="">upper limit</label>
 					</div>
-			</div>
+				</div>
 			</div>
 		</div>
 
@@ -110,23 +111,23 @@
 				<i class="circle-number left">4</i>
 			</div>
 			<div class="col content">
-				<div class="row col no-margin-bot">
-					Enter custom y-axis limits for the contrast panel.
-					<br>
-					If you leave these blank, they will be automatically scaled.
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Enter custom y-axis limits for the contrast panel.
+						<br> If you leave these blank, they will be automatically scaled.
+					</div>
 				</div>
-				<br><br> <!--Not sure why I need these TWO linebreaks?-->
 				<div class="row">
 					<div class="input-field col s12 m6 l3">
-						<input id="yaxis" type="number" step="any" v-model="conYlimLower">
-						<label for="yaxis" class="">lower limit</label>
+						<input id="conYlimLower" type="number" step="any" v-model="conYlimLower">
+						<label for="conYlimLower" class="">lower limit</label>
 					</div>
 
 					<div class="input-field col s12 m6 l3">
-						<input id="yaxis" type="number" step="any" v-model="conYlimUpper">
-						<label for="yaxis" class="">upper limit</label>
+						<input id="conYlimUpper" type="number" step="any" v-model="conYlimUpper">
+						<label for="conYlimUpper" class="">upper limit</label>
 					</div>
-			</div>
+				</div>
 			</div>
 		</div>
 
@@ -320,7 +321,7 @@ export default {
 				this.isAnalyzing = true;
 
 				// Analyze csv file data
-				plotService.analyze(file, this.plotType, this.yaxisLabel).then(data => {
+				plotService.analyze(file, this.plotType, this.getPlotOptions()).then(data => {
 					this.analyzedData = data;
 					this.fileName = fileName;
 
@@ -404,6 +405,15 @@ export default {
 			csvFile.name = `${this.plotName}.csv`;
 
 			return csvFile;
+		},
+		getPlotOptions() {
+			return {
+				yaxisLabel: this.yaxisLabel,
+				swarm_ylimLower: this.swarmYlimLower,
+				swarm_ylimUpper: this.swarmYlimUpper,
+				con_ylimLower: this.conYlimLower,
+				con_ylimUpper: this.conYlimUpper
+			};
 		}
 	},
 	components: {

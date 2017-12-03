@@ -50,7 +50,7 @@ class Analyze(Resource):
                 kwargs['swarm_ylim'] = (low, high)
 
             # Add swarm ylims
-            if 'con_ylimLower' in request.form and 'con_ylimLower' in request.form:
+            if 'con_ylimLower' in request.form and 'con_ylimUpper' in request.form:
                 low = np.float(request.form['con_ylimLower'])
                 high = np.float(request.form['con_ylimUpper'])
                 kwargs['contrast_ylim'] = (low, high)
@@ -126,5 +126,5 @@ class Analyze(Resource):
                 columns=list(b),
                 table_html=stats
             )
-        except:
+        except Exception as e:
             abort(400, 'Unable to analyze the data')

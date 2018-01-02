@@ -2,7 +2,7 @@ import matplotlib
 matplotlib.use('Agg') # Set appropriate rendering backend.
 
 import matplotlib.pyplot as plt
-import bootstrap_contrast as bs
+# import bootstrap_contrast as bs
 import pandas as pd
 import numpy as np
 import io
@@ -10,6 +10,7 @@ import base64
 from flask import request, jsonify, abort
 from flask_restful import Resource
 
+import dabest
 
 class Analyze(Resource):
     def post(self):
@@ -35,11 +36,25 @@ class Analyze(Resource):
 
             # Create dict for kwargs.
             kwargs = {}
-            kwargs['show_std'] = True
+            kwargs['group_summaries'] = 'mean_sd'
+
+            # print([k for k in request.form.keys()])
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:
                 kwargs['swarm_label'] = request.form['yaxisLabel']
+
+            # Add swarm ylims
+            if 'swarm_ylimLower' in request.form and 'swarm_ylimUpper' in request.form:
+                low = np.float(request.form['swarm_ylimLower'])
+                high = np.float(request.form['swarm_ylimUpper'])
+                kwargs['swarm_ylim'] = (low, high)
+
+            # Add swarm ylims
+            if 'con_ylimLower' in request.form and 'con_ylimUpper' in request.form:
+                low = np.float(request.form['con_ylimLower'])
+                high = np.float(request.form['con_ylimUpper'])
+                kwargs['contrast_ylim'] = (low, high)
 
             # Handle the columns for plotting.
             dt = df.dtypes
@@ -50,7 +65,8 @@ class Analyze(Resource):
             # if np.mod(len(numerical_cols), 2) == 1:
             #     numerical_cols = numerical_cols[:-1]
 
-            paired_columns = [tuple(numerical_cols[i:i + 2]) for i in range(0, len(numerical_cols), 2)]
+            paired_columns = [tuple(numerical_cols[i:i + 2])
+            for i in range(0, len(numerical_cols), 2)]
 
             # # If 'color' or 'colour' is a column in `df`,
             # # use it to determine the color.
@@ -87,7 +103,7 @@ class Analyze(Resource):
                 kwargs['paired'] = False
 
             # Compute contrast statistics and create the contrast plot.
-            f, b = bs.contrastplot(df, **kwargs)
+            f, b = dabest.plot(df, **kwargs)
             stats = b.to_html()
 
             # Prepare PNG output.
@@ -111,5 +127,6 @@ class Analyze(Resource):
                 columns=list(b),
                 table_html=stats
             )
-        except:
-            abort(400, 'Unable to analyze the data')
+        except Exception as e:
+            print(e) # Use to debug.
+            abort(400, 'Error: {}'.format(e))

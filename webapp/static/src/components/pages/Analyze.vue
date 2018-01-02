@@ -16,7 +16,7 @@
 					Use this page to make a single plot of several sets of two-groups data. This enables side-by-side comparison of multiple mean differences.
 				</template>
 				<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
-					Use this page to make a single plot of multiple sets of paired data. Useful for side-by-side comparison of multiple mean differences.
+					Use this page to make a single plot of multiple sets of paired data. Useful for side-by-side comparison of multiple paired mean differences.
 				</template>
 				<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
 					Use this page to make a plot of experiments that share one reference control group.
@@ -31,7 +31,7 @@
 			</div>
 			<div class="col content">
 				<div class="row col">
-					You can either enter data directly into the table below, or upload data as a CSV spreadsheet.
+					Enter your data.
 				</div>
 				<div class="row">
 					<div class="col s12 input-types">
@@ -41,10 +41,12 @@
 						</span>
 					</div>
 					<div class="col s12" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-						<span class="text"> A paired dataset is preloaded below. There are four sets of paired samples (n=15) giving the same paired t-test p-value despite vastly different graphical relationships. (Taken from S. Champely's
-							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset.)
-							<br> The first row of the data MUST be names of groups. </span>
+						The first row of the data MUST be names of the groups. <span class="text" style="font-size:19px">See preloaded data.</span>
+						<br><br>
 						<HotTable :settings="hotSettings"></HotTable>
+						<span class="text" style="font-size:19px"> The preloaded
+							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset consists of four sets of paired samples (n=15) giving the same paired t-test <i>P</i> value, despite vastly divergent graphical relationships.
+						</span>
 					</div>
 					<div class="file-field input-field col s11 file-field input-field blue-text" v-show="curentInputType === inputDataTypes.CSV.type">
 						<div class="btn btn-large">
@@ -61,13 +63,16 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col number">
 				<i class="circle-number left">2</i>
 			</div>
 			<div class="col content">
-				<div class="row col no-margin-bot">
-					Enter the title for the swarmplot y-axis (i.e. the units of measurement your data is in.)
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Title for the main plot y-axis. <div style="font-size:21px">If left blank, defaults to "value".</div>
+					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12 m6 l6">
@@ -77,10 +82,70 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col number">
 				<i class="circle-number left">3</i>
 			</div>
+			<div class="col content">
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Main y-axis limits. <div style="font-size:21px">If left blank, the limits are auto-scaled.</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12 m6 l3">
+						<input id="swarmYlimLower" type="number" step="any" v-model="swarmYlimLower">
+						<label for="swarmYlimLower" class="">lower limit</label>
+					</div>
+
+					<div class="input-field col s12 m6 l3">
+						<input id="swarmYlimUpper" type="number" step="any" v-model="swarmYlimUpper">
+						<label for="swarmYlimUpper" class="">upper limit</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<template v-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">4</i>
+			</div>
+			<div class="col content">
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Bootstrapped difference y-axis limits. <div style="font-size:21px">If left blank, the limits are auto-scaled.</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12 m6 l3">
+						<input id="conYlimLower" type="number" step="any" v-model="conYlimLower">
+						<label for="conYlimLower" class="">lower limit</label>
+					</div>
+
+					<div class="input-field col s12 m6 l3">
+						<input id="conYlimUpper" type="number" step="any" v-model="conYlimUpper">
+						<label for="conYlimUpper" class="">upper limit</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+
+		<div class="row">
+			<template v-if="plotType === plotTypes.UNPAIRED.type || plotType === plotTypes.PAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">4</i>
+				</div>
+		</template>
+			<template v-else-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
+				<div class="col number">
+					<i class="circle-number left">5</i>
+				</div>
+			</template>
+
 			<div class="col content">
 				<div class="row col">
 					Analyze your data and display as an m-diff plot.
@@ -108,6 +173,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="row">
 					<div class="file-field input-field col s12">
 						<template v-if="_.has(analyzedData, 'png')">
@@ -117,13 +183,26 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
-			<div class="col number">
-				<i class="circle-number left">4</i>
-			</div>
+			<template v-if="plotType === plotTypes.UNPAIRED.type || plotType === plotTypes.PAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">5</i>
+				</div>
+		</template>
+			<template v-else-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
+				<div class="col number">
+					<i class="circle-number left">6</i>
+				</div>
+			</template>
 			<div class="col content">
 				<div class="row col">
-					Download results. Plots are available as SVG vector graphics or PNG images. The table of statistics can be downloaded as a CSV text file.
+					Download results.
+					<br>
+					<span class="text" style="font-size:20px">
+						Plots are available in SVG or PNG formats.
+						<br>The table of statistics can be downloaded as a CSV text file.
+					</span>
 				</div>
 				<div class="row">
 					<div class="col s12 file-types">
@@ -133,6 +212,7 @@
 						</span>
 					</div>
 				</div>
+
 				<div class="row">
 					<div class="file-field input-field col s12">
 						<div class="btn btn-large" @click="onDownload" :class="{disabled:_.isEmpty(analyzedData)}">
@@ -166,6 +246,10 @@ export default {
 			curentInputType: constants.inputDataTypes.COPY_PASTE.type, // Default is copy paste data
 			plotTypes: constants.plotTypes,
 			yaxisLabel: '',
+			swarmYlimLower: '',
+			swarmYlimUpper: '',
+			conYlimLower: '',
+			conYlimUpper: '',
 			analyzedData: {},
 			fileName: '',
 			isAnalyzing: false,
@@ -188,11 +272,11 @@ export default {
 				[11.3, 12.38, 14, 25, 17.09, 6.91, 4.54, 3.46],
 				[9.82, 9.66, 13, 30, 19.41, 8.59, 3.655, 4.345],
 				[9.565, 6.955, 10, 35, 20.735, 9.265, 2.775, 5.225]], // Init data
-				width: 700,
-				height: 300,
-				minRows: 12,
+				width: 800,
+				height: 400,
+				minRows: 15,
 				minCols: 10,
-				colWidths: 100,
+				colWidths: 80,
 				rowHeights: 30,
 				colHeaders: true,
 				rowHeaders: true,
@@ -260,7 +344,7 @@ export default {
 				this.isAnalyzing = true;
 
 				// Analyze csv file data
-				plotService.analyze(file, this.plotType, this.yaxisLabel).then(data => {
+				plotService.analyze(file, this.plotType, this.getPlotOptions()).then(data => {
 					this.analyzedData = data;
 					this.fileName = fileName;
 
@@ -344,6 +428,15 @@ export default {
 			csvFile.name = `${this.plotName}.csv`;
 
 			return csvFile;
+		},
+		getPlotOptions() {
+			return {
+				yaxisLabel: this.yaxisLabel,
+				swarm_ylimLower: this.swarmYlimLower,
+				swarm_ylimUpper: this.swarmYlimUpper,
+				con_ylimLower: this.conYlimLower,
+				con_ylimUpper: this.conYlimUpper
+			};
 		}
 	},
 	components: {

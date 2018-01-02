@@ -10,16 +10,22 @@ import axios from '@/utils/axios-ex.js';
  *
  * @param {File} file csv file data
  * @param {String} plotType analyze plot type
- * @param {String} yaxisLabel y-axis label
+ * @param {Object} options plot options (yaxis label, swarmYlimLower, swarmYlimUpper, etc..)
  * @return {Object} Promise
  */
-export function analyze(file, plotType, yaxisLabel) {
+export function analyze(file, plotType, options) {
 	// Create form data contains file and plot type
 	let formData = new FormData();
 	formData.append('file', file);
 	formData.append('plotType', plotType);
-	if (!_.isEmpty(yaxisLabel)) {
-		formData.append('yaxisLabel', yaxisLabel);
+
+	// Add plot options
+	if (!_.isEmpty(options)) {
+		Object.keys(options).forEach(option => {
+			if (!_.isEmpty(_.toString(options[option]))) {
+				formData.append(option, options[option]);
+			}
+		});
 	}
 
 	// Call analyze api

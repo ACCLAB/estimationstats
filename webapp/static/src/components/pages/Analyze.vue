@@ -41,13 +41,12 @@
 						</span>
 					</div>
 					<div class="col s12" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-						The first row of the data MUST be names of the groups.
+						The first row of the data MUST be names of the groups. <span class="text" style="font-size:19px">See preloaded data.</span>
 						<br><br>
-						<span class="text" style="font-size:20px"> A paired dataset is preloaded below. (Taken from S. Champely's
-							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset.)
-							<br> There are four sets of paired samples (n=15) giving the same paired t-test <i>P</i> value despite vastly different graphical relationships.
-						</span>
 						<HotTable :settings="hotSettings"></HotTable>
+						<span class="text" style="font-size:19px"> The preloaded
+							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset consists of four sets of paired samples (n=15) giving the same paired t-test <i>P</i> value, despite vastly divergent graphical relationships.
+						</span>
 					</div>
 					<div class="file-field input-field col s11 file-field input-field blue-text" v-show="curentInputType === inputDataTypes.CSV.type">
 						<div class="btn btn-large">

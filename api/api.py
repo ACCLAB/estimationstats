@@ -2,7 +2,7 @@ import matplotlib
 matplotlib.use('Agg') # Set appropriate rendering backend.
 
 import matplotlib.pyplot as plt
-import bootstrap_contrast as bs
+# import bootstrap_contrast as bs
 import pandas as pd
 import numpy as np
 import io
@@ -10,6 +10,7 @@ import base64
 from flask import request, jsonify, abort
 from flask_restful import Resource
 
+import dabest
 
 class Analyze(Resource):
     def post(self):
@@ -35,7 +36,7 @@ class Analyze(Resource):
 
             # Create dict for kwargs.
             kwargs = {}
-            kwargs['show_std'] = False
+            kwargs['group_summaries'] = 'mean_sd'
 
             # print([k for k in request.form.keys()])
 
@@ -102,7 +103,7 @@ class Analyze(Resource):
                 kwargs['paired'] = False
 
             # Compute contrast statistics and create the contrast plot.
-            f, b = bs.contrastplot(df, **kwargs)
+            f, b = dabest.plot(df, **kwargs)
             stats = b.to_html()
 
             # Prepare PNG output.
@@ -127,4 +128,5 @@ class Analyze(Resource):
                 table_html=stats
             )
         except Exception as e:
-            abort(400, 'Unable to analyze the data')
+            print(e) # Use to debug.
+            abort(400, 'Error: {}'.format(e))

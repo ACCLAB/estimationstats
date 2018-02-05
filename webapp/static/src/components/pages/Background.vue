@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h5>Background</h5>
+		<!-- <h5>Background</h5> -->
 		<i>example figure with panels showing all 5 types of plot</i>
 		<br>
 		This site provides you with a web application to plot experimental data from an <a href='https://en.wikipedia.org/wiki/Estimation_statistics' target='blank'>estimation statistics</a> perspective. You may have found significance testing and P-values <a href='https://www.nature.com/articles/nmeth.3288' target='blank'>problematic</a>; you may be asking what comes <a href='https://doi.org/10.5281/zenodo.60156' target='blank'>next</a>.

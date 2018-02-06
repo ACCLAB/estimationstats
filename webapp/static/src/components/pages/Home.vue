@@ -1,17 +1,21 @@
 <template>
 	<div id="home">
 		<div class="row"></div>
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col s6 offset-s6">
 				<img width="100%" src="./../../../static/img/Curve.svg">
 			</div>
-		</div>
+		</div> -->
 		<div class="row">
 			<div class="col s12">
-				<span class="title main-title grey-text text-darken-3">Estimation Statistics</span> BETA
+				<span class="title main-title grey-text text-darken-3">
+					Estimation Statistics
+				</span> BETA
 			</div>
 			<div class="col s12">
-				<span class="title sub-title grey-text text-darken-1">Analyze your data with effect sizes</span>
+				<span class="title sub-title grey-text text-darken-1">
+					Analyze your data with effect sizes
+				</span>
 			</div>
 		</div>
 
@@ -23,10 +27,14 @@
 				<div class="divider heavy"></div>
 			</div>
 			<div class="col s6">
-				<router-link :to="{ name: 'background'}">What is Estimation Statistics?</router-link>
+				<router-link :to="{ name: 'background'}">
+					What is Estimation Statistics?
+				</router-link>
 			</div>
 			<div class="col s6">
-				<router-link :to="{ name: 'user-guide', params: { plotType: plotTypes.UNPAIRED.type }}">The Five Plot Types</router-link>
+				<router-link :to="{ name: 'user-guide', params: { plotType: plotTypes.UNPAIRED.type }}">
+					The Five Plot Types
+				</router-link>
 			</div>
 		</div>
 
@@ -36,23 +44,55 @@
 		<br>
 		<div class="row">
 			<div class="col s12">
-				<span id="plot" class="title">Plot</span>
+				<span id="plot" class="title">Gardner-Altman Plots</span>
 				<div class="divider heavy"></div>
 			</div>
 			<div class="col s6">
-				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">{{ plotTypes.UNPAIRED.name }}</router-link>
+				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">
+					<img src="./../../../static/img/two-group-unpaired-display.svg" height="50%" width="50%">
+					<br>
+					{{ plotTypes.UNPAIRED.name }}
+				</router-link>
 			</div>
 			<div class="col s6">
-				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI.type }}">{{ plotTypes.MULTI.name }}</router-link>
+				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">
+					<img src="./../../../static/img/two-group-paired-display.svg" height="50%" width="50%">
+					<br>
+					{{ plotTypes.UNPAIRED.name }}
+				</router-link>
 			</div>
+		</div>
+
+			<div class="row"></div>
+			<br>
+			<div class="row">
+				<div class="col s12">
+					<span id="plot" class="title">Cumming Plots</span>
+					<div class="divider heavy"></div>
+				</div>
 			<div class="col s6">
-				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.PAIRED.type }}">{{ plotTypes.PAIRED.name }}</router-link>
+				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI.type }}">
+					<img src="./../../../static/img/multi-two-group-unpaired-display.svg" height="75%">
+					<br>
+					{{ plotTypes.MULTI.name }}
+				</router-link>
 			</div>
+
 			<div class="col s6">
-				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">{{ plotTypes.MULTI_PAIRED.name }}</router-link>
+				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">
+					<img src="./../../../static/img/multi-two-group-paired-display.svg" height="75%">
+					<br>
+					{{ plotTypes.MULTI_PAIRED.name }}
+				</router-link>
 			</div>
-			<div class="col s6 offset-s6">
-				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}">{{ plotTypes.SHARED_CONTROL.name }}</router-link>
+
+			<div class="row"></div>
+			<div class="col s6">
+				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}">
+					<img src="./../../../static/img/shared-control-display.svg" height="80%">
+					<br>
+					{{ plotTypes.SHARED_CONTROL.name }}
+				</router-link>
 			</div>
 		</div>
 

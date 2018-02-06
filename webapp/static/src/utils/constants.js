@@ -4,7 +4,7 @@ export const plotTypes = {
 	PAIRED: { type: 'paired', name: 'Two-Group Paired' },
 	MULTI: { type: 'multi', name: 'Multiple Two-group Unpaired' },
 	MULTI_PAIRED: { type: 'multi-paired', name: 'Multiple Two-group Paired' },
-	SHARED_CONTROL: { type: 'shared-control', name: 'Multi-group shared control' }
+	SHARED_CONTROL: { type: 'shared-control', name: 'Multi-group Shared Control' }
 };
 
 /** Define download file types */

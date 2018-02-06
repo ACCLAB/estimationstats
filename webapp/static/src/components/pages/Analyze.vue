@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<div class="page-title">{{ plotName }}</div>
+		<div class="page-title">
+			{{ plotName }}
+		</div>
+
 		<div class="row">
 			<div class="col number">
 				<i class="circle-number left">0</i>
@@ -24,6 +27,7 @@
 				<router-link :to="{ name: 'user-guide', params: { plotType: plotType }}">See user guide.</router-link>
 			</div>
 		</div>
+
 		<br>
 		<div class="row">
 			<div class="col number">

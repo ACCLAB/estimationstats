@@ -72,6 +72,7 @@
 					<span id="plot" class="title">Cumming Plots</span>
 					<div class="divider heavy"></div>
 				</div>
+				<div class="row"></div> <!-- Not sure why a spacer row is needed here..-->
 				<div class="col s6">
 					<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI.type }}">
 						<img src="./../../../static/img/multi-two-group-unpaired-display.svg" height="75%">
@@ -107,7 +108,7 @@
 				<div class="divider heavy"></div>
 			</div>
 				<div class="col s6">
-					<router-link :to="{ name: 'about'}">About</router-link>
+					<router-link :to="{ name: 'about'}">About this site</router-link>
 				</div>
 				<div class="col s6">
 					<a href='https://github.com/ACCLAB/DABEST-python' target='_blank'>Get the code</a>

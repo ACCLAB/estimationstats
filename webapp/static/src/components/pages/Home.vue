@@ -54,6 +54,15 @@
 					{{ plotTypes.UNPAIRED.name }}
 				</router-link>
 			</div>
+		</div>
+
+			<div class="row"></div>
+			<br>
+			<div class="row">
+				<div class="col s12">
+					<span id="plot" class="title">Cumming Plots</span>
+					<div class="divider heavy"></div>
+				</div>
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">
 					<img src="./../../../static/img/two-group-paired-display.svg" height="50%" width="50%">

@@ -1,10 +1,10 @@
 /** Define plot types */
 export const plotTypes = {
-	UNPAIRED: { type: 'two-independent-groups', name: 'Two groups' },
-	PAIRED: { type: 'paired', name: 'Paired' },
-	MULTI: { type: 'multi', name: 'Multiple groups' },
-	MULTI_PAIRED: { type: 'multi-paired', name: 'Multi-paired' },
-	SHARED_CONTROL: { type: 'shared-control', name: 'Shared control' }
+	UNPAIRED: { type: 'two-independent-groups', name: 'Two-Group Unpaired' },
+	PAIRED: { type: 'paired', name: 'Two-Group Paired' },
+	MULTI: { type: 'multi', name: 'Multiple Two-group Unpaired' },
+	MULTI_PAIRED: { type: 'multi-paired', name: 'Multiple Two-group Paired' },
+	SHARED_CONTROL: { type: 'shared-control', name: 'Multi-group shared control' }
 };
 
 /** Define download file types */

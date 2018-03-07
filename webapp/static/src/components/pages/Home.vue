@@ -49,16 +49,16 @@
 			</div>
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">
-					<img src="./../../../static/img/two-group-unpaired-display.svg" height="50%" width="50%">
-					<br>
+					<!-- <img src="./../../../static/img/two-group-unpaired-display.svg" height="50%" width="50%">
+					<br> -->
 					{{ plotTypes.UNPAIRED.name }}
 				</router-link>
 			</div>
 
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.PAIRED.type }}">
-					<img src="./../../../static/img/two-group-paired-display.svg" height="50%" width="50%">
-					<br>
+					<!-- <img src="./../../../static/img/two-group-paired-display.svg" height="50%" width="50%">
+					<br> -->
 					{{ plotTypes.PAIRED.name }}
 				</router-link>
 			</div>
@@ -72,29 +72,29 @@
 					<span id="plot" class="title">Cumming Plots</span>
 					<div class="divider heavy"></div>
 				</div>
-				<div class="row"></div> <!-- Not sure why a spacer row is needed here..-->
+				<!-- <div class="row"></div> Not sure why a spacer row is needed here..-->
 				<div class="col s6">
 					<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI.type }}">
-						<img src="./../../../static/img/multi-two-group-unpaired-display.svg" height="75%">
-						<br>
+						<!-- <img src="./../../../static/img/multi-two-group-unpaired-display.svg" height="75%">
+						<br> -->
 						{{ plotTypes.MULTI.name }}
 					</router-link>
 				</div>
 
 				<div class="col s6">
 					<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">
-						<img src="./../../../static/img/multi-two-group-paired-display.svg" height="75%">
-						<br>
+						<!-- <img src="./../../../static/img/multi-two-group-paired-display.svg" height="75%">
+						<br> -->
 						{{ plotTypes.MULTI_PAIRED.name }}
 					</router-link>
 				</div>
 
-			<div class="row"></div>
-			<div class="row"></div>
+			<!-- <div class="row"></div> -->
+			<!-- <div class="row"></div> -->
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}">
-					<img src="./../../../static/img/shared-control-display.svg" height="75%">
-					<br>
+					<!-- <img src="./../../../static/img/shared-control-display.svg" height="75%">
+					<br> -->
 					{{ plotTypes.SHARED_CONTROL.name }}
 				</router-link>
 			</div>

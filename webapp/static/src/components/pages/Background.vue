@@ -14,8 +14,8 @@
 		</ul>
 		All of these plots enable you to graphically inspect the mean difference and its confidence interval. When there are multiple groups, the side-by-side plotting allows the visual comparison of effect sizes.
 		<br>
-		<i>example figure with panels bars-stars, boxplot, estimation plot</i>
-		<br><br>Relative to conventional plots, estimation plots offer five key benefits:
+		<!-- <i>example figure with panels bars-stars, boxplot, estimation plot</i> -->
+		<br>Relative to conventional plots, estimation plots offer five key benefits:
 
 		<table style="width:90%">
 	  <tr>

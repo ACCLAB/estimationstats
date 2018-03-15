@@ -10,7 +10,7 @@
 		The <a href='https://github.com/ACCLAB/DABEST-python' target='_blank'>codebase</a> was built in Python using the <a href='https://www.matplotlib.org' target="_blank">matplotlib</a>, <a href='https://pandas.pydata.org' target="_blank"><i>pandas</i></a>, and <a href='https://seaborn.pydata.org' target="_blank">seaborn</a> libraries. The bootstrap algorithm was heavily adapted from Constantine Evans' <a href='https://github.com/cgevans/scikits-bootstrap' target="_blank">scikits-bootstrap</a> package.
 		<br><br>The web application was built in <a href="https://flask.pocoo.org" target="_blank">Flask</a> and <a href='https://vuejs.org/'>Vue.js</a> by Hung Nguyen.
 		<br><br>The layout uses fonts and typography designed by <a href='https://practicaltypography.com/end-credits.html#bio' target="_blank">Matthew Butterick</a>.
-		<br><br>This site is © 2017 Adam Claridge-Chang and Joses Ho. All rights reserved.
+		<br><br>This site is © 2017-2018 Adam Claridge-Chang and Joses Ho. All rights reserved.
 		<br><br>
 		<h5>How to cite</h5>
 		Ho, J and Claridge-Chang, A (2017), “Estimation Statistics” website http://www.estimationstats.com, accessed on [insert access date here].

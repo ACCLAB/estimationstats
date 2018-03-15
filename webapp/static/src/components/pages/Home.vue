@@ -31,50 +31,42 @@
 					What is Estimation Statistics?
 				</router-link>
 			</div>
-			<!-- <div class="col s6">
-				<router-link :to="{ name: 'user-guide', params: { plotType: plotTypes.UNPAIRED.type }}">
-					The Five Plot Types
-				</router-link>
-			</div> -->
+			<div class="col s6">
+				<a href='https://github.com/ACCLAB/DABEST-python' target='_blank'>Get the code</a>
+			</div>
+			<div class="col s6">
+				<router-link :to="{ name: 'about'}">About this site</router-link>
+			</div>
 		</div>
 
-
-
-		<div class="row"></div>
-		<br>
 		<div class="row">
 			<div class="col s12">
 				<span id="plot" class="title">Plot</span>
 				<div class="divider heavy"></div>
 			</div>
+			
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">
 					{{ plotTypes.UNPAIRED.name }}
 				</router-link>
 			</div>
-
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.PAIRED.type }}">
 					{{ plotTypes.PAIRED.name }}
 				</router-link>
 			</div>
-		</div>
 
-		<div class="row">
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI.type }}">
 					{{ plotTypes.MULTI.name }}
 				</router-link>
 			</div>
-
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">
 					{{ plotTypes.MULTI_PAIRED.name }}
 				</router-link>
 			</div>
-		</div>
 
-		<div class="row">
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}">
 					{{ plotTypes.SHARED_CONTROL.name }}
@@ -82,23 +74,11 @@
 			</div>
 		</div>
 
-
-		<div class="row"></div>
-		<br>
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col s12">
 				<span id="begin" class="title">Find Out More</span>
 				<div class="divider heavy"></div>
-			</div>
-				<div class="col s6">
-					<router-link :to="{ name: 'about'}">About this site</router-link>
-				</div>
-				<div class="col s6">
-					<a href='https://github.com/ACCLAB/DABEST-python' target='_blank'>Get the code</a>
-					<!-- <router-link :to="{ name: 'get-code'}">Get the code</router-link> -->
-				</div>
-			</div>
-		</div>
+		</div> -->
 
 	</div>
 </template>

@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<div class="page-title">{{ plotName }}</div>
+		<div class="page-title">
+			{{ plotName }}
+		</div>
+
 		<div class="row">
 			<div class="col number">
 				<i class="circle-number left">0</i>
@@ -21,9 +24,10 @@
 				<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
 					Use this page to make a plot of experiments that share one reference control group.
 				</template>
-				<router-link :to="{ name: 'user-guide', params: { plotType: plotType }}">See user guide.</router-link>
+				<router-link :to="{ name: 'user-guide', params: { plotType: plotType }}">Find out more.</router-link>
 			</div>
 		</div>
+
 		<br>
 		<div class="row">
 			<div class="col number">
@@ -33,6 +37,11 @@
 				<div class="row col">
 					Enter your data.
 				</div>
+
+				<div class="row col">
+				The first row of the data MUST be names of the groups. <span class="text" style="font-size:19px">See preloaded data.</span>
+			</div>
+
 				<div class="row">
 					<div class="col s12 input-types">
 						<span v-for="inputDataType in inputDataTypes" :key="inputDataType.type">
@@ -41,8 +50,8 @@
 						</span>
 					</div>
 					<div class="col s12" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-						The first row of the data MUST be names of the groups. <span class="text" style="font-size:19px">See preloaded data.</span>
-						<br><br>
+						<!-- The first row of the data MUST be names of the groups. <span class="text" style="font-size:19px">See preloaded data.</span>
+						<br><br> -->
 						<HotTable :settings="hotSettings"></HotTable>
 						<span class="text" style="font-size:19px"> The preloaded
 							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset consists of four sets of paired samples (n=15) giving the same paired t-test <i>P</i> value, despite vastly divergent graphical relationships.
@@ -148,7 +157,7 @@
 
 			<div class="col content">
 				<div class="row col">
-					Analyze your data and display as an m-diff plot.
+					Analyze and display your data.
 				</div>
 				<div class="row">
 					<div class="file-field input-field col s12">

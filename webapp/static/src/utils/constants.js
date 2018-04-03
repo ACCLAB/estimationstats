@@ -2,8 +2,8 @@
 export const plotTypes = {
 	UNPAIRED: { type: 'two-independent-groups', name: 'Two groups' },
 	PAIRED: { type: 'paired', name: 'Paired' },
-	MULTI: { type: 'multi', name: 'Multiple groups' },
-	MULTI_PAIRED: { type: 'multi-paired', name: 'Multi-paired' },
+	MULTI: { type: 'multi', name: 'Multi Two groups' },
+	MULTI_PAIRED: { type: 'multi-paired', name: 'Multi Paired' },
 	SHARED_CONTROL: { type: 'shared-control', name: 'Shared control' }
 };
 

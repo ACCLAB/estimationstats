@@ -1,16 +1,26 @@
 <template>
 	<div>
-		To compare two or more similar experiments, it is often convenient to place a number of two-groups results into a single arrangement. In this plot, the mean difference can no longer be placed to the right. Instead, the two or more mean differences are plotted below the observed values axes in new delta axes. This allows the direct visual comparison of multiple mean differences (‘deltas’).
-
+		To compare two or more paired experiments, you can use a multi paired plot.
+		<br>
+		<img src="../../../../static/img/multi-two-group-paired-display.svg" align="centre" height="400px" style="margin: 20px 0px">
 		<br><br>
-		Since there are two measurements for each individual, there needs to be two columns of numbers <i>of the same length</i>.
-
-		<p><i>Example figure coming soon!</i></p>
-
+		A multi paired plot tiles 2 more more paired plots, allowing for comparison of several paired experiments side by side.
+		<br><br>
+		The paired mean differences are plotted below the observed values axes in new delta axes. This allows the direct visual comparison of multiple mean differences (‘deltas’).
+		<br><br>
+		<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">
+			Back to {{ plotTypes.MULTI_PAIRED.name }} analysis
+		</router-link>
 	</div>
 </template>
 
 <script>
+import * as constants from '@/utils/constants.js';
 export default {
+	data() {
+		return {
+			plotTypes: constants.plotTypes
+		};
+	}
 };
 </script>

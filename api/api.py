@@ -104,6 +104,11 @@ class Analyze(Resource):
 
             # Compute contrast statistics and create the contrast plot.
             f, b = dabest.plot(df, **kwargs)
+            # munge the stats columns a bit.
+            b.drop(['is_difference'],
+                    axis=1,inplace=True)
+            b.rename(columns={'stat_summary':'mean_difference'},
+                    inplace=True)
             stats = b.to_html()
 
             # Prepare PNG output.

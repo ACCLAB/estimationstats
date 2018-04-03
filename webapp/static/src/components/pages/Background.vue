@@ -1,7 +1,6 @@
 <template>
 	<div>
-		<h5>Background</h5>
-		<i>example figure with panels showing all 5 types of plot</i>
+		<!-- <h5>Background</h5> -->
 		<br>
 		This site provides you with a web application to plot experimental data from an <a href='https://en.wikipedia.org/wiki/Estimation_statistics' target='blank'>estimation statistics</a> perspective. You may have found significance testing and P-values <a href='https://www.nature.com/articles/nmeth.3288' target='blank'>problematic</a>; you may be asking what comes <a href='https://doi.org/10.5281/zenodo.60156' target='blank'>next</a>.
 		<br><br>Estimation statistics is a simple <a href='https://thenewstatistics.com/itns/' target='blank'>framework</a> that—while avoiding the pitfalls of significance testing—uses familiar statistical concepts: means, mean differences, and error bars.
@@ -15,8 +14,8 @@
 		</ul>
 		All of these plots enable you to graphically inspect the mean difference and its confidence interval. When there are multiple groups, the side-by-side plotting allows the visual comparison of effect sizes.
 		<br>
-		<i>example figure with panels bars-stars, boxplot, estimation plot</i>
-		<br><br>Relative to conventional plots, estimation plots offer five key benefits:
+		<img src="../../../static/img/bars-stars-estplot.svg" align="centre" height="550px" style="margin: 50px 0px">
+		<br>Relative to conventional plots, estimation plots offer five key benefits:
 
 		<table style="width:90%">
 	  <tr>

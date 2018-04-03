@@ -5,7 +5,7 @@ import Home from '@/components/pages/Home';
 import UserGuide from '@/components/pages/UserGuide';
 import Background from '@/components/pages/Background';
 import About from '@/components/pages/About';
-import GetCode from '@/components/pages/GetCode';
+// import GetCode from '@/components/pages/GetCode';
 const Analyze = () => import('@/components/pages/Analyze');
 
 Vue.use(Router);
@@ -58,50 +58,52 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/Background',
-			name: 'Background',
+			path: '/background',
+			name: 'background',
 			component: Background,
 			meta: {
-				anchor: '/#begin',
-				breadcrumb: 'Begin'
+				anchor: '',
+				breadcrumb: 'Intro'
 			}
 		},
-		{
-			path: '/about',
-			name: 'about',
-			component: About,
-			meta: {
-				anchor: '/#begin',
-				breadcrumb: 'Begin'
-			}
-		},
-		{
-			path: '/get-code',
-			name: 'get-code',
-			component: GetCode,
-			meta: {
-				anchor: '/#begin',
-				breadcrumb: 'Begin'
-			}
-		},
-		{
-			path: '/analyze/:plotType',
-			name: 'analyze',
-			component: Analyze,
-			props: true,
-			meta: {
-				anchor: '/#plot',
-				breadcrumb: 'Plot'
-			}
-		},
+
 		{
 			path: '/user-guide/:plotType',
 			name: 'user-guide',
 			component: UserGuide,
 			props: true,
 			meta: {
-				anchor: '/#begin',
-				breadcrumb: 'Begin'
+				anchor: '',
+				breadcrumb: 'Intro'
+			}
+		},
+
+		{
+			path: '/about',
+			name: 'about',
+			component: About,
+			meta: {
+				anchor: '',
+				breadcrumb: 'Find Out More'
+			}
+		},
+		// {
+		// 	path: '/get-code',
+		// 	name: 'get-code',
+		// 	component: GetCode,
+		// 	meta: {
+		// 		anchor: '/#begin',
+		// 		breadcrumb: 'Begin'
+		// 	}
+		// },
+		{
+			path: '/analyze/:plotType',
+			name: 'analyze',
+			component: Analyze,
+			props: true,
+			meta: {
+				anchor: '',
+				breadcrumb: 'Plot'
 			}
 		}
 	]

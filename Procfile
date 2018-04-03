@@ -1,1 +1,1 @@
-web: gunicorn run:app --preload --workers 1 --threads 4
+web: gunicorn run:app --preload --workers 3 --threads 4

@@ -5,7 +5,7 @@ import Home from '@/components/pages/Home';
 import UserGuide from '@/components/pages/UserGuide';
 import Background from '@/components/pages/Background';
 import About from '@/components/pages/About';
-// import GetCode from '@/components/pages/GetCode';
+import GetCode from '@/components/pages/GetCode';
 const Analyze = () => import('@/components/pages/Analyze');
 
 Vue.use(Router);
@@ -87,15 +87,15 @@ const router = new Router({
 				breadcrumb: 'Find Out More'
 			}
 		},
-		// {
-		// 	path: '/get-code',
-		// 	name: 'get-code',
-		// 	component: GetCode,
-		// 	meta: {
-		// 		anchor: '/#begin',
-		// 		breadcrumb: 'Begin'
-		// 	}
-		// },
+		{
+			path: '/getcode',
+			name: 'getcode',
+			component: GetCode,
+			meta: {
+				anchor: '',
+				breadcrumb: 'Get the code'
+			}
+		},
 		{
 			path: '/analyze/:plotType',
 			name: 'analyze',

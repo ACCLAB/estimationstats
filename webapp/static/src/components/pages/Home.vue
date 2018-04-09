@@ -32,7 +32,10 @@
 				</router-link>
 			</div>
 			<div class="col s6">
-				<a href='https://github.com/ACCLAB/DABEST-python' target='_blank'>Get the code</a>
+				<router-link :to="{ name: 'getcode'}">
+					Get the code
+				</router-link>
+				<!-- <a href='https://github.com/ACCLAB/DABEST-python' target='_blank'>Get the code</a> -->
 			</div>
 			<div class="col s6">
 				<router-link :to="{ name: 'about'}">About this site</router-link>
@@ -44,7 +47,7 @@
 				<span id="plot" class="title">Plot</span>
 				<div class="divider heavy"></div>
 			</div>
-			
+
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">
 					{{ plotTypes.UNPAIRED.name }}

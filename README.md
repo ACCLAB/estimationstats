@@ -22,6 +22,7 @@ It will start an express server for frontend. Hot reload will be enabled, when y
 The frontend is using `127.0.0.1:5000` for API calls. If you use another port for Python server, you should modify method `getBaseURL` in `common.js` file.
 
 4. For production, run
+
 ```console
 npm run build
 ```

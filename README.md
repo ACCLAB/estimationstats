@@ -7,12 +7,13 @@ A Flask webapp to enable users to perform estimation-based visualization and ana
 
 2. Install required node modules
 
-```console
+```shell
 cd contrast-webapp/webapp/static
 npm install
 ```
 3. For development  enviroment, run
-```console
+
+```shell
 npm run dev
 ```
 
@@ -20,8 +21,8 @@ It will start an express server for frontend. Hot reload will be enabled, when y
 
 The frontend is using `127.0.0.1:5000` for API calls. If you use another port for Python server, you should modify method `getBaseURL` in `common.js` file.
 
-For production, run
-``console
+4. For production, run
+```console
 npm run build
 ```
 

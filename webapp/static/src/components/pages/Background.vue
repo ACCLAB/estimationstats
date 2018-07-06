@@ -16,7 +16,7 @@
 		</object>
 
 		<br>
-		So the barplot is not good enough, despite enjoying widespread usage in academic journals. We're not <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>the</a> <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>first</a> <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>ones</a> to point out the myriad of flaws with the barplot.
+		So the barplot is not good enough, despite enjoying widespread usage in academic journals. We're not the first ones (see <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>this</a>,  <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>this</a>, or <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>that</a>) to point out the myriad of flaws with the barplot.
 
 		<br><br>
 		OK, so maybe you use a boxplot instead: everyone is familiar with it, and it gives more information than just means and standard deviations, correct?

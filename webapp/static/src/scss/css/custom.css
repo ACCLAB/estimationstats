@@ -8,7 +8,7 @@
 
 html {
     font-size: 26px !important;
-    font-family: "ConcourseRegular", "Roboto", sans-serif !important;
+    font-family: "ConcourseRegular", "Roboto", "Work Sans", sans-serif !important;
 }
 
 @media only screen and (max-width: 1200px) {

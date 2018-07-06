@@ -1,9 +1,65 @@
 <template>
+
 	<div>
 		<!-- <h5>Background</h5> -->
 		<br>
 		This site provides you with a web application to plot experimental data from an <a href='https://en.wikipedia.org/wiki/Estimation_statistics' target='blank'>estimation statistics</a> perspective. You may have found significance testing and P-values <a href='https://www.nature.com/articles/nmeth.3288' target='blank'>problematic</a>; you may be asking what comes <a href='https://doi.org/10.5281/zenodo.60156' target='blank'>next</a>.
-		<br><br>Estimation statistics is a simple <a href='https://thenewstatistics.com/itns/' target='blank'>framework</a> that—while avoiding the pitfalls of significance testing—uses familiar statistical concepts: means, mean differences, and error bars.
+		<br><br>
+		Estimation statistics is a simple <a href='https://thenewstatistics.com/itns/' target='blank'>framework</a> that—while avoiding the pitfalls of significance testing—uses familiar statistical concepts: means, mean differences, and error bars.
+
+		<br><br>
+		Let's say you have performed an experiment with 40 control subjects, and 40 test subjects. You do what you've been taught since kindergarten: make a barplot of your data.
+
+		<br><br>
+		<object data="../../../static/img/background/barplot.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
+				<img src="../../../static/img/background/barplot.svg" align="centre" height="550px" style="margin: 50px 0px"/>
+		</object>
+
+		<br>
+		So the barplot is not good enough, despite enjoying widespread usage in academic journals. We're not <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>the</a> <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>first</a> <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>ones</a> to point out the myriad of flaws with the barplot.
+
+		<br><br>
+		OK, so maybe you use a boxplot instead: everyone is familiar with it, and it gives more information than just means and standard deviations, correct?
+
+		<br><br>
+		<object data="../../../static/img/background/boxplot.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
+				<img src="../../../static/img/background/boxplot.svg" align="centre" height="550px" style="margin: 50px 0px"/>
+		</object>
+
+		<br>
+		The boxplot still doesn't show you all your data.
+
+		<br><br>
+		<object data="../../../static/img/background/swarmplot.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
+				<img src="../../../static/img/background/swarmplot.svg" align="centre" height="550px" style="margin: 50px 0px"/>
+		</object>
+
+		<br>
+		The swarmplot is doing better! And by displacing each datapoint orthogonally rather than adding a random factor (as is done in a jitter plot), the underlying distribution of the data is displayed.
+		<br><br>
+		But how can you display the effect size, which is what you are actually interested in?
+		<br><br>
+		This is why we designed the <b><i>contrast plot</i></b>.
+		<br><br>
+		<object data="../../../static/img/background/contrast-plot.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
+				<img src="../../../static/img/background/contrast-plot.svg" align="centre" height="550px" style="margin: 50px 0px"/>
+		</object>
+
+		<br><br>
+		In addition to displaying all datapoints <b><i>and</i></b> showing the underlying distribution, the contrast plot plots the <b><i>effect size</i></b> as a <b><i>95% confidence interval</i></b> on a seperate but aligned axes.
+
+		<br><br>
+		How does bootstrapping work?
+		<br><br>
+		<object data="../../../static/img/background/bootstrap-step-by-step.svg" type="image/svg+xml" width="100%" align="left">
+				<img src="../../../static/img/background/bootstrap-step-by-step.svg" align="left" height="550px" style="margin: 50px 0px"/>
+		</object>
+		<br><br>
+		Take the reader step by step through the above figure.
+
+		<br><br>
+
+		<br><br>
 		For each of the most routine significance tests, there is an estimation replacement:
 		<ul style="list-style-type:disc">
 			<li>Unpaired Student’s t-test → Two-groups Gardner-Altman comparison plot</li>
@@ -14,7 +70,7 @@
 		</ul>
 		All of these plots enable you to graphically inspect the mean difference and its confidence interval. When there are multiple groups, the side-by-side plotting allows the visual comparison of effect sizes.
 		<br>
-		<img src="../../../static/img/bars-stars-estplot.svg" align="centre" height="550px" style="margin: 50px 0px">
+
 		<br>Relative to conventional plots, estimation plots offer five key benefits:
 
 		<table style="width:90%">

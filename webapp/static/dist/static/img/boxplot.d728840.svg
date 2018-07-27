@@ -6,7 +6,7 @@
  <defs>
   <style type="text/css">
     @import url('https://fonts.googleapis.com/css?family=Work+Sans');
-*{stroke-linecap:butt;stroke-linejoin:round;}
+    *{stroke-linecap:butt;stroke-linejoin:round;}
   </style>
  </defs>
  <g id="figure_1">

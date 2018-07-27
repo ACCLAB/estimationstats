@@ -5,7 +5,8 @@
 <svg height="592.258541pt" version="1.1" viewBox="0 0 702.402 592.258541" width="702.402pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <style type="text/css">
-*{stroke-linecap:butt;stroke-linejoin:round;}
+    @import url('https://fonts.googleapis.com/css?family=Work+Sans');
+    *{stroke-linecap:butt;stroke-linejoin:round;}
   </style>
  </defs>
  <g id="figure_1">

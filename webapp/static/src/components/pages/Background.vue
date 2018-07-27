@@ -24,7 +24,7 @@
 			Let's say we have performed an experiment with 40 control subjects, and 40 test subjects. We begin our data analysis by making a barplot of the data.
 			<br><br>
 			<object data="../../../static/img/background/barplot.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
-					<img src="../../../static/img/background/barplot.svg" align="centre" height="550px" style="margin: 50px 0px"/>
+			<!-- <img src="../../../static/img/background/barplot.svg" align="centre" height="550px" style="margin: 50px 0px"/> -->
 			</object>
 			The barplot has several shortcomings, despite enjoying widespread usage in academic journals. We're not the first ones (see <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>this</a>,  <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>this</a>, or <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>that</a>) to point out the myriad flaws with the barplot. Importantly, the barplot does not show us the effect size.
 		</p>

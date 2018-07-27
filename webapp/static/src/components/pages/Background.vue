@@ -47,7 +47,7 @@
 			The swarmplot is better able to represent underlying distribution of the data. But how can we display the effect size, which is what we are actually interested in?
 		</p> -->
 
-		<h5>Introducting the Estimation Plot</h5>
+		<h5>Introducing the Estimation Plot</h5>
 		<p>
 			<img src="../../../static/img/background/two-group-estimation-plot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
 			An estimation plot has two key features. Firstly, it presents all datapoints as a swarmplot, which orders each point to display the underlying distribution. Secondly, an estimation plot presents the effect size as a <b><i>bootstrap 95% confidence interval</i></b> on a <b><i>seperate but aligned axes</i></b>.

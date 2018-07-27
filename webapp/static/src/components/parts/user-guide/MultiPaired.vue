@@ -9,9 +9,7 @@
 			The paired mean differences are plotted below the observed values axes in new delta axes. This allows the direct visual comparison of multiple mean differences (‘deltas’).
 		</p>
 
-		<object data="../../../../static/img/exemplars/multi-two-group-paired.svg" type="image/svg+xml" align="centre" width="85%" style="margin: 0px 40px" >
-				<img src="../../../../static/img/exemplars/multi-two-group-paired.svg" align="centre" width="85%" style="margin: 0px 40px"/>
-		</object>
+		<img src="../../../../static/img/exemplars/multi-two-group-paired.png" align="centre" width="85%" style="margin: 0px 40px"/>
 
 		<p>
 			<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">

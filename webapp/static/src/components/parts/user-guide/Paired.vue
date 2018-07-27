@@ -1,9 +1,7 @@
 <template>
 	<div>
 
-		<object data="../../../../static/img/exemplars/two-group-paired.svg" type="image/svg+xml" align="right" width="40%" style="margin: 25px 50px" >
-				<img src="../../../../static/img/exemplars/two-group-paired.svg" align="right" width="40%" style="margin: 25px 50px"/>
-		</object>
+		<img src="../../../../static/img/exemplars/two-group-paired.png" align="right" width="40%" style="margin: 25px 50px"/>
 
 		<p>
 			<br>

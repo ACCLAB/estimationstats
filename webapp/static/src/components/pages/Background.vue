@@ -21,29 +21,20 @@
 
 		<h5>The Inadequacy of Common Plots</h5>
 		<p>
-			Let's say we have performed an experiment with 40 control subjects, and 40 test subjects. We begin our data analysis by making a barplot of the data.
-			<br><br>
-			<object data="../../../static/img/background/barplot.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
-			<!-- <img src="../../../static/img/background/barplot.svg" align="centre" height="550px" style="margin: 50px 0px"/> -->
-			</object>
+			Let's say we have performed an experiment with 30 control subjects, and 30 test subjects. We begin our data analysis by making a barplot of the data.
+			<img src="../../../static/img/background/barplot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
 			The barplot has several shortcomings, despite enjoying widespread usage in academic journals. We're not the first ones (see <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>this</a>,  <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>this</a>, or <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>that</a>) to point out the myriad flaws with the barplot. Importantly, the barplot does not show us the effect size.
 		</p>
 
 		<p>
 			So next, we use a boxplot to visualize the data.
-			<br><br>
-			<object data="../../../static/img/background/boxplot.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
-					<img src="../../../static/img/background/boxplot.svg" align="centre" height="550px" style="margin: 50px 0px"/>
-			</object>
+			<img src="../../../static/img/background/boxplot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
 			Unfortunately, the boxplot still doesn't show all our data. We still lack information about the underlying distribution of your data. Is it normally distributed? Is there skew in the points? What is the sample size? More importantly, boxplots do not display the effect size.
 		</p>
 
 		<p>
 			To display several data points across one or more categories,  we can use the jitter plot.
-			<br><br>
-			<object data="../../../static/img/background/jitter.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
-					<img src="../../../static/img/background/jitter.svg" align="centre" height="550px" style="margin: 50px 0px"/>
-			</object>
+			<img src="../../../static/img/background/jitter.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
 			Jitter plots avoid overlapping datapoints (i.e. datapoints with the same y-value) by adding a random factor to each point along the orthogonal x-axes. Thus, while a jitter plot displays all datapoints (implicitly indicating the sample size visually), it might not accurately depict the underlying distribution of the data.
 		</p>
 
@@ -56,20 +47,21 @@
 			The swarmplot is better able to represent underlying distribution of the data. But how can we display the effect size, which is what we are actually interested in?
 		</p> -->
 
-		<h5>The Estimation Plot</h5>
+		<h5>Introducting the Estimation Plot</h5>
 		<p>
-			<object data="../../../static/img/background/two-group-estimation-plot.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
-					<img src="../../../static/img/background/two-group-estimation-plot.svg" align="centre" height="550px" style="margin: 50px 0px"/>
-			</object>
-			All datapoints are displayed with a swarmplot, which orders each point to display the underlying distribution. Importantly, the estimation plot presents the effect size as a <b><i>bootstrap 95% confidence interval</i></b> on a <b><i>seperate but aligned axes</i></b>. We illustrate how bootstrap confidence intervals are generated below.
+			<img src="../../../static/img/background/two-group-estimation-plot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+			An estimation plot has two key features. Firstly, it presents all datapoints as a swarmplot, which orders each point to display the underlying distribution. Secondly, an estimation plot presents the effect size as a <b><i>bootstrap 95% confidence interval</i></b> on a <b><i>seperate but aligned axes</i></b>.
 		</p>
 
 		<p>
-			<object data="../../../static/img/background/bootstrap-step-by-step.svg" type="image/svg+xml" width="100%" align="left">
-					<img src="../../../static/img/background/bootstrap-step-by-step.svg" align="left" height="550px" style="margin: 50px 0px"/>
-			</object>
+			We illustrate how bootstrap confidence intervals are generated below.
+			<img src="../../../static/img/background/bootstrap-step-by-step.png" align="center" width="110%" style="margin: 10px -35px -30px"/>
 			<br><br>
-			In a typical scientific experiment, we are attempting to estimate the mean difference (Δ) between two populations: <i>µ</i><sub>Control</sub> and <i>µ</i><sub>Test</sub> (Figure 5A). We <i>sample</i> from the control population and from the test population (Figure 5B). We can easily compute the mean difference in our observed sample (Δ̂). <b>But how do we obtain a measure of precision and confidence about our observed mean difference, and also get a sense of the population mean difference?</b>
+			In a typical scientific experiment, we are attempting to estimate the mean difference between two populations: <i>µ</i><sub>Control</sub> and <i>µ</i><sub>Test</sub> (Figure 5A). We go about this by obtaining <i>samples</i> from the control population and from the test population (Figure 5B). We can easily compute the mean difference in our observed sample (Δ).
+		</p>
+
+		<p>
+			<b>But how do we obtain a measure of precision and confidence about our observed mean difference, and also get a sense of the population mean difference?</b>
 		</p>
 
 		<p>
@@ -77,7 +69,7 @@
 		</p>
 
 		<p>
-				An added benefit of bootstrap confidence intervals is that we <b>do not need to assume</b> that the population from which our samples come from have a normal distribution.
+			An added benefit of bootstrap confidence intervals is that we <b>do not need to assume</b> that the population from which our samples come from have a normal distribution.
 		</p>
 
 		<p>
@@ -95,41 +87,31 @@
 				<li>
 					Unpaired Student’s t-test → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">Two-group estimation plot</router-link>
 					<br>
-					<object data="../../../static/img/exemplars/two-group-unpaired.svg" type="image/svg+xml" width="40%" align="centre">
-							<img src="../../../static/img/exemplars/two-group-unpaired.svg" align="left" height="550px" style="margin: 50px 0px"/>
-					</object>
+					<img src="../../../static/img/exemplars/two-group-unpaired.png" align="center" height="550px" style="margin: -10px 25px 50px"/>
 				</li>
 
 				<li>
 					Paired Student’s t-test → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.PAIRED.type }}">Paired estimation plot</router-link>
 					<br>
-					<object data="../../../static/img/exemplars/two-group-paired.svg" type="image/svg+xml" width="40%" align="centre">
-							<img src="../../../static/img/exemplars/two-group-paired.svg" align="left" height="550px" style="margin: 50px 0px"/>
-					</object>
+					<img src="../../../static/img/exemplars/two-group-paired.png" align="center" height="550px" style="margin: -10px 25px 50px"/>
 				</li>
 
 				<li>
 					One-way ANOVA + multiple comparisons → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI.type }}">Multi two-group estimation plot</router-link>
 					<br>
-					<object data="../../../static/img/exemplars/multi-two-group-unpaired.svg" type="image/svg+xml" width="90%" align="centre">
-							<img src="../../../static/img/exemplars/multi-two-group-unpaired.svg" align="left" height="550px" style="margin: 50px 0px"/>
-					</object>
+							<img src="../../../static/img/exemplars/multi-two-group-unpaired.png" align="center" height="550px" style="margin: -5px 25px 50px"/>
 				</li>
 
 				<li>
 					Repeated measures ANOVA → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">Multi paired estimation plot</router-link>
 					<br>
-					<object data="../../../static/img/exemplars/multi-two-group-paired.svg" type="image/svg+xml" width="90%" align="centre">
-							<img src="../../../static/img/exemplars/multi-two-group-paired.svg" align="left" height="550px" style="margin: 50px 0px"/>
-					</object>
+							<img src="../../../static/img/exemplars/multi-two-group-paired.png" align="center" height="550px" style="margin: -5px 25px 50px"/>
 				</li>
 
 				<li>
 					Ordered groups ANOVA → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}">Shared-control estimation plot</router-link>
 					<br>
-					<object data="../../../static/img/exemplars/shared-control.svg" type="image/svg+xml" width="90%" align="centre">
-							<img src="../../../static/img/exemplars/shared-control.svg" align="left" height="550px" style="margin: 50px 0px"/>
-					</object>
+					<img src="../../../static/img/exemplars/shared-control.png" align="center" height="550px" style="margin: -5px 25px 50px"/>
 				</li>
 			</ul>
 
@@ -194,7 +176,7 @@
 	</ol> -->
 
 	<p>
-		To our knowledge, mean difference comparison plots were first described by Martin Gardner and Douglas Altman (<a href='https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/3082422/' target='_blank'>Gardner and Altman 1986</a>), while the multiple-comparison design was devised by Geoff Cumming (<a href='https://www.amazon.com/Introduction-New-Statistics-Estimation-Science/dp/1138825522/' target='_blank'>Cumming 2012</a>).
+		To our knowledge, mean difference estimation plots were first described by Martin Gardner and Douglas Altman (<a href='https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/3082422/' target='_blank'>Gardner and Altman 1986</a>), while the multiple-comparison design was devised by Geoff Cumming (<a href='https://www.amazon.com/Introduction-New-Statistics-Estimation-Science/dp/1138825522/' target='_blank'>Cumming 2012</a>).
 	</p>
 
 	</div>

@@ -6,6 +6,7 @@ import UserGuide from '@/components/pages/UserGuide';
 import Background from '@/components/pages/Background';
 import About from '@/components/pages/About';
 import GetCode from '@/components/pages/GetCode';
+
 const Analyze = () => import('@/components/pages/Analyze');
 
 Vue.use(Router);
@@ -63,7 +64,7 @@ const router = new Router({
 			component: Background,
 			meta: {
 				anchor: '',
-				breadcrumb: 'Intro'
+				breadcrumb: 'What is Estimation Stats?'
 			}
 		},
 
@@ -74,7 +75,7 @@ const router = new Router({
 			props: true,
 			meta: {
 				anchor: '',
-				breadcrumb: 'Intro'
+				breadcrumb: 'Find Out More'
 			}
 		},
 
@@ -84,7 +85,7 @@ const router = new Router({
 			component: About,
 			meta: {
 				anchor: '',
-				breadcrumb: 'Find Out More'
+				breadcrumb: 'About'
 			}
 		},
 		{

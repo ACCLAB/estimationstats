@@ -125,13 +125,11 @@ class Analyze(Resource):
             svg = base64.b64encode(img.getvalue()).decode()
 
             # Return all desired outputs.
-            return jsonify(
-                png=png,
-                svg=svg,
-                csv=b.as_matrix().tolist(),
-                columns=list(b),
-                table_html=stats
-            )
+            return jsonify(png=png, svg=svg,
+                           csv=b.values.tolist(),
+                           columns=list(b), table_html=stats
+                           )
+
         except Exception as e:
             print(e) # Use to debug.
             abort(400, 'Error: {}'.format(e))

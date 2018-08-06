@@ -13,9 +13,6 @@ const Analyze = () => import('@/components/pages/Analyze');
 
 Vue.use(Router);
 Vue.use(Meta);
-Vue.use(VueAnalytics, {
-	id: 'UA-118265936-1'}
-);
 
 const scrollBehavior = function (to, from, savedPosition) {
 	return new Promise((resolve, reject) => {

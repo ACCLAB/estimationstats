@@ -22,6 +22,17 @@ Object.defineProperty(Vue.prototype, '_', { value: _ });
 
 Vue.config.productionTip = false;
 
+// analytics code
+const isProd = process.env.NODE_ENV === 'production'
+
+Vue.use(VueAnalytics, {
+	id: 'UA-118265936-1',
+	debug: {
+		enabled: !isProd,
+		sendHitTask: isProd
+	}
+});
+
 /* eslint-disable no-new */
 new Vue({
 	el: '#app',

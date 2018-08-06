@@ -29,6 +29,10 @@ const isProd = process.env.NODE_ENV === 'production';
 
 Vue.use(VueAnalytics, {
 	id: 'UA-118265936-1',
+	router,
+	autoTracking: {
+		exception: true
+	},
 	debug: {
 		enabled: !isProd,
 		sendHitTask: isProd

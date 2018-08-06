@@ -7,8 +7,6 @@ import Background from '@/components/pages/Background';
 import About from '@/components/pages/About';
 import GetCode from '@/components/pages/GetCode';
 
-import VueAnalytics from 'vue-analytics';
-
 const Analyze = () => import('@/components/pages/Analyze');
 
 Vue.use(Router);

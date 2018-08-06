@@ -6,6 +6,8 @@ import router from './router';
 import 'materialize-css';
 import './scss/style.scss';
 
+import VueAnalytics from 'vue-analytics';
+
 Vue.use(VueBreadcrumbs, {
 	template: `
 	<nav class="breadcrumb" v-if="$breadcrumbs.length">
@@ -23,7 +25,7 @@ Object.defineProperty(Vue.prototype, '_', { value: _ });
 Vue.config.productionTip = false;
 
 // analytics code
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production';
 
 Vue.use(VueAnalytics, {
 	id: 'UA-118265936-1',

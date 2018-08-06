@@ -78,13 +78,13 @@ class Analyze(Resource):
                 # two independent groups plot
                 kwargs['idx'] = first_two_columns
                 kwargs['paired'] = False
-                kwargs['fig_size'] = (6/np.sqrt(2),7)
+                # kwargs['fig_size'] = (6/np.sqrt(2),7)
 
             elif plotType == 'paired':
                 # paired plot
                 kwargs['idx'] = first_two_columns
                 kwargs['paired'] = True
-                kwargs['fig_size'] = (6/np.sqrt(2),7)
+                # kwargs['fig_size'] = (6/np.sqrt(2),7)
 
             elif plotType == 'multi':
                 # Multiple groups plot
@@ -97,10 +97,12 @@ class Analyze(Resource):
                 kwargs['idx'] = paired_columns
                 kwargs['paired'] = True
                 kwargs['float_contrast'] = False
+                kwargs['fig_size'] = (2 * len(paired_columns), 7)
 
             else:  # Shared control plot
                 kwargs['idx'] = numerical_cols
                 kwargs['paired'] = False
+                kwargs['fig_size'] = (2 * len(numerical_cols), 7)
 
             # Compute contrast statistics and create the contrast plot.
             f, b = dabest.plot(df, **kwargs)
@@ -113,8 +115,7 @@ class Analyze(Resource):
 
             # Prepare PNG output.
             img = io.BytesIO()
-            plt.savefig(img,
-                        format='png', **savefig_kwargs)
+            plt.savefig(img, format='png', **savefig_kwargs)
             img.seek(0)
             png = base64.b64encode(img.getvalue()).decode()
 

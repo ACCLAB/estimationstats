@@ -11,6 +11,10 @@ html {
     font-family: "ConcourseRegular", "Roboto", "Work Sans", sans-serif !important;
 }
 
+body.loading * {
+    cursor: wait!important;
+}
+
 @media only screen and (max-width: 1200px) {
     body {
         font-size: 1.5rem;

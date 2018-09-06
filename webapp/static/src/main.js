@@ -5,8 +5,8 @@ import App from './App';
 import router from './router';
 import 'materialize-css';
 import './scss/style.scss';
-
 import VueAnalytics from 'vue-analytics';
+import(/* webpackPrefetch: true */ 'vue-handsontable-official');
 
 Vue.use(VueBreadcrumbs, {
 	template: `

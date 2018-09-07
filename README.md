@@ -51,9 +51,9 @@ heroku git:remote -a staging-remote-appname
 git remote rename heroku contrast-staging
 ```
 
-Then, push the current branch to the staging remote.
+Then, push the testing branch to the master branch on the staging remote.
 ```shell
-git push staging testing-branch:master
+git push contrast-staging testing-branch:master
 ```
 
 ## Deployment

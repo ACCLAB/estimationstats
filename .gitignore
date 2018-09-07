@@ -9,3 +9,6 @@ __pycache__/
 
 # log files
 npm-debug.log
+
+# Editor directories and files
+.idea

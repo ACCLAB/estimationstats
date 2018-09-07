@@ -11,7 +11,7 @@ A Flask webapp to enable users to perform estimation-based visualization and ana
 npm install -g @vue/cli
 ```
 
-2. Install required node modules.
+3. Install required node modules.
 
 ```shell
 cd contrast-webapp/webapp/static

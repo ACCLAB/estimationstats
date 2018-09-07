@@ -2,7 +2,6 @@ import matplotlib
 matplotlib.use('Agg') # Set appropriate rendering backend.
 
 import matplotlib.pyplot as plt
-# import bootstrap_contrast as bs
 import pandas as pd
 import numpy as np
 import io
@@ -37,6 +36,10 @@ class Analyze(Resource):
             # Create dict for kwargs.
             kwargs = {}
             kwargs['group_summaries'] = 'mean_sd'
+            # Doesn't seem to work?
+            # TODO: Tweak aesthetics!
+            # sw_kwargs = {'size': 8}
+            # kwargs['swarmplot_kwargs'] = sw_kwargs
 
             # print([k for k in request.form.keys()])
 
@@ -45,13 +48,17 @@ class Analyze(Resource):
                 kwargs['swarm_label'] = request.form['yaxisLabel']
 
             # Add swarm ylims
-            if 'swarm_ylimLower' in request.form and 'swarm_ylimUpper' in request.form:
+            check_swarm_ylim_lower = 'swarm_ylimLower' in request.form
+            check_swarm_ylim_upper = 'swarm_ylimUpper' in request.form
+            if check_swarm_ylim_lower and check_swarm_ylim_upper:
                 low = np.float(request.form['swarm_ylimLower'])
                 high = np.float(request.form['swarm_ylimUpper'])
                 kwargs['swarm_ylim'] = (low, high)
 
             # Add swarm ylims
-            if 'con_ylimLower' in request.form and 'con_ylimUpper' in request.form:
+            check_con_ylim_lower = 'con_ylimLower' in request.form
+            check_con_ylim_upper = 'con_ylimUpper' in request.form
+            if check_con_ylim_lower and check_con_ylim_upper:
                 low = np.float(request.form['con_ylimLower'])
                 high = np.float(request.form['con_ylimUpper'])
                 kwargs['contrast_ylim'] = (low, high)
@@ -66,7 +73,7 @@ class Analyze(Resource):
             #     numerical_cols = numerical_cols[:-1]
 
             paired_columns = [tuple(numerical_cols[i:i + 2])
-            for i in range(0, len(numerical_cols), 2)]
+                              for i in range(0, len(numerical_cols), 2)]
 
             # # If 'color' or 'colour' is a column in `df`,
             # # use it to determine the color.
@@ -102,7 +109,7 @@ class Analyze(Resource):
             else:  # Shared control plot
                 kwargs['idx'] = numerical_cols
                 kwargs['paired'] = False
-                kwargs['fig_size'] = (2 * len(numerical_cols), 7)
+                kwargs['fig_size'] = (1. * len(numerical_cols), 7)
 
             # Compute contrast statistics and create the contrast plot.
             f, b = dabest.plot(df, **kwargs)

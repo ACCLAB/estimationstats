@@ -5,12 +5,19 @@ A Flask webapp to enable users to perform estimation-based visualization and ana
 
 1. Install NodeJs https://nodejs.org/en/download/
 
+2. Install vue-cli.
+
+```shell
+npm install -g @vue/cli
+```
+
 2. Install required node modules.
 
 ```shell
 cd contrast-webapp/webapp/static
 npm install
 ```
+
 ## Development
 
 ```shell

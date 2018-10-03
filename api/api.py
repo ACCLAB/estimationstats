@@ -111,6 +111,12 @@ class Analyze(Resource):
                 kwargs['paired'] = False
                 kwargs['fig_size'] = (1. * len(numerical_cols), 7)
 
+            # Grab the CI.
+            if 'ci' in request.form:
+                CI = np.int(request.form['ci'])
+            else:
+                CI = 95
+            kwargs['ci'] = CI
             # Compute contrast statistics and create the contrast plot.
             f, b = dabest.plot(df, **kwargs)
             # munge the stats columns a bit.

@@ -92,6 +92,7 @@
 			</div>
 		</div>
 
+
 		<div class="row">
 			<div class="col number">
 				<i class="circle-number left">3</i>
@@ -99,7 +100,33 @@
 			<div class="col content">
 				<div class="row no-margin-bot">
 					<div class="col s12">
-						Main y-axis limits. <div style="font-size:21px">If left blank, the limits are auto-scaled.</div>
+						Confidence interval width.
+						<div style="font-size:21px">
+							Enter an integer between 1 and 99.
+							If left blank, defaults to confidence interval(s) of 95%.</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12 m6 l6">
+						<input id="ci" type="number" step=1 min=1 max=99 value=95 v-model="ci">
+						<label for="ci" class="">CI width</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">5</i>
+			</div>
+			<div class="col content">
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Main y-axis limits. <div style="font-size:21px">
+							If left blank, the limits are auto-scaled.</div>
 					</div>
 				</div>
 				<div class="row">
@@ -119,12 +146,13 @@
 		<template v-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
 		<div class="row">
 			<div class="col number">
-				<i class="circle-number left">4</i>
+				<i class="circle-number left">6</i>
 			</div>
 			<div class="col content">
 				<div class="row no-margin-bot">
 					<div class="col s12">
-						Bootstrapped difference y-axis limits. <div style="font-size:21px">If left blank, the limits are auto-scaled.</div>
+						Bootstrapped difference y-axis limits. <div style="font-size:21px">
+							If left blank, the limits are auto-scaled.</div>
 					</div>
 				</div>
 				<div class="row">
@@ -146,12 +174,12 @@
 		<div class="row">
 			<template v-if="plotType === plotTypes.UNPAIRED.type || plotType === plotTypes.PAIRED.type">
 				<div class="col number">
-					<i class="circle-number left">4</i>
+					<i class="circle-number left">6</i>
 				</div>
 		</template>
 			<template v-else-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
 				<div class="col number">
-					<i class="circle-number left">5</i>
+					<i class="circle-number left">7</i>
 				</div>
 			</template>
 
@@ -196,12 +224,12 @@
 		<div class="row">
 			<template v-if="plotType === plotTypes.UNPAIRED.type || plotType === plotTypes.PAIRED.type">
 				<div class="col number">
-					<i class="circle-number left">5</i>
+					<i class="circle-number left">7</i>
 				</div>
 		</template>
 			<template v-else-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
 				<div class="col number">
-					<i class="circle-number left">6</i>
+					<i class="circle-number left">8</i>
 				</div>
 			</template>
 			<div class="col content">
@@ -444,6 +472,8 @@ export default {
 		getPlotOptions() {
 			return {
 				yaxisLabel: this.yaxisLabel,
+				ci: this.ci,
+				// rawdata_size: this.rawdata_size,
 				swarm_ylimLower: this.swarmYlimLower,
 				swarm_ylimUpper: this.swarmYlimUpper,
 				con_ylimLower: this.conYlimLower,

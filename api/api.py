@@ -153,6 +153,9 @@ class Analyze(Resource):
                            columns=list(b), table_html=stats
                            )
 
+            # close the plot to save memory!
+            plt.close()
+
         except Exception as e:
             print(e) # Use to debug.
             abort(400, 'Error: {}'.format(e))

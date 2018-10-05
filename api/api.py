@@ -36,12 +36,7 @@ class Analyze(Resource):
             # Create dict for kwargs.
             kwargs = {}
             kwargs['group_summaries'] = 'mean_sd'
-            # Doesn't seem to work?
-            # TODO: Tweak aesthetics!
-            # sw_kwargs = {'size': 8}
-            # kwargs['swarmplot_kwargs'] = sw_kwargs
-
-            # print([k for k in request.form.keys()])
+            kwargs['swarm_dotsize'] = int(request.form['swarm_dotsize'])
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:
@@ -119,10 +114,18 @@ class Analyze(Resource):
 
             # Grab the CI.
             if 'ci' in request.form:
-                CI = np.int(request.form['ci'])
+                CI = request.form['ci']
             else:
                 CI = 95
-            kwargs['ci'] = CI
+            kwargs['ci'] = int(CI)
+
+            # # Grab the rawdata_size.
+            # if 'rawdata_size' in request.form:
+            #     rawdata_size = np.int(request.form['rawdata_size'])
+            # else:
+            #     rawdata_size = 7
+            # kwargs['swarmplot_kwargs'] = {"size": rawdata_size}
+
             # Compute contrast statistics and create the contrast plot.
             f, b = dabest.plot(df, **kwargs)
             # munge the stats columns a bit.

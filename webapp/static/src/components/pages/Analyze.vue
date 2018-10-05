@@ -5,9 +5,9 @@
 		</div>
 
 		<div class="row">
-			<div class="col number">
+			<!-- <div class="col number">
 				<i class="circle-number left">0</i>
-			</div>
+			</div> -->
 			<div class="col content">
 				<template v-if="plotType === plotTypes.UNPAIRED.type">
 					This page does estimation statistics' counterpart to Student’s t-test: the two-independent-groups mean difference plot.
@@ -80,7 +80,8 @@
 			<div class="col content">
 				<div class="row no-margin-bot">
 					<div class="col s12">
-						Title for the main plot y-axis. <div style="font-size:21px">If left blank, defaults to "value".</div>
+						Label for the main plot y-axis.
+						<div style="font-size:21px">If left blank, defaults to "value".</div>
 					</div>
 				</div>
 				<div class="row">
@@ -102,20 +103,47 @@
 					<div class="col s12">
 						Confidence interval width.
 						<div style="font-size:21px">
-							Enter an integer between 1 and 99.
-							If left blank, defaults to confidence interval(s) of 95%.</div>
+							Choose an integer between 50 and 99; the default is a 95% CI.
+						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12 m6 l6">
-						<input id="ci" type="number" step=1 min=1 max=99 value=95 v-model="ci">
-						<label for="ci" class="">CI width</label>
+						<vue-slider v-model="ci" interval=1 min=50 max=99 value=95
+						height=10 dotSize=18 speed=0.1
+						tooltipStyle="font-size:18px" tooltip-dir='right'
+						>
+						</vue-slider>
 					</div>
 				</div>
 			</div>
 		</div>
 
 
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">4</i>
+			</div>
+			<div class="col content">
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Swarmplot dot size.
+						<div style="font-size:21px">
+							Change the size (in points) of the swarmplot data points.
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12 m6 l6">
+						<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=24 value=8
+						height=10 dotSize=18 speed=0.1
+						tooltipStyle="font-size:18px" tooltip-dir='right'
+						>
+						</vue-slider>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 		<div class="row">
@@ -268,6 +296,8 @@
 <script>
 import _ from 'lodash';
 import HotTable from 'vue-handsontable-official';
+// import VueSlideBar from 'vue-slide-bar';
+import vueSlider from 'vue-slider-component';
 import * as constants from '@/utils/constants.js';
 import * as plotService from '@/services/plot-service.js';
 import * as downloadUtil from '@/utils/download-util.js';
@@ -277,6 +307,8 @@ export default {
 	data() {
 		let self = this;
 		return {
+			ci: 95,
+			swarm_dotsize: 8,
 			file: null,
 			fileTypes: constants.fileTypes,
 			fileExtension: constants.fileTypes.PNG.extension, // Default is download PNG
@@ -322,6 +354,7 @@ export default {
 				rowHeaders: true,
 				manualColumnResize: true,
 				contextMenu: true,
+
 				afterInit() {
 					self.hot = this;
 				},
@@ -331,6 +364,7 @@ export default {
 			}
 		};
 	},
+
 	metaInfo() {
 		return {
 			title: this.plotName
@@ -473,7 +507,7 @@ export default {
 			return {
 				yaxisLabel: this.yaxisLabel,
 				ci: this.ci,
-				// rawdata_size: this.rawdata_size,
+				swarm_dotsize: this.swarm_dotsize,
 				swarm_ylimLower: this.swarmYlimLower,
 				swarm_ylimUpper: this.swarmYlimUpper,
 				con_ylimLower: this.conYlimLower,
@@ -482,7 +516,8 @@ export default {
 		}
 	},
 	components: {
-		HotTable
+		HotTable,
+		vueSlider
 	}
 };
 </script>

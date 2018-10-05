@@ -91,6 +91,7 @@ class Analyze(Resource):
                 # paired plot
                 kwargs['idx'] = first_two_columns
                 kwargs['paired'] = True
+                kwargs['id_col'] = "ID"
                 # kwargs['fig_size'] = (6/np.sqrt(2),7)
 
             elif plotType == 'multi':
@@ -103,6 +104,7 @@ class Analyze(Resource):
                 # Multi-paired plot
                 kwargs['idx'] = paired_columns
                 kwargs['paired'] = True
+                kwargs['id_col'] = "ID"
                 kwargs['float_contrast'] = False
                 kwargs['fig_size'] = (2 * len(paired_columns), 7)
 
@@ -110,6 +112,10 @@ class Analyze(Resource):
                 kwargs['idx'] = numerical_cols
                 kwargs['paired'] = False
                 kwargs['fig_size'] = (1. * len(numerical_cols), 7)
+
+            # If this is a paired plot, add an ID column.
+            if kwargs['paired'] is True:
+                df["ID"] = pd.Series(range(1, len(df)))
 
             # Grab the CI.
             if 'ci' in request.form:

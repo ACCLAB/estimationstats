@@ -1,4 +1,4 @@
-dabest==0.1.5
+dabest==0.1.6
 scipy==1.1
 numpy==1.15
 matplotlib==2.2.0

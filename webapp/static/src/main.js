@@ -8,6 +8,10 @@ import './scss/style.scss';
 import VueAnalytics from 'vue-analytics';
 import(/* webpackPrefetch: true */ 'vue-handsontable-official');
 
+// import VueSlideBar from 'vue-slide-bar';
+import vueSlider from 'vue-slider-component';
+
+
 Vue.use(VueBreadcrumbs, {
 	template: `
 	<nav class="breadcrumb" v-if="$breadcrumbs.length">
@@ -45,3 +49,9 @@ new Vue({
 	router,
 	render: h => h(App)
 });
+
+export default {
+  components: {
+		vueSlider //VueSlideBar
+  }
+}

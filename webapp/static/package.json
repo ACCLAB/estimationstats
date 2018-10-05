@@ -1,6 +1,6 @@
 {
   "name": "vue-app",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -18,7 +18,8 @@
     "vue-breadcrumbs": "^1.1.2",
     "vue-handsontable-official": "^1.1.1",
     "vue-meta": "^1.5.3",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-slider-component": "^2.7.8"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",

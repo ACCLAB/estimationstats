@@ -36,12 +36,7 @@ class Analyze(Resource):
             # Create dict for kwargs.
             kwargs = {}
             kwargs['group_summaries'] = 'mean_sd'
-            # Doesn't seem to work?
-            # TODO: Tweak aesthetics!
-            # sw_kwargs = {'size': 8}
-            # kwargs['swarmplot_kwargs'] = sw_kwargs
-
-            # print([k for k in request.form.keys()])
+            kwargs['swarm_dotsize'] = int(request.form['swarm_dotsize'])
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:
@@ -91,6 +86,7 @@ class Analyze(Resource):
                 # paired plot
                 kwargs['idx'] = first_two_columns
                 kwargs['paired'] = True
+                kwargs['id_col'] = "ID"
                 # kwargs['fig_size'] = (6/np.sqrt(2),7)
 
             elif plotType == 'multi':
@@ -103,6 +99,7 @@ class Analyze(Resource):
                 # Multi-paired plot
                 kwargs['idx'] = paired_columns
                 kwargs['paired'] = True
+                kwargs['id_col'] = "ID"
                 kwargs['float_contrast'] = False
                 kwargs['fig_size'] = (2 * len(paired_columns), 7)
 
@@ -110,6 +107,24 @@ class Analyze(Resource):
                 kwargs['idx'] = numerical_cols
                 kwargs['paired'] = False
                 kwargs['fig_size'] = (1. * len(numerical_cols), 7)
+
+            # If this is a paired plot, add an ID column.
+            if kwargs['paired'] is True:
+                df["ID"] = pd.Series(range(1, len(df)))
+
+            # Grab the CI.
+            if 'ci' in request.form:
+                CI = request.form['ci']
+            else:
+                CI = 95
+            kwargs['ci'] = int(CI)
+
+            # # Grab the rawdata_size.
+            # if 'rawdata_size' in request.form:
+            #     rawdata_size = np.int(request.form['rawdata_size'])
+            # else:
+            #     rawdata_size = 7
+            # kwargs['swarmplot_kwargs'] = {"size": rawdata_size}
 
             # Compute contrast statistics and create the contrast plot.
             f, b = dabest.plot(df, **kwargs)
@@ -137,6 +152,9 @@ class Analyze(Resource):
                            csv=b.values.tolist(),
                            columns=list(b), table_html=stats
                            )
+
+            # close the plot to save memory!
+            plt.close()
 
         except Exception as e:
             print(e) # Use to debug.

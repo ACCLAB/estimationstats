@@ -119,37 +119,64 @@
 			</div>
 		</div>
 
-
-		<div class="row">
-			<div class="col number">
-				<i class="circle-number left">4</i>
-			</div>
-			<div class="col content">
-				<div class="row no-margin-bot">
-					<div class="col s12">
-						Swarmplot dot size.
-						<div style="font-size:21px">
-							Change the size (in points) of the swarmplot data points.
+		<template v-if="plotType != plotTypes.PAIRED.type && plotType != plotTypes.MULTI_PAIRED.type">
+			<div class="row">
+				<div class="col number">
+					<i class="circle-number left">4</i>
+				</div>
+				<div class="col content">
+					<div class="row no-margin-bot">
+						<div class="col s12">
+							Swarmplot dot size.
+							<div style="font-size:21px">
+								Change the size (in points) of the swarmplot data points.
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12 m6 l6">
+							<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=24 value=8
+							height=10 dotSize=18 speed=0.1
+							tooltipStyle="font-size:18px" tooltip-dir='right'
+							>
+							</vue-slider>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="input-field col s12 m6 l6">
-						<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=24 value=8
-						height=10 dotSize=18 speed=0.1
-						tooltipStyle="font-size:18px" tooltip-dir='right'
-						>
-						</vue-slider>
-					</div>
-				</div>
 			</div>
-		</div>
-
+		</template>
 
 		<div class="row">
-			<div class="col number">
-				<i class="circle-number left">5</i>
-			</div>
+			<template v-if="plotType === plotTypes.UNPAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">5</i>
+				</div>
+			</template>
+
+			<template v-else-if="plotType === plotTypes.PAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">4</i>
+				</div>
+			</template>
+
+			<template v-else-if="plotType === plotTypes.MULTI.type">
+				<div class="col number">
+					<i class="circle-number left">5</i>
+				</div>
+			</template>
+
+			<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">4</i>
+				</div>
+			</template>
+
+			<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
+				<div class="col number">
+					<i class="circle-number left">5</i>
+				</div>
+			</template>
+
 			<div class="col content">
 				<div class="row no-margin-bot">
 					<div class="col s12">
@@ -173,9 +200,21 @@
 
 		<template v-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
 		<div class="row">
-			<div class="col number">
-				<i class="circle-number left">6</i>
-			</div>
+			<template v-if="plotType === plotTypes.MULTI.type">
+				<div class="col number">
+					<i class="circle-number left">6</i>
+				</div>
+			</template>
+			<template v-if="plotType === plotTypes.MULTI_PAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">5</i>
+				</div>
+			</template>
+			<template v-if="plotType === plotTypes.SHARED_CONTROL.type">
+				<div class="col number">
+					<i class="circle-number left">6</i>
+				</div>
+			</template>
 			<div class="col content">
 				<div class="row no-margin-bot">
 					<div class="col s12">
@@ -200,12 +239,31 @@
 
 
 		<div class="row">
-			<template v-if="plotType === plotTypes.UNPAIRED.type || plotType === plotTypes.PAIRED.type">
+			<template v-if="plotType === plotTypes.UNPAIRED.type">
 				<div class="col number">
 					<i class="circle-number left">6</i>
 				</div>
-		</template>
-			<template v-else-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
+			</template>
+
+			<template v-else-if="plotType === plotTypes.PAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">5</i>
+				</div>
+			</template>
+
+			<template v-else-if="plotType === plotTypes.MULTI.type">
+				<div class="col number">
+					<i class="circle-number left">7</i>
+				</div>
+			</template>
+
+			<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">6</i>
+				</div>
+			</template>
+
+			<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
 				<div class="col number">
 					<i class="circle-number left">7</i>
 				</div>
@@ -250,16 +308,35 @@
 		</div>
 
 		<div class="row">
-			<template v-if="plotType === plotTypes.UNPAIRED.type || plotType === plotTypes.PAIRED.type">
-				<div class="col number">
-					<i class="circle-number left">7</i>
-				</div>
-		</template>
-			<template v-else-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
-				<div class="col number">
-					<i class="circle-number left">8</i>
-				</div>
-			</template>
+				<template v-if="plotType === plotTypes.UNPAIRED.type">
+					<div class="col number">
+						<i class="circle-number left">7</i>
+					</div>
+				</template>
+
+				<template v-else-if="plotType === plotTypes.PAIRED.type">
+					<div class="col number">
+						<i class="circle-number left">6</i>
+					</div>
+				</template>
+
+				<template v-else-if="plotType === plotTypes.MULTI.type">
+					<div class="col number">
+						<i class="circle-number left">8</i>
+					</div>
+				</template>
+
+				<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
+					<div class="col number">
+						<i class="circle-number left">7</i>
+					</div>
+				</template>
+
+				<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
+					<div class="col number">
+						<i class="circle-number left">8</i>
+					</div>
+				</template>
 			<div class="col content">
 				<div class="row col">
 					Download results.

@@ -15,7 +15,7 @@
 				<div class="menu center-align">
 
 					<router-link exact :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}" class="grey-text text-darken-1">{{ plotTypes.UNPAIRED.name }}</router-link>
- 
+
 					<span class="inline-divider heavy"></span>
 					<router-link exact :to="{ name: 'analyze', params: { plotType: plotTypes.PAIRED.type }}" class="grey-text text-darken-1">{{ plotTypes.PAIRED.name }}</router-link>
 
@@ -25,8 +25,7 @@
 					<span class="inline-divider heavy"></span>
 					<router-link exact :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}" class="grey-text text-darken-1">{{ plotTypes.MULTI_PAIRED.name }}</router-link>
 
-
-					<span class="inline-divider heavy hide-on-med-and-down"></span>
+					<span class="inline-divider heavy"></span>
 					<router-link exact :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}" class="grey-text text-darken-1">{{ plotTypes.SHARED_CONTROL.name }}</router-link>
 				</div>
 			</div>

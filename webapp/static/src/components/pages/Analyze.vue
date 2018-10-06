@@ -140,13 +140,11 @@
 					<div class="row">
 
 						<div class="input-field col s12 m6 l2">
-							<input id="swarm_dotsize" type="number"
-							step=1 v-model="swarm_dotsize">
+							<input id="swarm_dotsize" type="number" step=1 min=1 max=15 v-model="swarm_dotsize">
 						</div>
 
 						<div class="input-field col s12 m6 l5">
-							<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=20 value=8
-							height=8 dotSize=18 speed=0.1 tooltip=false>
+							<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=15 height=8 dotSize=18 speed=0.1 tooltip=false>
 							</vue-slider>
 						</div>
 

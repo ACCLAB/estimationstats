@@ -108,13 +108,17 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s12 m6 l6">
-						<vue-slider v-model="ci" interval=1 min=50 max=99 value=95
-						height=10 dotSize=18 speed=0.1
-						tooltipStyle="font-size:18px" tooltip-dir='right'
-						>
+
+					<div class="input-field col s12 m6 l2">
+						<input id="ci" type="number" step=0.1 min=50 max=99 v-model="ci">
+					</div>
+
+					<div class="input-field col s12 m6 l5">
+						<vue-slider v-model="ci" interval=0.1 min=50 max=99
+						height=8 dotSize=18 speed=0.1 tooltip=false>
 						</vue-slider>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -134,13 +138,18 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="input-field col s12 m6 l6">
-							<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=24 value=8
-							height=10 dotSize=18 speed=0.1
-							tooltipStyle="font-size:18px" tooltip-dir='right'
-							>
+
+						<div class="input-field col s12 m6 l2">
+							<input id="swarm_dotsize" type="number"
+							step=1 v-model="swarm_dotsize">
+						</div>
+
+						<div class="input-field col s12 m6 l5">
+							<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=20 value=8
+							height=8 dotSize=18 speed=0.1 tooltip=false>
 							</vue-slider>
 						</div>
+
 					</div>
 				</div>
 			</div>

@@ -103,20 +103,20 @@
 					<div class="col s12">
 						Confidence interval width.
 						<div style="font-size:21px">
-							Choose an integer between 50 and 99; the default is a 95% CI.
+							Choose an number between 50 and 99.9; the default is a 95% CI.
 						</div>
 					</div>
 				</div>
 				<div class="row">
 
-					<div class="input-field col s12 m6 l2">
-						<input id="ci" type="number" step=0.1 min=50 max=99 v-model="ci">
-					</div>
-
 					<div class="input-field col s12 m6 l5">
-						<vue-slider v-model="ci" interval=0.1 min=50 max=99
+						<vue-slider v-model="ci" interval=0.1 min=50 max=99.9
 						height=8 dotSize=18 speed=0.1 tooltip=false>
 						</vue-slider>
+					</div>
+
+					<div class="input-field col s12 m6 l2">
+						<input id="ci" type="number" step=0.1 min=50 max=99.9 v-model="ci">
 					</div>
 
 				</div>
@@ -139,13 +139,14 @@
 					</div>
 					<div class="row">
 
-						<div class="input-field col s12 m6 l2">
-							<input id="swarm_dotsize" type="number" step=1 min=1 max=15 v-model="swarm_dotsize">
+						<div class="input-field col s12 m6 l5">
+							<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=36 height=8
+							dotSize=18 speed=0.1 tooltip=false>
+							</vue-slider>
 						</div>
 
-						<div class="input-field col s12 m6 l5">
-							<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=15 height=8 dotSize=18 speed=0.1 tooltip=false>
-							</vue-slider>
+						<div class="input-field col s12 m6 l2">
+							<input id="swarm_dotsize" type="number" min=1 max=36 v-model="swarm_dotsize">
 						</div>
 
 					</div>

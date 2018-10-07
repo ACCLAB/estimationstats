@@ -36,7 +36,7 @@ class Analyze(Resource):
             # Create dict for kwargs.
             kwargs = {}
             kwargs['group_summaries'] = 'mean_sd'
-            kwargs['swarm_dotsize'] = int(request.form['swarm_dotsize'])
+            kwargs['swarm_dotsize'] = float(request.form['swarm_dotsize'])
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:
@@ -117,7 +117,7 @@ class Analyze(Resource):
                 CI = request.form['ci']
             else:
                 CI = 95
-            kwargs['ci'] = int(CI)
+            kwargs['ci'] = float(CI)
 
             # # Grab the rawdata_size.
             # if 'rawdata_size' in request.form:

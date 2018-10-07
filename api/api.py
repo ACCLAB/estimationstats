@@ -131,9 +131,12 @@ class Analyze(Resource):
             # munge the stats columns a bit.
             b.drop(['is_difference'],
                     axis=1,inplace=True)
-            b.rename(columns={'stat_summary':'mean_difference'},
+            b.rename(columns={'stat_summary':'mean_difference',
+                              'bca_ci_low'  : 'CI_lower_limit_BCa_corrected',
+                              'bca_ci_high'  :'CI_upper_limit_BCa_corrected',
+                              'ci': 'CI'},
                     inplace=True)
-            stats = b.to_html()
+            stats = b.to_html(index=False)
 
             # Prepare PNG output.
             img = io.BytesIO()

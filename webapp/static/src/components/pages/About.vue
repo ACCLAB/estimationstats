@@ -3,10 +3,12 @@
 		<h5>The authors</h5>
 		<p>
 			As a behavioral scientist, Adam Claridge-Chang became frustrated with significance testing; he retrained in estimation statistics by reading textbooks and articles by <a href='http://as.wiley.com/WileyCDA/WileyTitle/productCd-0727913751.html' target='_blank'>Altman</a>, <a href='https://effectsizefaq.com/about/' target='_blank'>Ellis</a>, <a href='https://www.routledge.com/Introduction-to-the-New-Statistics-Estimation-Open-Science-and-Beyond/Cumming-Calin-Jageman/p/book/9781138825529' target='_blank'>Cumming</a>, <a href='https://www.ics.uci.edu/~sternh/courses/210/cohen94_pval.pdf' target='_blank'>Cohen</a>, and <a href='http://as.wiley.com/WileyCDA/WileyTitle/productCd-EHEP002313.html'>Borenstein</a>. Noting that the suite of methods went by several names, Adam wrote a <a href='https://en.wikipedia.org/wiki/Estimation_statistics'>Wikipedia</a> page and published an <a href='https://doi.org/10.5281/zenodo.60156'>editorial</a> branding the framework as estimation statistics.
+			<img src="../../../static/img/people/adam.png" align="left" height="200px" style="margin: 10px 10px 0px"/>
 		</p>
 
 		<p>
 			Then, he and <a href='https://www.twitter.com/jacuzzijo' target='_blank'>Joses Ho</a> implemented a package in the Python programming language to make estimation tools more widely available in a form that is compatible with code-driven data analysis workflows. The web application was built to make estimation available to everyone, including those who haven’t gotten around to learning to code.
+			<img src="../../../static/img/people/joses.jpg" align="left" height="170px" style="margin: 10px 10px 0px"/>
 		</p>
 
 		<p>

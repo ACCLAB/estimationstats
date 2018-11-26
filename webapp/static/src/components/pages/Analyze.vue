@@ -309,15 +309,22 @@
 					</div>
 				</div>
 
+
+
 				<div class="row">
 					<div class="file-field input-field col s12">
 						<template v-if="_.has(analyzedData, 'png')">
-							<img :src="`data:image/png;base64,${analyzedData.png}`">
-						</template>
+							<!-- The image is inserted below. -->
+							<img :src="`data:image/png;base64,${analyzedData.png}`" height="600px">
+							<!-- Figure Legend and results are inserted below. -->
+							<p v-html="analyzedData.legend"></p>
+					</template>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
 
 		<div class="row">
 				<template v-if="plotType === plotTypes.UNPAIRED.type">
@@ -349,6 +356,7 @@
 						<i class="circle-number left">8</i>
 					</div>
 				</template>
+
 			<div class="col content">
 				<div class="row col">
 					Download results.
@@ -381,6 +389,8 @@
 		</div>
 	</div>
 </template>
+
+
 
 <script>
 import _ from 'lodash';
@@ -494,6 +504,7 @@ export default {
 		}
 	},
 	methods: {
+
 		onAnalyze() {
 			// Clear analyzed data
 			this.analyzedData = {};
@@ -519,12 +530,15 @@ export default {
 				});
 			}
 		},
+
 		onDownload() {
 			downloadUtil.downloadByContent(`${this.fileName}.${this.fileExtension}`, this.createFileContent());
 		},
+
 		onSelectFile() {
 			this.file = this.$refs.file.files[0];
 		},
+
 		createFileContent() {
 			let content = '';
 			if (!_.isEmpty(this.fileExtension)) {
@@ -543,6 +557,7 @@ export default {
 			}
 			return content;
 		},
+
 		createCsvByInputData() {
 			// Clone source data
 			let sourceData = _.cloneDeep(this.hot.getSourceData());

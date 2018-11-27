@@ -22,7 +22,7 @@ import HeaderView from '@/components/layouts/Header';
 import FooterView from '@/components/layouts/Footer';
 
 export default {
-	name: 'app',
+	name: 'Estimation Stats',
 	data() {
 		return {
 			navigateProgress: 0,

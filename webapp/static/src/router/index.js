@@ -54,8 +54,9 @@ const router = new Router({
 			name: 'home',
 			component: Home,
 			meta: {
+				title: 'Estimation Stats',
 				noHeader: true,
-				breadcrumb: 'Estimation stats'
+				breadcrumb: 'Estimation Stats'
 			}
 		},
 		{
@@ -63,6 +64,7 @@ const router = new Router({
 			name: 'background',
 			component: Background,
 			meta: {
+				title: 'What is Estimation Stats?',
 				anchor: '',
 				breadcrumb: 'What is Estimation Stats?'
 			}

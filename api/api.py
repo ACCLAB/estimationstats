@@ -35,8 +35,10 @@ class Analyze(Resource):
 
             # Create dict for kwargs.
             kwargs = {}
+            kwargs['context']         = 'notebook'
+            kwargs['font_scale']      = 1.45
             kwargs['group_summaries'] = 'mean_sd'
-            kwargs['swarm_dotsize'] = float(request.form['swarm_dotsize'])
+            kwargs['swarm_dotsize']   = float(request.form['swarm_dotsize'])
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:
@@ -151,8 +153,8 @@ class Analyze(Resource):
                 comparisons against the shared control {1} \
                 are shown in the above Cumming estimation plot. \
                 The raw data is plotted on the upper axes. On the \
-                lower axes, mean differences are plotted as a bootstrap \
-                sampling distribution. Each mean difference is depicted \
+                lower axes, mean differences are plotted as bootstrap \
+                sampling distributions. Each mean difference is depicted \
                 as a dot. Each {2}% confidence interval is indicated by the \
                 ends of the vertical error bars.".format(
                                                 len(numerical_cols) - 1,
@@ -213,7 +215,7 @@ class Analyze(Resource):
                     paired_prefix,
                      ref_name, ref_n,
                      expt_name, expt_n,
-                     diff, row.CI,
+                     diff, CI,
                      ci_low, ci_high)
                 results.append(row_out)
 
@@ -221,9 +223,10 @@ class Analyze(Resource):
 
             legend  = 'Suggested Figure Legend:<br>\
                         <div style="font-size:20px">{0}</div>\
-                        <br>Results:\
-                        <div style="font-size:20px">\
-                        {1}</div>'.format(figure_legend, results)
+                        <br>Results:<div style="font-size:20px">\
+                        {1}<br><i>The suggested template (used above) is:<br>\
+                        `mean difference` [`CI width`&emsp;`lower bound`;\
+                        `upper bound`]</i></div>'.format(figure_legend, results)
 
             # Return all desired outputs.
             return jsonify(png        = png,

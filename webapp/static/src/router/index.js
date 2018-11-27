@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Meta from 'vue-meta';
 import Home from '@/components/pages/Home';
 import UserGuide from '@/components/pages/UserGuide';
 import Background from '@/components/pages/Background';
@@ -10,7 +9,6 @@ import GetCode from '@/components/pages/GetCode';
 const Analyze = () => import('@/components/pages/Analyze');
 
 Vue.use(Router);
-Vue.use(Meta);
 
 const scrollBehavior = function (to, from, savedPosition) {
 	return new Promise((resolve, reject) => {

@@ -90,6 +90,7 @@
 import * as constants from '@/utils/constants.js';
 
 export default {
+	title: 'Estimation Statistics',
 	data() {
 		return {
 			plotTypes: constants.plotTypes

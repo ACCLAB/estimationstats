@@ -1,105 +1,185 @@
 <template>
 
 	<div>
-		<!-- <h5>Background</h5> -->
 		<p>
 			This site provides you with a web application to plot experimental data from an <a href='https://en.wikipedia.org/wiki/Estimation_statistics' target='blank'>estimation statistics</a> perspective. You may have found significance testing and P-values <a href='https://www.nature.com/articles/nmeth.3288' target='blank'>problematic</a>; you may be asking what comes <a href='https://doi.org/10.5281/zenodo.60156' target='blank'>next</a>.
 		</p>
+		<br>
 
-		<h5>Estimation statistics > significance testing</h5>
+
+
+		<h5>Introducing Estimation Statistics</h5>
 		<p>
 			Estimation statistics is a simple <a href='https://thenewstatistics.com/itns/' target='blank'>framework</a> that—while avoiding the pitfalls of significance testing—uses familiar statistical concepts: means, mean differences, and error bars. More importantly, it focuses on the effect size of one's experiment/intervention, as opposed to significance testing.
 		</p>
 
 		<p>
-			Significance testing calculates the probability (the P-value) that the experimental data would be observed, if the intervention did not produce a change in the metric measured (i.e. the null hypothesis). This leads analysts to apply a false dichotomy on the experimental intervention.
+			Significance testing calculates the probability (the <i>P</i> value) that the experimental data would be observed, if the intervention did not produce a change in the metric measured (i.e. the null hypothesis). This leads analysts to apply a false dichotomy on the experimental intervention.
 		</p>
 
 		<p>
 			Estimation statistics, on the other hand, focuses on the magnitude of the effect (the effect size) and its precision. This encourages analysts to gain a deeper understanding of the metrics used, and how they relate to the natural processes being studied.
 		</p>
+		<br>
+
+
 
 		<h5>The Inadequacy of Common Plots</h5>
 		<p>
 			Let's say we have performed an experiment with 30 control subjects, and 30 test subjects. We begin our data analysis by making a barplot of the data.
-			<img src="../../../static/img/background/barplot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+
+			<p>
+				<img src="../../../static/img/background/barplot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+			</p>
+
 			The barplot has several shortcomings, despite enjoying widespread usage in academic journals. We're not the first ones (see <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>this</a>,  <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>this</a>, or <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>that</a>) to point out the myriad flaws with the barplot. Importantly, the barplot does not show us the effect size.
 		</p>
 
 		<p>
 			So next, we use a boxplot to visualize the data.
-			<img src="../../../static/img/background/boxplot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+			<p>
+				<img src="../../../static/img/background/boxplot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+			</p>
 			Unfortunately, the boxplot still doesn't show all our data. We still lack information about the underlying distribution of your data. Is it normally distributed? Is there skew in the points? What is the sample size? More importantly, boxplots do not display the effect size.
 		</p>
 
 		<p>
 			To display several data points across one or more categories,  we can use the jitter plot.
-			<img src="../../../static/img/background/jitter.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+			<p>
+				<img src="../../../static/img/background/jitter.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+			</p>
 			Jitter plots avoid overlapping datapoints (i.e. datapoints with the same y-value) by adding a random factor to each point along the orthogonal x-axes. Thus, while a jitter plot displays all datapoints (implicitly indicating the sample size visually), it might not accurately depict the underlying distribution of the data.
 		</p>
+		<br>
 
-		<!-- <br>
-		<p>
-			We can instead use a swarmplot, which displaces each datapoint orthogonally instead.
-			<object data="../../../static/img/background/swarmplot.svg" type="image/svg+xml" height="550px" width="100%" align="centre">
-					<img src="../../../static/img/background/swarmplot.svg" align="centre" height="550px" style="margin: 50px 0px"/>
-			</object>
-			The swarmplot is better able to represent underlying distribution of the data. But how can we display the effect size, which is what we are actually interested in?
-		</p> -->
+
 
 		<h5>Introducing the Estimation Plot</h5>
 		<p>
-			<img src="../../../static/img/background/two-group-estimation-plot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
-			An estimation plot has two key features. Firstly, it presents all datapoints as a swarmplot, which orders each point to display the underlying distribution. Secondly, an estimation plot presents the effect size as a <b><i>bootstrap 95% confidence interval</i></b> on a <b><i>seperate but aligned axes</i></b>.
+			<p>
+				<img src="../../../static/img/background/two-group-estimation-plot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+			</p>
+
+			Shown above is a <a href='https://en.wikipedia.org/wiki/Estimation_statistics#Gardner-Altman_plot'>Gardner-Altman estimation plot</a>. (We have named the plot after <a href='https://www.independent.co.uk/news/people/obituary-professor-martin-gardner-1470261.html'>Martin J. Gardner</a> and <a href='https://www.bmj.com/content/361/bmj.k2588'>Douglas Altman</a>, who are credited with <a href='https://www.bmj.com/content/bmj/292/6522/746.full.pdf'>creating the design</a> in 1986.) An estimation plot has two key features:
+			<ol>
+				<li>
+					All datapoints are presented as a swarmplot, which orders each point to display the underlying distribution.
+				</li>
+				<br>
+				<li>
+					The effect size is presented as a <b><i>bootstrap 95% confidence interval</i></b> (95% CI) on a <b><i>seperate but aligned axes</i></b>, where the effect size is displayed to the right of the raw data, and the mean of the test group is aligned with the effect size.
+				</li>
+			</ol>
+		</p>
+		<br>
+
+
+
+		<h5>The Bootstrap Confidence Interval: A Quick Primer</h5>
+		<p>
+			In a typical scientific experiment, we are interested in two populations (Control and Test), and whether there is a difference between their means (µTest - µControl).
+		</p>
+		<p>
+			<img src ="../../../static/img/background/population_mean.png" align="centre" height="150px" style="margin: 0px 50px 0px"/>
 		</p>
 
 		<p>
-			We illustrate how bootstrap confidence intervals are generated below.
-			<img src="../../../static/img/background/bootstrap-step-by-step.png" align="center" width="110%" style="margin: 10px -35px -30px"/>
-			<br><br>
-			In a typical scientific experiment, we are attempting to estimate the mean difference between two populations: <i>µ</i><sub>Control</sub> and <i>µ</i><sub>Test</sub> (Figure 5A). We go about this by obtaining <i>samples</i> from the control population and from the test population (Figure 5B). We can easily compute the mean difference in our observed sample (Δ).
+			We go about this by collecting observations from the control population, and from the test population.
+		</p>
+		<p>
+			<img src ="../../../static/img/background/population_one_observation.png" align="centre" height="300px" style="margin: 0px 50px 0px"/>
 		</p>
 
 		<p>
-			<b>But how do we obtain a measure of precision and confidence about our observed mean difference, and also get a sense of the population mean difference?</b>
+			We can easily compute the mean difference in our observed samples. This is our estimate of the population effect size that we are interested in.
 		</p>
 
 		<p>
-			We can calculate the 95% confidence interval (95% CI) of the mean difference by resampling from our observed data several times (Figure 5C). With computers, we can perform 5000 resamples very easily. The mean difference for each of these resamples is calculated. According to the <a href='https://en.wikipedia.org/wiki/Central_limit_theorem' target='blank'>Central Limit Theorem</a>, these 5000 resampled mean differences will have a normal distribution, allowing easy derivation of a 95% CI of the mean difference (Figure 5D).
+			<b><i>But how do we obtain a measure of precision and confidence about our estimate? Can we get a sense of how it relates to the population mean difference?</i></b>
 		</p>
 
 		<p>
-			An added benefit of bootstrap confidence intervals is that we <b>do not need to assume</b> that the population from which our samples come from have a normal distribution.
+			We can calculate the 95% CI of the mean difference by performing <a href='https://en.wikipedia.org/wiki/Bootstrapping_(statistics)'>bootstrap resampling</a>. <a href='https://projecteuclid.org/euclid.aos/1176344552'>First described</a> by <a href='https://statistics.stanford.edu/people/bradley-efron'>Bradley Efron</a>, the bootstrap is a simple but powerful technique. It creates multiple resamples (with replacement) from a single set of observations, and computes the effect size of interest on each of these resamples. The bootstrap resamples of the effect size can then be used to determine the 95% CI.
 		</p>
 
 		<p>
-			The "95%" of the confidence interval refers to the <i>proportion of confidence intervals</i> that would contain the population mean, if samples from the population were repeatedly obtained, and confidence intervals obtained for each sample. That is to say, we can be 95% confident the interval contains the true mean of the population.
+			With computers, we can perform 5000 resamples very easily.
 		</p>
 
 		<p>
-			The estimation plot presents Figure 5B and Figure 5D side-by-side as a single integrated plot. It thus tightly couples visual presentation of the raw data with an indication of the population mean difference, and its confidence interval.
+			<img src ="../../../static/img/background/three-resamples.png" align="centre" height="800px" style="margin: 0px 50px 0px"/>
 		</p>
+
+		<p>
+			The resampling distribution of the difference in means approaches a normal distribution. This is due to the <a href='https://en.wikipedia.org/wiki/Central_limit_theorem'>Central Limit Theorem</a>: a large number of independent random samples will approach a normal distribution even if the underlying population is not normally distributed.
+		</p>
+
+		<p>
+			Bootstrap resampling gives us two important benefits:
+			<ol>
+
+				<li>
+					<i>Non-parametric statistical analysis.</i> There is no need to assume that our observations, or the underlying populations, are normally distributed. Thanks to the Central Limit Theorem, the resampling distribution of the effect size will approach normality.
+				</li>
+				<br>
+				<li>
+					<i>Easy construction of the 95% CI from the resampling distribution.</i> For 1000 bootstrap resamples of the mean difference, one can use the 25th value and the 975th value of the ranked differences as boundaries of the 95% confidence interval. (This captures the central 95% of the distribution.) Such an interval construction is known as a <i>percentile interval</i>.
+				</li>
+
+			</ol>
+		</p>
+
+		<p>
+			While resampling distributions of the difference in means often have a normal distribution, it is not uncommon to encounter a skewed distribution.
+		</p>
+		<p>
+			<img src ="../../../static/img/background/explaining-bca-bootstrap.png" align="centre" height="300px" style="margin: 0px 50px 0px"/>
+		</p>
+
+
+			<p>
+				Thus, Efron developed the <a href='https://en.wikipedia.org/wiki/Bootstrapping_(statistics)#History'>bias-corrected and accelerated bootstrap</a> (BCa bootstrap) to account for the skew whilst obtaining the central 95% of the distribution. Here at estmationstats.com, we apply the BCa correction to the resampling bootstrap distributions of the effect size.
+		</p>
+		<br>
+
+
 
 		<h5>An estimation plot for your type of data</h5>
 		<p>
 			For each of the most routine significance tests, there is an estimation replacement:
-			<ul style="list-style-type:disc">
+
+			<ol type="I">
 				<li>
 					Unpaired Student’s t-test → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">Two-group estimation plot</router-link>
 					<br>
 					<img src="../../../static/img/exemplars/two-group-unpaired.png" align="center" height="550px" style="margin: -10px 25px 50px"/>
 				</li>
 
+
 				<li>
 					Paired Student’s t-test → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.PAIRED.type }}">Paired estimation plot</router-link>
 					<br>
-					<img src="../../../static/img/exemplars/two-group-paired.png" align="center" height="550px" style="margin: -10px 25px 50px"/>
+					<p>
+					The Gardner-Altman estimation plot can also display effect sizes for repeated measures (<i>aka</i> a paired experimental design) using a <a href='http://charliepark.org/slopegraphs/'>Tufte slopegraph</a> instead of a swarmplot.
+				</p>
+					<p>
+						<img src="../../../static/img/exemplars/two-group-paired.png" align="center" height="550px" style="margin: -10px 25px 50px"/>
+					</p>
 				</li>
+
 
 				<li>
 					One-way ANOVA + multiple comparisons → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI.type }}">Multi two-group estimation plot</router-link>
 					<br>
-							<img src="../../../static/img/exemplars/multi-two-group-unpaired.png" align="center" height="550px" style="margin: -5px 25px 50px"/>
+					<p>
+						For comparisons between 3 or more groups that typically employ analysis of variance (ANOVA) methods, one can use the <a href= 'https://en.wikipedia.org/wiki/Estimation_statistics#Cumming_plot'>Cumming estimation plot</a>, which can be considered a variant of the Gardner-Altman plot. (The Cumming plot is named after <a href='https://www.youtube.com/watch?v=nDN-hcKR7j8'>Geoff Cumming</a>, and draws its design heavily from his 2012 textbook <a href='https://www.routledge.com/Understanding-The-New-Statistics-Effect-Sizes-Confidence-Intervals-and/Cumming/p/book/9780415879682'>Understanding the New Statistics</a>.)
+					</p>
+
+					<p>
+						<img src="../../../static/img/exemplars/multi-two-group-unpaired.png" align="center" height="550px" style="margin: -5px 25px 50px"/>
+						<br>
+						The effect size and 95% CIs are still plotted on a separate axes, but unlike the Gardner-Altman plot, this axes is positioned beneath the raw data. Such a design frees up visual space in the upper panel, allowing the display of summary measurements (mean ± standard deviation) for each group. These are shown as gapped lines to the right of each group. The mean of each group is indicated as a gap in the line, adhering to Edward Tufte’s dictum to <a href='https://medium.com/@plotlygraphs/maximizing-the-data-ink-ratio-in-dashboards-and-slide-deck-7887f7c1fab'>keep the data-ink ratio low</a>.
+					</p>
 				</li>
 
 				<li>
@@ -113,14 +193,14 @@
 					<br>
 					<img src="../../../static/img/exemplars/shared-control.png" align="center" height="550px" style="margin: -5px 25px 50px"/>
 				</li>
-			</ul>
+			</ol>
 
-			<p>
-				All of these plots enable you to graphically inspect the mean difference and its confidence interval. When there are multiple groups, the side-by-side plotting allows the visual comparison of effect sizes.
-			</p>
 		</p>
+		<br>
 
-		<h5>In summary</h5>
+
+
+		<h5>Estimation Plots: The Way Forward</h5>
 		Relative to conventional plots, estimation plots offer five key benefits:
 
 		<table style="width:95%" align='centre'>
@@ -162,22 +242,10 @@
 	  </tr>
 	</table>
 
-
-	<!-- <ol type='1'>
-	<li><u>Avoid false dichotomy.</u> One of the many problems with significance testing is the application of an α-threshold creates the illusion of a dichotomy. Is there really a great difference between probabilities of 0.04999 and 0.05001? In significance testing, the former is ‘significant’ and the latter is ‘non-significant.’ The graphical method of showing this test result with clusters of stars amplifies this false dichotomy; since the average reader is primed to look for <i>P</i> < 0.05, presenting P-values is almost as bad. Estimation plots present the significance test result innocuously: as the presence or absence of a gap between the mean-difference zero line and the closest confidence interval bound.</li>
-	<br>
-	<li><u>Display all observed values.</u> <a href='https://doi.org/10.1038/nmeth.2837' target='_blank'>Bar charts</a> often show means, error, and significance stars only. <a href='https://www.nature.com/articles/nmeth.2811' target="_blank">Boxplots</a> generally show just medians, quartiles, maybe a few outliers, and P-values. For observed values, estimation plots follow best practices by presenting <a href='https://doi.org/10.1371/journal.pbio.1002128' target="_blank">each and every datapoint</a>. Presenting all observed values means that nothing is hidden: range, normality, skew, kurtosis, outliers, bounds, modality, and sample size are all clearly visible.</li>
-	<br>
-	<li><u>Focus on intervention effect size.</u> Estimation comparison plots include an entirely new axis for the mean difference of two groups (or paired data), and a whole panel for the mean differences of multiple groups. This serves to draw attention to something that deserves it, the answer to the question: “What is the magnitude of the effect of the intervention?”</li>
-	<br>
-	<li><u>Visualize estimate precision.</u> Unlike a significance test result, the narrowness of a confidence interval gives a clear impression of effect size precision. The 95% confidence interval provides the range of the population mean difference values that are the most plausible. This 95% plausible interval also serves as an 83% prediction interval for replications (<a href='https://www.amazon.com/Introduction-New-Statistics-Estimation-Science/dp/1138825522/' target='_blank'>Cumming and Calin-Jageman 2016</a>), i.e. predicts future replication effect sizes (assuming no change in protocol) with 83% accuracy.</li>
-	<br>
-	<li><u>Show mean difference distribution.</u> The distribution of mean differences can be estimated using bootstrap resamples of the available data. As an approximation of the <a href='https://web.stanford.edu/~hastie/Papers/ESLII.pdf' target="_blank">Bayes posterior distribution</a>, this curve allows the analyst to weigh plausibility over an effect likelihood size range. Finally, plotting this curve discourages dichotomous thinking—engendered by P-values and hard-edged confidence intervals (<a href='https://www.ncbi.nlm.nih.gov/pubmed/28176294'>Kruschke and Liddell 2017</a>)—by drawing attention to the distribution’s graded nature.</li>
-	</ol> -->
-
 	<p>
-		To our knowledge, mean difference estimation plots were first described by Martin Gardner and Douglas Altman (<a href='https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/3082422/' target='_blank'>Gardner and Altman 1986</a>), while the multiple-comparison design was devised by Geoff Cumming (<a href='https://www.amazon.com/Introduction-New-Statistics-Estimation-Science/dp/1138825522/' target='_blank'>Cumming 2012</a>).
+		You can create estimation plots here at estimationstats.com, or with the DABEST packages which are available in <a href='https://github.com/ACCLAB/dabestr'>R</a>, <a href='https://github.com/ACCLAB/DABEST-Python'>Python</a>, and <a href='https://github.com/ACCLAB/DABEST-Matlab'>Matlab</a>.
 	</p>
+
 
 	</div>
 </template>

@@ -1,17 +1,17 @@
 <template>
 	<div>
-		<h5>The DABEST package</h5>
-		<p>
-			If you are a power user, you can install the DABEST package for further customization of your esimation plots.
-		</p>
+		<h5>The DABEST packages</h5>
+
+		<a href='https://github.com/ACCLAB/dabestr'><img src='https://img.shields.io/badge/R-dabestr--v0.1.0-green.svg?longCache=true&style=for-the-badge' style="margin:10px 10px"></a>
+
+		<a href='https://github.com/ACCLAB/DABEST-python'><img src='https://img.shields.io/badge/Python-DABEST--v0.1.6-blue.svg?longCache=true&style=for-the-badge' style="margin:10px 10px"></a>
+
+		<a href='https://github.com/ACCLAB/DABEST-Matlab'><img src='https://img.shields.io/badge/Matlab-DABEST--v0.1.0-purple.svg?longCache=true&style=for-the-badge' style="margin:10px 10px"></a>
 
 		<p>
-			The package is available on Github for <a href='https://github.com/ACCLAB/DABEST-python' target='_blank'>Python</a> and <a href='https://github.com/ACCLAB/DABEST-Matlab' target='_blank'>Matlab</a>.
+			If you are a power user, you can install the DABEST package for further customization of your esimation plots. The package is available on Github for  <a href='https://github.com/ACCLAB/dabestr' target='_blank'>R</a>, <a href='https://github.com/ACCLAB/DABEST-python' target='_blank'>Python</a>, and <a href='https://github.com/ACCLAB/DABEST-Matlab' target='_blank'>Matlab</a>.
 		</p>
 
-		<p>
-			A port of DABEST to R is currently in the works. In the meantime, you can use the `reticulate` package to run Python code inside an R console, or in R Markdown. A tutorial can be found <a href='https://acclab.github.io/DABEST-python-docs/dabest-r.html' target='blank'>here</a>. 
-	 </p>
 
 	</div>
 </template>

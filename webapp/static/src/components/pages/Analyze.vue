@@ -103,18 +103,22 @@
 					<div class="col s12">
 						Confidence interval width.
 						<div style="font-size:21px">
-							Choose an integer between 50 and 99; the default is a 95% CI.
+							Choose an number between 50 and 99.9; the default is a 95% CI.
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s12 m6 l6">
-						<vue-slider v-model="ci" interval=1 min=50 max=99 value=95
-						height=10 dotSize=18 speed=0.1
-						tooltipStyle="font-size:18px" tooltip-dir='right'
-						>
+
+					<div class="input-field col s12 m6 l5">
+						<vue-slider v-model="ci" interval=0.1 min=50 max=99.9
+						height=8 dotSize=22 speed=0.1 tooltip=false>
 						</vue-slider>
 					</div>
+
+					<div class="input-field col s12 m6 l2">
+						<input id="ci" type="number" step=0.1 min=50 max=99.9 v-model="ci">
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -134,13 +138,21 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="input-field col s12 m6 l6">
-							<vue-slider v-model="swarm_dotsize" interval=1 min=1 max=24 value=8
-							height=10 dotSize=18 speed=0.1
-							tooltipStyle="font-size:18px" tooltip-dir='right'
-							>
+
+						<!-- For some reason, if the maximum goes beyond 10,
+					  the behaviour of the slider bar is super wonky. -->
+
+						<div class="input-field col s12 m6 l5">
+							<vue-slider v-model="swarm_dotsize" interval=0.1 min=1 max=9.9
+							height=8 dotSize=22 speed=0.1 tooltip=false>
 							</vue-slider>
 						</div>
+
+						<div class="input-field col s12 m6 l2">
+							<input id="swarm_dotsize" type="number" step=0.1 min=1 max=9.9 v-model="swarm_dotsize">
+						</div>
+
+
 					</div>
 				</div>
 			</div>
@@ -297,15 +309,22 @@
 					</div>
 				</div>
 
+
+
 				<div class="row">
 					<div class="file-field input-field col s12">
 						<template v-if="_.has(analyzedData, 'png')">
-							<img :src="`data:image/png;base64,${analyzedData.png}`">
-						</template>
+							<!-- The image is inserted below. -->
+							<img :src="`data:image/png;base64,${analyzedData.png}`" height="600px">
+							<!-- Figure Legend and results are inserted below. -->
+							<p v-html="analyzedData.legend"></p>
+					</template>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
 
 		<div class="row">
 				<template v-if="plotType === plotTypes.UNPAIRED.type">
@@ -337,6 +356,7 @@
 						<i class="circle-number left">8</i>
 					</div>
 				</template>
+
 			<div class="col content">
 				<div class="row col">
 					Download results.
@@ -370,6 +390,8 @@
 	</div>
 </template>
 
+
+
 <script>
 import _ from 'lodash';
 import HotTable from 'vue-handsontable-official';
@@ -385,7 +407,7 @@ export default {
 		let self = this;
 		return {
 			ci: 95,
-			swarm_dotsize: 8,
+			swarm_dotsize: 5,
 			file: null,
 			fileTypes: constants.fileTypes,
 			fileExtension: constants.fileTypes.PNG.extension, // Default is download PNG
@@ -482,6 +504,7 @@ export default {
 		}
 	},
 	methods: {
+
 		onAnalyze() {
 			// Clear analyzed data
 			this.analyzedData = {};
@@ -507,12 +530,15 @@ export default {
 				});
 			}
 		},
+
 		onDownload() {
 			downloadUtil.downloadByContent(`${this.fileName}.${this.fileExtension}`, this.createFileContent());
 		},
+
 		onSelectFile() {
 			this.file = this.$refs.file.files[0];
 		},
+
 		createFileContent() {
 			let content = '';
 			if (!_.isEmpty(this.fileExtension)) {
@@ -531,6 +557,7 @@ export default {
 			}
 			return content;
 		},
+
 		createCsvByInputData() {
 			// Clone source data
 			let sourceData = _.cloneDeep(this.hot.getSourceData());

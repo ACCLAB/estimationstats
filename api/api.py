@@ -39,6 +39,7 @@ class Analyze(Resource):
             kwargs['font_scale']      = 1.4
             kwargs['group_summaries'] = 'mean_sd'
             kwargs['swarm_dotsize']   = float(request.form['swarm_dotsize'])
+            kwargs['cumming_vertical_spacing'] = 0.05
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:

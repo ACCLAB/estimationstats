@@ -36,7 +36,7 @@ class Analyze(Resource):
             # Create dict for kwargs.
             kwargs = {}
             kwargs['context']         = 'notebook'
-            kwargs['font_scale']      = 1.35
+            kwargs['font_scale']      = 1.3
             kwargs['group_summaries'] = 'mean_sd'
             kwargs['swarm_dotsize']   = float(request.form['swarm_dotsize'])
 

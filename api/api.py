@@ -10,6 +10,7 @@ from flask import request, jsonify, abort
 from flask_restful import Resource
 
 import dabest
+from .misc import combi17
 
 class Analyze(Resource):
     def post(self):
@@ -64,6 +65,9 @@ class Analyze(Resource):
             # Handle the columns for plotting.
             dt = df.dtypes
             numerical_cols = dt[dt != 'object'].index.tolist()
+
+            # REVIEW:
+            kwargs['custom_palette'] = dict(zip(numerical_cols, combi17))
 
             first_two_columns = (numerical_cols[0], numerical_cols[1])
 

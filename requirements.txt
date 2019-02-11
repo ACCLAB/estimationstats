@@ -1,11 +1,11 @@
 dabest==0.1.7
-scipy==1.1
-numpy==1.15
+scipy==1.2
+numpy==1.16
 matplotlib==2.2.0
 pandas==0.23
 seaborn==0.9
 gunicorn==19.9
-Flask==0.12.2
+Flask==1.0
 Flask-Cors==3.0.3
 Flask-Material==0.1.1
 Flask-RESTful==0.3.6

@@ -35,12 +35,20 @@ class Analyze(Resource):
                 return {}
 
             # Create dict for kwargs.
-            kwargs = {}
-            kwargs['context']         = 'notebook'
-            kwargs['font_scale']      = 1.4
-            kwargs['group_summaries'] = 'mean_sd'
-            kwargs['swarm_dotsize']   = float(request.form['swarm_dotsize'])
-            kwargs['cumming_vertical_spacing'] = 0.05
+            load_kwargs = {}
+            plot_kwargs = {}
+            
+            # Grab the CI.
+            if 'ci' in request.form:
+                CI = request.form['ci']
+            else:
+                CI = 95
+            load_kwargs['ci'] = float(CI)
+            
+            # kwargs['context']         = 'notebook'
+            # kwargs['font_scale']      = 1.4
+            # kwargs['group_summaries'] = 'mean_sd'
+            # kwargs['cumming_vertical_spacing'] = 0.05
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:
@@ -80,18 +88,17 @@ class Analyze(Resource):
             # if len(color_col) == 1:  # only if one unambiguous color column exists.
             #     kwargs = {'color_col': color_col[0]}
 
-            # Grab the CI.
-            if 'ci' in request.form:
-                CI = request.form['ci']
-            else:
-                CI = 95
-            kwargs['ci'] = float(CI)
+
 
             if plotType == 'two-independent-groups':
                 # two independent groups plot
-                kwargs['idx'] = first_two_columns
-                kwargs['custom_palette'] = dict(zip(first_two_columns, combi17))
-                kwargs['paired'] = False
+                load_kwargs['idx'] = first_two_columns
+                
+                load_kwargs['paired'] = False
+                
+                plot_kwargs['custom_palette'] = dict(zip(first_two_columns, 
+                                                         combi17))
+                                                         
                 figure_legend = "The mean difference between {0} and {1} \
                 is shown in the above Gardner-Altman estimation plot. \
                 Both groups are plotted on the left axes; \
@@ -105,9 +112,12 @@ class Analyze(Resource):
 
             elif plotType == 'paired':
                 # paired plot
-                kwargs['idx'] = first_two_columns
-                kwargs['paired'] = True
-                kwargs['id_col'] = "ID"
+                load_kwargs['idx'] = first_two_columns
+                
+                load_kwargs['paired'] = True
+                
+                load_kwargs['id_col'] = "ID"
+                
                 figure_legend = figure_legend = "The paired mean difference between \
                 {0} and {1} is shown in the above Gardner-Altman \
                 estimation plot. Both groups are plotted on the left axes \
@@ -122,10 +132,15 @@ class Analyze(Resource):
 
             elif plotType == 'multi':
                 # Multiple groups plot
-                kwargs['idx'] = paired_columns
-                kwargs['custom_palette'] = dict(zip(flattened_pairs, combi17))
-                kwargs['paired'] = False
-                kwargs['float_contrast'] = False
+                load_kwargs['idx'] = paired_columns
+                
+                load_kwargs['paired'] = False
+                
+                plot_kwargs['custom_palette'] = dict(zip(flattened_pairs, 
+                                                         combi17))
+                
+                plot_kwargs['float_contrast'] = False
+                
                 figure_legend = "The mean differences for {0} comparisons \
                 are shown in the above Cumming estimation plot. \
                 The raw data is plotted on the upper axes; each mean \
@@ -137,11 +152,16 @@ class Analyze(Resource):
 
             elif plotType == 'multi-paired':
                 # Multi-paired plot
-                kwargs['idx'] = paired_columns
-                kwargs['paired'] = True
-                kwargs['id_col'] = "ID"
-                kwargs['float_contrast'] = False
-                kwargs['fig_size'] = (2 * len(paired_columns), 7)
+                load_kwargs['idx'] = paired_columns
+                
+                load_kwargs['paired'] = True
+                
+                load_kwargs['id_col'] = "ID"
+                
+                plot_kwargs['float_contrast'] = False
+                
+                # plot_kwargs['fig_size'] = (2 * len(paired_columns), 7)
+                
                 figure_legend = "The paired mean differences for {0} \
                 comparisons are shown in the above Cumming estimation plot. \
                 The raw data is plotted on the upper axes; each paired set \
@@ -154,10 +174,15 @@ class Analyze(Resource):
 
             else:
                 # Shared control plot
-                kwargs['idx'] = numerical_cols
-                kwargs['custom_palette'] = dict(zip(numerical_cols, combi17))
-                kwargs['paired'] = False
-                kwargs['fig_size'] = (1. * len(numerical_cols), 7)
+                load_kwargs['idx'] = numerical_cols
+
+                load_kwargs['paired'] = False
+                
+                plot_kwargs['custom_palette'] = dict(zip(numerical_cols, 
+                                                         combi17))
+                                                         
+                # plot_kwargs['fig_size'] = (1. * len(numerical_cols), 7)
+                
                 figure_legend = "The mean differences for {0} \
                 comparisons against the shared control {1} \
                 are shown in the above Cumming estimation plot. \
@@ -171,21 +196,28 @@ class Analyze(Resource):
                                                 CI)
 
             # If this is a paired plot, add an ID column.
-            if kwargs['paired'] is True:
+            if load_kwargs['paired'] is True:
                 df["ID"] = pd.Series(range(1, len(df)))
 
-
+            plot_kwargs['raw_marker_size']  = float(request.form['swarm_dotsize'])
+            
+            plot_kwargs['es_marker_size'] = float(request.form['es_markersize'])
+            
             # Compute contrast statistics and create the contrast plot.
-            f, b = dabest.plot(df, **kwargs)
-            # munge the stats columns a bit.
-            b.drop(['is_difference'],
-                    axis=1,inplace=True)
-            b.rename(columns={'stat_summary': 'mean_difference',
-                              'bca_ci_low'  : 'CI_lower_limit_BCa_corrected',
-                              'bca_ci_high' : 'CI_upper_limit_BCa_corrected',
-                              'ci': 'CI'},
-                    inplace=True)
-            stats = b.to_html(index=False)
+            dabest_object = dabest.load(df, **load_kwargs)
+            f = dabest_object.mean_diff.plot(dpi=200, **plot_kwargs)
+            
+            # # munge the stats columns a bit.
+            # b.drop(['is_difference'],
+            #         axis=1,inplace=True)
+            # b.rename(columns={'stat_summary': 'mean_difference',
+            #                   'bca_ci_low'  : 'CI_lower_limit_BCa_corrected',
+            #                   'bca_ci_high' : 'CI_upper_limit_BCa_corrected',
+            #                   'ci': 'CI'},
+            #         inplace=True)
+            
+            stats_table = dabest_object.mean_diff.results
+
 
             # Prepare PNG output.
             img = io.BytesIO()
@@ -203,19 +235,19 @@ class Analyze(Resource):
             results = []
             sigfig = 3
 
-            for index, row in b.iterrows():
+            for index, row in stats_table.iterrows():
 
                 if row.is_paired is True:
                     paired_prefix = "Paired"
                 else:
                     paired_prefix = "Unpaired"
 
-                diff      = '%s' % float('%.{}g'.format(sigfig) % row.mean_difference)
-                ci_low    = '%s' % float('%.{}g'.format(sigfig) % row.CI_lower_limit_BCa_corrected)
-                ci_high   = '%s' % float('%.{}g'.format(sigfig) % row.CI_upper_limit_BCa_corrected)
+                diff      = '%s' % float('%.{}g'.format(sigfig) % row.difference)
+                ci_low    = '%s' % float('%.{}g'.format(sigfig) % row.bca_low)
+                ci_high   = '%s' % float('%.{}g'.format(sigfig) % row.bca_high)
 
-                ref_name  = row.reference_group
-                expt_name = row.experimental_group
+                ref_name  = row.control
+                expt_name = row.test
                 ref_n     = len(df[ref_name])
                 expt_n    = len(df[expt_name])
 
@@ -240,9 +272,9 @@ class Analyze(Resource):
             # Return all desired outputs.
             return jsonify(png        = png,
                            svg        = svg,
-                           csv        = b.values.tolist(),
-                           columns    = list(b),
-                           table_html = stats,
+                           csv        = stats_table.to_json(orient='values'),
+                           columns    = list(stats_table),
+                           table_html = stats_table.to_html(index=False),
                            legend     = legend
                            )
 

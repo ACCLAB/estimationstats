@@ -72,26 +72,32 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="row">
 			<div class="col number">
-				<i class="circle-number left">2</i>
+				<i class="circle-number left">00</i>
 			</div>
+
+
 			<div class="col content">
-				<div class="row no-margin-bot">
-					<div class="col s12">
-						Label for the main plot y-axis.
-						<div style="font-size:21px">If left blank, defaults to "value".</div>
-					</div>
-				</div>
+				Effect Size.
+				<br>
+				<span class="text" style="font-size:20px">
+					Choose your effect size. Read more about them here.
+				</span>
+				
 				<div class="row">
-					<div class="input-field col s12 m6 l6">
-						<input id="yaxis" type="text" v-model="yaxisLabel">
-						<label for="yaxis" class="">y-axis label</label>
+					<div class="file-types col s12 m6 l6">
+						<span v-for="fileType in fileTypes" :key="fileType.extension">
+							<input type="radio" :id="fileType.extension" v-model="fileExtension" :value="fileType.extension" />
+							<label :for="fileType.extension">{{ fileType.name }}</label>
+						</span>
 					</div>
 				</div>
+				
 			</div>
 		</div>
+		
 
 
 		<div class="row">
@@ -157,6 +163,40 @@
 				</div>
 			</div>
 		</template>
+		
+		
+		<div class="row">
+			<div class="col number">
+				<i class="circle-number left">99</i>
+			</div>
+			<div class="col content">
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Effect size dot size.
+						<div style="font-size:21px">
+							Change the size (in points) of the effect size marker(s).
+						</div>
+					</div>
+				</div>
+				<div class="row">
+
+					<!-- For some reason, if the maximum goes beyond 10,
+					the behaviour of the slider bar is super wonky. -->
+
+					<div class="input-field col s12 m6 l5">
+						<vue-slider v-model="es_markersize" interval=0.1 min=1 max=9.9
+						height=8 dotSize=22 speed=0.1 tooltip=false>
+						</vue-slider>
+					</div>
+
+					<div class="input-field col s12 m6 l2">
+						<input id="es_markersize" type="number" step=0.1 min=1 max=9.9 v-model="es_markersize">
+					</div>
+
+
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<template v-if="plotType === plotTypes.UNPAIRED.type">
@@ -248,6 +288,27 @@
 			</div>
 		</div>
 	</template>
+	
+	
+	<div class="row">
+		<div class="col number">
+			<i class="circle-number left">00</i>
+		</div>
+		<div class="col content">
+			<div class="row no-margin-bot">
+				<div class="col s12">
+					Label for the main plot y-axis.
+					<div style="font-size:21px">If left blank, defaults to "value".</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 m6 l6">
+					<input id="yaxis" type="text" v-model="yaxisLabel">
+					<label for="yaxis" class="">y-axis label</label>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 		<div class="row">
@@ -408,6 +469,7 @@ export default {
 		return {
 			ci: 95,
 			swarm_dotsize: 5,
+			es_markersize: 8,
 			file: null,
 			fileTypes: constants.fileTypes,
 			fileExtension: constants.fileTypes.PNG.extension, // Default is download PNG
@@ -612,6 +674,7 @@ export default {
 				yaxisLabel: this.yaxisLabel,
 				ci: this.ci,
 				swarm_dotsize: this.swarm_dotsize,
+				es_markersize: this.es_markersize,
 				swarm_ylimLower: this.swarmYlimLower,
 				swarm_ylimUpper: this.swarmYlimUpper,
 				con_ylimLower: this.conYlimLower,

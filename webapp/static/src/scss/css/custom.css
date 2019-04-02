@@ -294,3 +294,8 @@ i.circle-number {
 .no-margin-bot {
     margin-bottom: 0px !important;
 }
+
+.tooltip {
+  display: block !important;
+  z-index: 10000;
+}

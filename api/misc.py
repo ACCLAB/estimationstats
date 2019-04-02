@@ -15,3 +15,17 @@ combi17 = [(0.12156862745098039, 0.4666666666666667, 0.7058823529411765),
          (1.0, 0.8509803921568627, 0.1843137254901961),
          (0.8980392156862745, 0.7686274509803922, 0.5803921568627451),
          (0.7019607843137254, 0.7019607843137254, 0.7019607843137254)]
+
+
+insert_link_dict = {"Mann-Whitney test": "https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test",
+        "Wilcoxon test": "https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test",
+        "Kruskal test": "https://en.wikipedia.org/wiki/Kruskal%E2%80%93Wallis_one-way_analysis_of_variance",
+        "Brunner-Munzel test": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.brunnermunzel.html"
+       }
+      
+      
+es_print_dict = {"mean_diff": "mean difference",
+                 "median_diff": "median difference",
+                 "cohens_d": "Cohen's <i>d</i>",
+                 "hedges_g": "Hedges' <i>g</i>",
+                 "cliffs_delta": "Cliff's delta"}

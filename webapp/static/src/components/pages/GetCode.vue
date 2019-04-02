@@ -4,7 +4,7 @@
 
 		<a href='https://github.com/ACCLAB/dabestr'><img src='https://img.shields.io/badge/R-dabestr--v0.1.0-green.svg?longCache=true&style=for-the-badge' style="margin:10px 10px"></a>
 
-		<a href='https://github.com/ACCLAB/DABEST-python'><img src='https://img.shields.io/badge/Python-DABEST--v0.1.6-blue.svg?longCache=true&style=for-the-badge' style="margin:10px 10px"></a>
+		<a href='https://github.com/ACCLAB/DABEST-python'><img src='https://img.shields.io/badge/Python-DABEST--v0.2.1-blue.svg?longCache=true&style=for-the-badge' style="margin:10px 10px"></a>
 
 		<a href='https://github.com/ACCLAB/DABEST-Matlab'><img src='https://img.shields.io/badge/Matlab-DABEST--v0.1.0-purple.svg?longCache=true&style=for-the-badge' style="margin:10px 10px"></a>
 

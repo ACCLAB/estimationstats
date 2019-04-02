@@ -13,6 +13,7 @@
     "handsontable": "^5.0.1",
     "lodash": "^4.17.10",
     "materialize-css": "^0.100.2",
+    "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.5.17",
     "vue-analytics": "^5.16.0",
     "vue-breadcrumbs": "^1.1.2",

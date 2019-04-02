@@ -7,6 +7,7 @@ import 'materialize-css';
 import './scss/style.scss';
 import VueAnalytics from 'vue-analytics';
 import vueSlider from 'vue-slider-component';
+// import VTooltip from 'v-tooltip';
 import(/* webpackPrefetch: true */ 'vue-handsontable-official');
 
 // Using Imports
@@ -51,5 +52,6 @@ new Vue({
 export default {
 	components: {
 		vueSlider // VueSlideBar
+		// VTooltip
 	}
 };

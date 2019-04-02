@@ -1,6 +1,8 @@
 dabest==0.2.1
+matplotlib>=3.0
 pandas>=0.24
 numpy>=1.16
+seaborn>=0.9
 gunicorn==19.9
 Flask==1.0
 Flask-Cors==3.0

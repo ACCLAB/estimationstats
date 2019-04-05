@@ -42,6 +42,8 @@ Vue.use(VueAnalytics, {
 	}
 });
 
+// Vue.use(VTooltip);
+
 /* eslint-disable no-new */
 new Vue({
 	el: '#app',

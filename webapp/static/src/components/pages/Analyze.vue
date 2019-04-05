@@ -39,7 +39,7 @@
 					<br>
 					<div class="row col">
 						<div style="font-size:21px">
-							The first row of the data MUST be names of the groups. <span class="text" font-style="italic">See preloaded data.</span>
+							Each column of your data must correspond to one group of observations, and the first row must be names of the groups; see preloaded data for an example.
 						</div>
 				</div>
 			</div>
@@ -52,12 +52,18 @@
 						</span>
 					</div>
 					<div class="col s12" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-						<!-- The first row of the data MUST be names of the groups. <span class="text" style="font-size:19px">See preloaded data.</span>
-						<br><br> -->
-						<HotTable :settings="hotSettings"></HotTable>
-						<span class="text" style="font-size:19px"> The preloaded
-							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset consists of four sets of paired samples (n=15) giving the same paired t-test <i>P</i> value, despite vastly divergent graphical relationships.
-						</span>
+					<template v-if="plotType === plotTypes.UNPAIRED.type || plotType === plotTypes.PAIRED.type">
+						<HotTable :settings="hotSettingsTwoGroup"></HotTable>
+					</template>
+					<template v-else>
+						<HotTable :settings="hotSettingsMultiGroup"></HotTable>
+						<div class="row col">
+							<div style="font-size:20px">This 
+							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>preloaded dataset</a> consists of four sets of paired samples (n=15) giving the same paired t-test <i>P</i> value, despite vastly divergent graphical relationships.
+							</div>
+						</div>
+					</template>
+						
 					</div>
 					<div class="file-field input-field col s11 file-field input-field blue-text" v-show="curentInputType === inputDataTypes.CSV.type">
 						<div class="btn btn-large">
@@ -80,12 +86,19 @@
 				<i class="circle-number left">2</i>
 			</div>
 
-
+	
 			<div class="col content">
 					Effect Size.
 				<br>
 				<span class="text" style="font-size:20px">
-					Choose your effect size. Read more about them here. 
+					Choose your effect size. Mouse-over each effect size for a short description, or click here.
+					<!-- <button v-tooltip.top-center="{
+						content: es_descs,
+						offset: 20,
+					  delay: {
+					    hide: 10,
+					  }
+					}" >Hover Over me</button> -->
 				</span>
 				
 				<div class="row">
@@ -93,21 +106,20 @@
 					<template v-if="plotType != plotTypes.PAIRED.type && plotType != plotTypes.MULTI_PAIRED.type">
 						<div class="col s12 unpaired-effect-size" style="text-align:left; font-size:15px">
 							
-							<span v-for="es in unpairedEffectSizes" :key="es.type">
+							<span v-for="es in unpairedEffectSizes" :key="es.type" v-bind:title="es.desc">
 								<input type="radio" :id="es.type" :value="es.type" v-model="effectSize" v-tooltip.top-center="es.name"/>
-								<label :for="es.type">{{ es.name }}</label>
-							</span>							
+								<label :for="es.type">{{es.name}}</label>
+							</span>
+							
 						</div> 
 					</template>
 					
 					<template v-else>
 					<div class="col s12 paired-effect-size" style="text-align:left; font-size:15px">
 						
-						<span v-for="es in pairedEffectSizes" :key="es.type">
-							
+						<span v-for="es in pairedEffectSizes" :key="es.type" v-bind:title="es.desc">
 							<input type="radio" :id="es.type" :value="es.type" v-model="effectSize" v-tooltip.top-center="es.name"/>
-							<label :for="es.type">{{ es.name }}</label>
-							
+							<label :for="es.type">{{es.name}}</label>
 						</span>
 						
 					</div>
@@ -473,8 +485,10 @@
 				<div class="row">
 					<div class="file-field input-field col s12">
 						<template v-if="_.has(analyzedData, 'png')">
+							
 							<!-- The image is inserted below. -->
 							<img :src="`data:image/png;base64,${analyzedData.png}`" width="100%">
+							
 							<!-- Figure Legend and results are inserted below. -->
 							<p v-html="analyzedData.legend"></p>
 					</template>
@@ -574,6 +588,7 @@ export default {
 	data() {
 		let self = this;
 		return {
+			es_descs: 'Hello does this work ah.',
 			ci: 95,
 			swarm_dotsize: 5,
 			es_markersize: 8,
@@ -598,7 +613,43 @@ export default {
 			isAnalyzing: false,
 			hotDataChangeTrigger: 0,
 			hot: null, // Handsontable instance
-			hotSettings: { // Handsontable config
+			hotSettingsTwoGroup: { // Handsontable config
+				data: [
+					['Control', 'Test'],
+					[8.885, 6.625],
+					[14.38, 2.3],
+					[8.015, 11.975],
+					[5.835, 3.65],
+					[5.47, 8.325],
+					[12.06, 9],
+					[11.72, 6.675],
+					[10.315, 5.35],
+					[5.065, 3.025],
+					[8.235, 0.7],
+					[15.08, 8.375],
+					[13.485, 8.235],
+					[11.3, 6.91],
+					[9.82, 8.59],
+					[9.565, 9.265]
+				],
+				width: 225,
+				height: 400,
+				minRows: 15,
+				minCols: 2,
+				colWidths: 80,
+				rowHeights: 30,
+				colHeaders: true,
+				rowHeaders: true,
+				manualColumnResize: true,
+				contextMenu: true,
+				afterInit() {
+					self.hot = this;
+				},
+				afterChange() {
+					self.hotDataChangeTrigger++;
+				}
+			},
+			hotSettingsMultiGroup: { // Handsontable config
 				data: [
 					['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'],
 					[8.885, 10.135, 8, -35, 3.375, 6.625, 0.54, -0.54],
@@ -616,7 +667,7 @@ export default {
 					[11.3, 12.38, 14, 25, 17.09, 6.91, 4.54, 3.46],
 					[9.82, 9.66, 13, 30, 19.41, 8.59, 3.655, 4.345],
 					[9.565, 6.955, 10, 35, 20.735, 9.265, 2.775, 5.225]
-				], // Init data
+				],
 				width: 800,
 				height: 400,
 				minRows: 15,
@@ -627,7 +678,6 @@ export default {
 				rowHeaders: true,
 				manualColumnResize: true,
 				contextMenu: true,
-
 				afterInit() {
 					self.hot = this;
 				},

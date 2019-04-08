@@ -91,7 +91,7 @@
 					Effect Size.
 				<br>
 				<span class="text" style="font-size:20px">
-					Choose your effect size. Mouse-over each effect size for a short description, or click here.
+					Choose your effect size. Mouse-over each effect size for a short description, or click <router-link :to="{ name: 'abouteffsizes'}">here</router-link>.
 					<!-- <button v-tooltip.top-center="{
 						content: es_descs,
 						offset: 20,

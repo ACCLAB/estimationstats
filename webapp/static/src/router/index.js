@@ -5,6 +5,7 @@ import UserGuide from '@/components/pages/UserGuide';
 import Background from '@/components/pages/Background';
 import About from '@/components/pages/About';
 import GetCode from '@/components/pages/GetCode';
+import AboutEffectSizes from '@/components/pages/AboutEffectSizes';
 
 const Analyze = () => import('@/components/pages/Analyze');
 
@@ -89,12 +90,21 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/getcode',
+			path: '/get-code',
 			name: 'getcode',
 			component: GetCode,
 			meta: {
 				anchor: '',
 				breadcrumb: 'Get the code'
+			}
+		},
+		{
+			path: '/about-effect-sizes',
+			name: 'abouteffsizes',
+			component: AboutEffectSizes,
+			meta: {
+				anchor: '',
+				breadcrumb: 'About Effect Sizes'
 			}
 		},
 		{

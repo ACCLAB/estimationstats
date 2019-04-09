@@ -36,10 +36,12 @@
 			<div class="col content">
 				<div class="row col">
 					Enter your data.
+					<br>
+					<div class="row col">
+						<div style="font-size:21px">
+							Each column of your data must correspond to one group of observations, and the first row must be names of the groups; see preloaded data for an example.
+						</div>
 				</div>
-
-				<div class="row col">
-				The first row of the data MUST be names of the groups. <span class="text" style="font-size:19px">See preloaded data.</span>
 			</div>
 
 				<div class="row">
@@ -50,12 +52,18 @@
 						</span>
 					</div>
 					<div class="col s12" v-show="curentInputType === inputDataTypes.COPY_PASTE.type">
-						<!-- The first row of the data MUST be names of the groups. <span class="text" style="font-size:19px">See preloaded data.</span>
-						<br><br> -->
-						<HotTable :settings="hotSettings"></HotTable>
-						<span class="text" style="font-size:19px"> The preloaded
-							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>anscombe2</a> dataset consists of four sets of paired samples (n=15) giving the same paired t-test <i>P</i> value, despite vastly divergent graphical relationships.
-						</span>
+					<template v-if="plotType === plotTypes.UNPAIRED.type || plotType === plotTypes.PAIRED.type">
+						<HotTable :settings="hotSettingsTwoGroup"></HotTable>
+					</template>
+					<template v-else>
+						<HotTable :settings="hotSettingsMultiGroup"></HotTable>
+						<div class="row col">
+							<div style="font-size:20px">This 
+							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>preloaded dataset</a> consists of four sets of paired samples (n=15) giving the same paired t-test <i>P</i> value, despite vastly divergent graphical relationships.
+							</div>
+						</div>
+					</template>
+						
 					</div>
 					<div class="file-field input-field col s11 file-field input-field blue-text" v-show="curentInputType === inputDataTypes.CSV.type">
 						<div class="btn btn-large">
@@ -72,26 +80,74 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="row">
 			<div class="col number">
 				<i class="circle-number left">2</i>
 			</div>
+
+	
 			<div class="col content">
-				<div class="row no-margin-bot">
-					<div class="col s12">
-						Label for the main plot y-axis.
-						<div style="font-size:21px">If left blank, defaults to "value".</div>
-					</div>
-				</div>
+					Effect Size.
+				<br>
+				<span class="text" style="font-size:20px">
+					Choose your effect size. Mouse-over each effect size for a short description, or click <router-link :to="{ name: 'abouteffsizes'}">here</router-link>.
+					<!-- <button v-tooltip.top-center="{
+						content: es_descs,
+						offset: 20,
+					  delay: {
+					    hide: 10,
+					  }
+					}" >Hover Over me</button> -->
+				</span>
+				
 				<div class="row">
-					<div class="input-field col s12 m6 l6">
-						<input id="yaxis" type="text" v-model="yaxisLabel">
-						<label for="yaxis" class="">y-axis label</label>
+				
+					<template v-if="plotType != plotTypes.PAIRED.type && plotType != plotTypes.MULTI_PAIRED.type">
+						<div class="col s12 unpaired-effect-size" style="text-align:left; font-size:15px">
+							
+							<span v-for="es in unpairedEffectSizes" :key="es.type" v-bind:title="es.desc">
+								<input type="radio" :id="es.type" :value="es.type" v-model="effectSize" v-tooltip.top-center="es.name"/>
+								<label :for="es.type">{{es.name}}</label>
+							</span>
+							
+						</div> 
+					</template>
+					
+					<template v-else>
+					<div class="col s12 paired-effect-size" style="text-align:left; font-size:15px">
+						
+						<span v-for="es in pairedEffectSizes" :key="es.type" v-bind:title="es.desc">
+							<input type="radio" :id="es.type" :value="es.type" v-model="effectSize" v-tooltip.top-center="es.name"/>
+							<label :for="es.type">{{es.name}}</label>
+						</span>
+						
 					</div>
+				</template>
+						
+						<!-- Cannot get dropdown to work!!! -->
+						<!-- <select v-model="selected">
+							<option v-for="option in options" v-bind:value="option.value">
+						    {{ option.text }}
+						  </option>
+						</select> -->
+						
+						<!-- <select v-model="effectSizeDropDown">
+						  <option disabled value="">Please select one</option>
+						  <option>A</option>
+						  <option>B</option>
+						  <option>C</option>
+						</select> -->
+						
+						<!-- <span>Selected: {{ effectSizeDropDown }}</span> -->
+					
+
+					
 				</div>
+				
 			</div>
 		</div>
+		
 
 
 		<div class="row">
@@ -157,35 +213,74 @@
 				</div>
 			</div>
 		</template>
-
+		
+		
 		<div class="row">
-			<template v-if="plotType === plotTypes.UNPAIRED.type">
+			
+			<template v-if="plotType === plotTypes.PAIRED.type || plotType === plotTypes.MULTI_PAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">4</i>
+				</div>
+			</template>
+
+			<template v-else>
 				<div class="col number">
 					<i class="circle-number left">5</i>
 				</div>
 			</template>
+			
+			
+			<div class="col content">
+				<div class="row no-margin-bot">
+					<div class="col s12">
+						Effect size dot size.
+						<div style="font-size:21px">
+							Change the size (in points) of the effect size marker(s).
+						</div>
+					</div>
+				</div>
+				<div class="row">
 
-			<template v-else-if="plotType === plotTypes.PAIRED.type">
+					<!-- For some reason, if the maximum goes beyond 10,
+					the behaviour of the slider bar is super wonky. -->
+
+					<div class="input-field col s12 m6 l5">
+						<vue-slider v-model="es_markersize" interval=0.1 min=1 max=9.9
+						height=8 dotSize=22 speed=0.1 tooltip=false>
+						</vue-slider>
+					</div>
+
+					<div class="input-field col s12 m6 l2">
+						<input id="es_markersize" type="number" step=0.1 min=1 max=9.9 v-model="es_markersize">
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<template v-if="plotType === plotTypes.UNPAIRED.type">
 				<div class="col number">
-					<i class="circle-number left">4</i>
+					<i class="circle-number left">6</i>
+				</div>
+			</template>
+
+			<template v-else-if="plotType === plotTypes.PAIRED.type || plotType === plotTypes.MULTI_PAIRED.type">
+				<div class="col number">
+					<i class="circle-number left">5</i>
 				</div>
 			</template>
 
 			<template v-else-if="plotType === plotTypes.MULTI.type">
 				<div class="col number">
-					<i class="circle-number left">5</i>
-				</div>
-			</template>
-
-			<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
-				<div class="col number">
-					<i class="circle-number left">4</i>
+					<i class="circle-number left">6</i>
 				</div>
 			</template>
 
 			<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
 				<div class="col number">
-					<i class="circle-number left">5</i>
+					<i class="circle-number left">6</i>
 				</div>
 			</template>
 
@@ -210,27 +305,42 @@
 			</div>
 		</div>
 
-		<template v-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type">
+		<template v-if="plotType === plotTypes.MULTI.type || plotType === plotTypes.MULTI_PAIRED.type || plotType === plotTypes.SHARED_CONTROL.type || effectSize === unpairedEffectSizes.CLIFFS_DELTA.type" >
 		<div class="row">
-			<template v-if="plotType === plotTypes.MULTI.type">
+			
+			<!-- <template v-else-if="plotType === plotTypes.MULTI.type && effectSize != unpairedEffectSizes.CLIFFS_DELTA.type">
+				<div class="col number">
+					<i class="circle-number left">7</i>
+				</div>
+			</template> -->
+			
+			<template v-if="plotType === plotTypes.UNPAIRED.type && effectSize === unpairedEffectSizes.CLIFFS_DELTA.type">
+				<div class="col number">
+					<i class="circle-number left">7</i>
+				</div>
+			</template>
+			
+			<template v-else-if="plotType === plotTypes.MULTI.type">
+				<div class="col number">
+					<i class="circle-number left">7</i>
+				</div>
+			</template>
+			
+			<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
 				<div class="col number">
 					<i class="circle-number left">6</i>
 				</div>
 			</template>
-			<template v-if="plotType === plotTypes.MULTI_PAIRED.type">
+			<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
 				<div class="col number">
-					<i class="circle-number left">5</i>
+					<i class="circle-number left">7</i>
 				</div>
 			</template>
-			<template v-if="plotType === plotTypes.SHARED_CONTROL.type">
-				<div class="col number">
-					<i class="circle-number left">6</i>
-				</div>
-			</template>
+
 			<div class="col content">
 				<div class="row no-margin-bot">
 					<div class="col s12">
-						Bootstrapped difference y-axis limits. <div style="font-size:21px">
+						Bootstrap difference y-axis limits. <div style="font-size:21px">
 							If left blank, the limits are auto-scaled.</div>
 					</div>
 				</div>
@@ -248,22 +358,77 @@
 			</div>
 		</div>
 	</template>
+	
+	
+	<div class="row">
+		
+		<template v-if="plotType === plotTypes.UNPAIRED.type && effectSize != unpairedEffectSizes.CLIFFS_DELTA.type">
+			<div class="col number">
+				<i class="circle-number left">7</i>
+			</div>
+		</template>
+
+		<template v-else-if="plotType === plotTypes.UNPAIRED.type && effectSize === unpairedEffectSizes.CLIFFS_DELTA.type">
+			<div class="col number">
+				<i class="circle-number left">8</i>
+			</div>
+		</template>
+		
+		<template v-if="plotType === plotTypes.PAIRED.type">
+			<div class="col number">
+				<i class="circle-number left">6</i>
+			</div>
+		</template>
+		
+		<template v-else-if="plotType === plotTypes.MULTI.type">
+			<div class="col number">
+				<i class="circle-number left">8</i>
+			</div>
+		</template>
+		
+		<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
+			<div class="col number">
+				<i class="circle-number left">7</i>
+			</div>
+		</template>
+		
+		<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
+			<div class="col number">
+				<i class="circle-number left">8</i>
+			</div>
+		</template>
+		
+		<div class="col content">
+			<div class="row no-margin-bot">
+				<div class="col s12">
+					Label for the main plot y-axis.
+					<div style="font-size:21px">If left blank, defaults to "value".</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 m6 l6">
+					<input id="yaxis" type="text" v-model="yaxisLabel">
+					<label for="yaxis" class="">y-axis label</label>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 		<div class="row">
-			<template v-if="plotType === plotTypes.UNPAIRED.type">
+			<template v-if="plotType === plotTypes.UNPAIRED.type && effectSize != unpairedEffectSizes.CLIFFS_DELTA.type">
 				<div class="col number">
-					<i class="circle-number left">6</i>
+					<i class="circle-number left">8</i>
+				</div>
+			</template>
+			
+			<template v-else-if="plotType === plotTypes.UNPAIRED.type && effectSize === unpairedEffectSizes.CLIFFS_DELTA.type">
+				<div class="col number">
+					<i class="circle-number left">9</i>
 				</div>
 			</template>
 
 			<template v-else-if="plotType === plotTypes.PAIRED.type">
-				<div class="col number">
-					<i class="circle-number left">5</i>
-				</div>
-			</template>
-
-			<template v-else-if="plotType === plotTypes.MULTI.type">
 				<div class="col number">
 					<i class="circle-number left">7</i>
 				</div>
@@ -271,13 +436,19 @@
 
 			<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
 				<div class="col number">
-					<i class="circle-number left">6</i>
+					<i class="circle-number left">8</i>
+				</div>
+			</template>
+			
+			<template v-else-if="plotType === plotTypes.MULTI.type">
+				<div class="col number">
+					<i class="circle-number left">9</i>
 				</div>
 			</template>
 
 			<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
 				<div class="col number">
-					<i class="circle-number left">7</i>
+					<i class="circle-number left">9</i>
 				</div>
 			</template>
 
@@ -314,8 +485,10 @@
 				<div class="row">
 					<div class="file-field input-field col s12">
 						<template v-if="_.has(analyzedData, 'png')">
+							
 							<!-- The image is inserted below. -->
-							<img :src="`data:image/png;base64,${analyzedData.png}`" height="600px">
+							<img :src="`data:image/png;base64,${analyzedData.png}`" width="100%">
+							
 							<!-- Figure Legend and results are inserted below. -->
 							<p v-html="analyzedData.legend"></p>
 					</template>
@@ -327,33 +500,39 @@
 
 
 		<div class="row">
-				<template v-if="plotType === plotTypes.UNPAIRED.type">
+				<template v-if="plotType === plotTypes.UNPAIRED.type && effectSize != unpairedEffectSizes.CLIFFS_DELTA.type">
 					<div class="col number">
-						<i class="circle-number left">7</i>
+						<i class="circle-number left">9</i>
+					</div>
+				</template>
+				
+				<template v-else-if="plotType === plotTypes.UNPAIRED.type && effectSize === unpairedEffectSizes.CLIFFS_DELTA.type">
+					<div class="col number">
+						<i class="circle-number left">10</i>
 					</div>
 				</template>
 
 				<template v-else-if="plotType === plotTypes.PAIRED.type">
 					<div class="col number">
-						<i class="circle-number left">6</i>
+						<i class="circle-number left">8</i>
+					</div>
+				</template>
+				
+				<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
+					<div class="col number">
+						<i class="circle-number left">9</i>
 					</div>
 				</template>
 
 				<template v-else-if="plotType === plotTypes.MULTI.type">
 					<div class="col number">
-						<i class="circle-number left">8</i>
-					</div>
-				</template>
-
-				<template v-else-if="plotType === plotTypes.MULTI_PAIRED.type">
-					<div class="col number">
-						<i class="circle-number left">7</i>
+						<i class="circle-number left">10</i>
 					</div>
 				</template>
 
 				<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
 					<div class="col number">
-						<i class="circle-number left">8</i>
+						<i class="circle-number left">10</i>
 					</div>
 				</template>
 
@@ -393,27 +572,37 @@
 
 
 <script>
+// import Vue from 'vue';
 import _ from 'lodash';
 import HotTable from 'vue-handsontable-official';
-// import VueSlideBar from 'vue-slide-bar';
 import vueSlider from 'vue-slider-component';
+// import VTooltip from 'v-tooltip';
 import * as constants from '@/utils/constants.js';
 import * as plotService from '@/services/plot-service.js';
 import * as downloadUtil from '@/utils/download-util.js';
 import(/* webpackPreload: true */ 'vue-handsontable-official');
 
+// Vue.use(VTooltip);
+
 export default {
 	data() {
 		let self = this;
 		return {
+			es_descs: 'Hello does this work ah.',
 			ci: 95,
 			swarm_dotsize: 5,
+			es_markersize: 8,
 			file: null,
 			fileTypes: constants.fileTypes,
 			fileExtension: constants.fileTypes.PNG.extension, // Default is download PNG
 			inputDataTypes: constants.inputDataTypes,
 			curentInputType: constants.inputDataTypes.COPY_PASTE.type, // Default is copy paste data
 			plotTypes: constants.plotTypes,
+			unpairedEffectSizes: constants.unpairedEffectSizes,
+			pairedEffectSizes: constants.pairedEffectSizes,
+			effectSize: constants.unpairedEffectSizes.MEAN_DIFF.type, // default is mean difference.
+			effectSizePrint: constants.unpairedEffectSizes.MEAN_DIFF.name,
+			effectSizeDropDown: constants.unpairedEffectSizes.MEAN_DIFF.name,
 			yaxisLabel: '',
 			swarmYlimLower: '',
 			swarmYlimUpper: '',
@@ -424,7 +613,43 @@ export default {
 			isAnalyzing: false,
 			hotDataChangeTrigger: 0,
 			hot: null, // Handsontable instance
-			hotSettings: { // Handsontable config
+			hotSettingsTwoGroup: { // Handsontable config
+				data: [
+					['Control', 'Test'],
+					[8.885, 6.625],
+					[14.38, 2.3],
+					[8.015, 11.975],
+					[5.835, 3.65],
+					[5.47, 8.325],
+					[12.06, 9],
+					[11.72, 6.675],
+					[10.315, 5.35],
+					[5.065, 3.025],
+					[8.235, 0.7],
+					[15.08, 8.375],
+					[13.485, 8.235],
+					[11.3, 6.91],
+					[9.82, 8.59],
+					[9.565, 9.265]
+				],
+				width: 225,
+				height: 400,
+				minRows: 15,
+				minCols: 2,
+				colWidths: 80,
+				rowHeights: 30,
+				colHeaders: true,
+				rowHeaders: true,
+				manualColumnResize: true,
+				contextMenu: true,
+				afterInit() {
+					self.hot = this;
+				},
+				afterChange() {
+					self.hotDataChangeTrigger++;
+				}
+			},
+			hotSettingsMultiGroup: { // Handsontable config
 				data: [
 					['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'],
 					[8.885, 10.135, 8, -35, 3.375, 6.625, 0.54, -0.54],
@@ -442,7 +667,7 @@ export default {
 					[11.3, 12.38, 14, 25, 17.09, 6.91, 4.54, 3.46],
 					[9.82, 9.66, 13, 30, 19.41, 8.59, 3.655, 4.345],
 					[9.565, 6.955, 10, 35, 20.735, 9.265, 2.775, 5.225]
-				], // Init data
+				],
 				width: 800,
 				height: 400,
 				minRows: 15,
@@ -453,7 +678,6 @@ export default {
 				rowHeaders: true,
 				manualColumnResize: true,
 				contextMenu: true,
-
 				afterInit() {
 					self.hot = this;
 				},
@@ -547,7 +771,7 @@ export default {
 					content += 'data:text/csv;encoding:=utf-8,';
 					content += constants.CSV_DELIMITER + this.analyzedData.columns.join(constants.CSV_DELIMITER);
 					this.analyzedData.csv.forEach((rowData, index) => {
-						content += constants.CSV_NEW_LINE + index + constants.CSV_DELIMITER + rowData.join(constants.CSV_DELIMITER);
+						content += constants.CSV_NEW_LINE + (index + 1) + constants.CSV_DELIMITER + rowData.join(constants.CSV_DELIMITER);
 					});
 					content = encodeURI(content);
 				} else if (!_.isEmpty(this.analyzedData[this.fileExtension])) {
@@ -611,7 +835,9 @@ export default {
 			return {
 				yaxisLabel: this.yaxisLabel,
 				ci: this.ci,
+				effect_size: this.effectSize,
 				swarm_dotsize: this.swarm_dotsize,
+				es_markersize: this.es_markersize,
 				swarm_ylimLower: this.swarmYlimLower,
 				swarm_ylimUpper: this.swarmYlimUpper,
 				con_ylimLower: this.conYlimLower,
@@ -622,6 +848,7 @@ export default {
 	components: {
 		HotTable,
 		vueSlider
+		// VTooltip
 	}
 };
 </script>

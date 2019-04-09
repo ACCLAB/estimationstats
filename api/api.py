@@ -4,13 +4,14 @@ matplotlib.use('Agg') # Set appropriate rendering backend.
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import seaborn as sns
 import io
 import base64
 from flask import request, jsonify, abort
 from flask_restful import Resource
 
 import dabest
-from .misc import combi17
+from .misc import combi17, insert_link_dict, es_print_dict
 
 class Analyze(Resource):
     def post(self):
@@ -35,16 +36,27 @@ class Analyze(Resource):
                 return {}
 
             # Create dict for kwargs.
-            kwargs = {}
-            kwargs['context']         = 'notebook'
-            kwargs['font_scale']      = 1.4
-            kwargs['group_summaries'] = 'mean_sd'
-            kwargs['swarm_dotsize']   = float(request.form['swarm_dotsize'])
-            kwargs['cumming_vertical_spacing'] = 0.05
+            load_kwargs = {}
+            plot_kwargs = {}
+            
+            
+            # Grab the CI.
+            if 'ci' in request.form:
+                CI = request.form['ci']
+            else:
+                CI = 95
+            load_kwargs['ci'] = float(CI)
+            
+            # kwargs['context']         = 'notebook'
+            # kwargs['font_scale']      = 1.4
+            # kwargs['group_summaries'] = 'mean_sd'
+            # kwargs['cumming_vertical_spacing'] = 0.05
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:
-                kwargs['swarm_label'] = request.form['yaxisLabel']
+                plot_kwargs['swarm_label'] = request.form['yaxisLabel']
+            else:
+                plot_kwargs['swarm_label'] = "value"
 
             # Add swarm ylims
             check_swarm_ylim_lower = 'swarm_ylimLower' in request.form
@@ -52,7 +64,7 @@ class Analyze(Resource):
             if check_swarm_ylim_lower and check_swarm_ylim_upper:
                 low = np.float(request.form['swarm_ylimLower'])
                 high = np.float(request.form['swarm_ylimUpper'])
-                kwargs['swarm_ylim'] = (low, high)
+                plot_kwargs['swarm_ylim'] = (low, high)
 
             # Add swarm ylims
             check_con_ylim_lower = 'con_ylimLower' in request.form
@@ -60,7 +72,7 @@ class Analyze(Resource):
             if check_con_ylim_lower and check_con_ylim_upper:
                 low = np.float(request.form['con_ylimLower'])
                 high = np.float(request.form['con_ylimUpper'])
-                kwargs['contrast_ylim'] = (low, high)
+                plot_kwargs['contrast_ylim'] = (low, high)
 
             # Handle the columns for plotting.
             dt = df.dtypes
@@ -79,113 +91,182 @@ class Analyze(Resource):
             # color_col = df.columns[df.columns.str.upper().str.contains(r'COLOU?R')]
             # if len(color_col) == 1:  # only if one unambiguous color column exists.
             #     kwargs = {'color_col': color_col[0]}
+            
+            # Obtain the desired effect size.
+            effect_size = request.form['effect_size']
+            effect_size_print = es_print_dict[effect_size]
 
-            # Grab the CI.
-            if 'ci' in request.form:
-                CI = request.form['ci']
-            else:
-                CI = 95
-            kwargs['ci'] = float(CI)
+
 
             if plotType == 'two-independent-groups':
                 # two independent groups plot
-                kwargs['idx'] = first_two_columns
-                kwargs['custom_palette'] = dict(zip(first_two_columns, combi17))
-                kwargs['paired'] = False
-                figure_legend = "The mean difference between {0} and {1} \
-                is shown in the above Gardner-Altman estimation plot. \
+                load_kwargs['idx'] = first_two_columns
+                
+                load_kwargs['paired'] = False
+                
+                plot_kwargs['custom_palette'] = dict(zip(first_two_columns, 
+                                                         combi17))
+                                                         
+                if effect_size == "Cliff's delta":
+                    plot_type = "Cumming"
+                else:
+                    plot_type = "Gardner-Altman"
+                                                         
+                figure_legend = "The {0} between {1} and {2} \
+                is shown in the above {3} estimation plot. \
                 Both groups are plotted on the left axes; \
                 the mean difference is plotted on a floating axes \
                 on the right as a bootstrap sampling distribution. \
                 The mean difference is depicted as a dot; the \
-                {2}% confidence interval is indicated by the ends \
-                of the vertical error bar.".format(numerical_cols[0],
+                {4}% confidence interval is indicated by the ends \
+                of the vertical error bar.".format(effect_size_print, 
+                                                    numerical_cols[0],
                                                     numerical_cols[1],
+                                                    plot_type,
                                                     CI)
 
             elif plotType == 'paired':
                 # paired plot
-                kwargs['idx'] = first_two_columns
-                kwargs['paired'] = True
-                kwargs['id_col'] = "ID"
-                figure_legend = figure_legend = "The paired mean difference between \
-                {0} and {1} is shown in the above Gardner-Altman \
+                load_kwargs['idx'] = first_two_columns
+                
+                load_kwargs['paired'] = True
+                
+                load_kwargs['id_col'] = "ID"
+                
+                figure_legend = figure_legend = "The paired {0} between \
+                {1} and {2} is shown in the above Gardner-Altman \
                 estimation plot. Both groups are plotted on the left axes \
                 as a slopegraph: each paired set of observations is connected \
                 by a line. The paired mean difference is plotted on a \
                 floating axes on the right as a bootstrap sampling \
                 distribution. The mean difference is depicted as a dot; \
-                the {2}% confidence interval is indicated by the ends \
-                of the vertical error bar.".format(numerical_cols[0],
+                the {3}% confidence interval is indicated by the ends \
+                of the vertical error bar.".format(effect_size_print, 
+                                                    numerical_cols[0],
                                                    numerical_cols[1],
                                                    CI)
 
             elif plotType == 'multi':
                 # Multiple groups plot
-                kwargs['idx'] = paired_columns
-                kwargs['custom_palette'] = dict(zip(flattened_pairs, combi17))
-                kwargs['paired'] = False
-                kwargs['float_contrast'] = False
-                figure_legend = "The mean differences for {0} comparisons \
+                load_kwargs['idx'] = paired_columns
+                
+                load_kwargs['paired'] = False
+                
+                plot_kwargs['custom_palette'] = dict(zip(flattened_pairs, 
+                                                         combi17))
+                
+                plot_kwargs['float_contrast'] = False
+                
+                figure_legend = "The {0} for {1} comparisons \
                 are shown in the above Cumming estimation plot. \
                 The raw data is plotted on the upper axes; each mean \
                 difference is plotted on the lower axes as a bootstrap \
                 sampling distribution. Mean differences are depicted \
-                as dots; {1}% confidence intervals are indicated by the \
-                ends of the vertical error bars.".format(len(paired_columns),
+                as dots; {2}% confidence intervals are indicated by the \
+                ends of the vertical error bars.".format(effect_size_print, 
+                                                    len(paired_columns),
                                                         CI)
 
             elif plotType == 'multi-paired':
                 # Multi-paired plot
-                kwargs['idx'] = paired_columns
-                kwargs['paired'] = True
-                kwargs['id_col'] = "ID"
-                kwargs['float_contrast'] = False
-                kwargs['fig_size'] = (2 * len(paired_columns), 7)
-                figure_legend = "The paired mean differences for {0} \
+                load_kwargs['idx'] = paired_columns
+                
+                load_kwargs['paired'] = True
+                
+                load_kwargs['id_col'] = "ID"
+                
+                plot_kwargs['float_contrast'] = False
+                
+                # plot_kwargs['fig_size'] = (2 * len(paired_columns), 7)
+                
+                figure_legend = "The paired {0} for {1} \
                 comparisons are shown in the above Cumming estimation plot. \
                 The raw data is plotted on the upper axes; each paired set \
                 of observations is connected by a line. On the lower axes, \
                 each paired mean difference is plotted as a bootstrap \
                 sampling distribution. Mean differences are depicted \
-                as dots; {1}% confidence intervals are indicated by the \
-                ends of the vertical error bars.".format(len(paired_columns),
+                as dots; {2}% confidence intervals are indicated by the \
+                ends of the vertical error bars.".format(effect_size_print, 
+                                                        len(paired_columns),
                                                         CI)
 
             else:
                 # Shared control plot
-                kwargs['idx'] = numerical_cols
-                kwargs['custom_palette'] = dict(zip(numerical_cols, combi17))
-                kwargs['paired'] = False
-                kwargs['fig_size'] = (1. * len(numerical_cols), 7)
-                figure_legend = "The mean differences for {0} \
-                comparisons against the shared control {1} \
+                load_kwargs['idx'] = numerical_cols
+
+                load_kwargs['paired'] = False
+                
+                plot_kwargs['custom_palette'] = dict(zip(numerical_cols, 
+                                                         combi17))
+                                                         
+                # plot_kwargs['fig_size'] = (1. * len(numerical_cols), 7)
+                
+                figure_legend = "The {0} for {1} \
+                comparisons against the shared control {2} \
                 are shown in the above Cumming estimation plot. \
                 The raw data is plotted on the upper axes. On the \
                 lower axes, mean differences are plotted as bootstrap \
                 sampling distributions. Each mean difference is depicted \
-                as a dot. Each {2}% confidence interval is indicated by the \
-                ends of the vertical error bars.".format(
+                as a dot. Each {3}% confidence interval is indicated by the \
+                ends of the vertical error bars.".format(effect_size_print, 
                                                 len(numerical_cols) - 1,
                                                 numerical_cols[0],
                                                 CI)
 
             # If this is a paired plot, add an ID column.
-            if kwargs['paired'] is True:
+            if load_kwargs['paired'] is True:
                 df["ID"] = pd.Series(range(1, len(df)))
 
+            plot_kwargs['raw_marker_size']  = float(request.form['swarm_dotsize'])
+            
+            plot_kwargs['es_marker_size'] = float(request.form['es_markersize'])
+            
+            # Create the dabest object for analysis.
+            dabest_object = dabest.load(df, **load_kwargs)
+            
+            # Create the plot.
+            
+            # plt.rcParams['ytick.major.size'] = 10
+            # plt.rcParams['xtick.major.size'] = 10
+            
+            plot_kwargs['dpi'] = 200
+            if effect_size == "mean_diff":
+                es = dabest_object.mean_diff
+            elif effect_size == "median_diff":
+                es = dabest_object.median_diff
+            elif effect_size == "cohens_d":
+                es = dabest_object.cohens_d
+            elif effect_size == "hedges_g":
+                es = dabest_object.hedges_g
+            elif effect_size == "cliffs_delta":
+                es = dabest_object.cliffs_delta
+            
+            # # DEBUG: 
+            # print("creating plot.")
+            
+            f = es.plot(**plot_kwargs)
+            
+            # # DEBUG: 
+            # print("creating results table.") 
+            
 
-            # Compute contrast statistics and create the contrast plot.
-            f, b = dabest.plot(df, **kwargs)
-            # munge the stats columns a bit.
-            b.drop(['is_difference'],
-                    axis=1,inplace=True)
-            b.rename(columns={'stat_summary': 'mean_difference',
-                              'bca_ci_low'  : 'CI_lower_limit_BCa_corrected',
-                              'bca_ci_high' : 'CI_upper_limit_BCa_corrected',
-                              'ci': 'CI'},
-                    inplace=True)
-            stats = b.to_html(index=False)
+            
+            stats_table = es.results.copy()
+            stats_table.loc[:, "ci"] = stats_table.ci\
+                                         .astype(str)\
+                                        .str.cat(np.repeat("%", len(stats_table)))
+            stats_table.drop(columns=["bootstraps", "bca_interval_idx", 
+                                     "pct_interval_idx", "random_seed",
+                                     "pct_low", "pct_high"], 
+                             inplace=True)
+            stats_table.rename(columns={"control": "control_group",
+                                       "test": "test_group",
+                                       "ci": "ci_width",
+                                       "bca_low": "ci_lower_limit",
+                                       "bca_high": "ci_upper_limit"},
+                                inplace=True)
+            stats_table.index += 1
+
 
             # Prepare PNG output.
             img = io.BytesIO()
@@ -199,50 +280,42 @@ class Analyze(Resource):
             img.seek(0)
             svg = base64.b64encode(img.getvalue()).decode()
 
-            # Prepare Legend and Results output.
-            results = []
-            sigfig = 3
+            results_repr = es.__repr__()
+            results_repr = results_repr.split("\n\n")[1:-1]
+            
 
-            for index, row in b.iterrows():
+            for test in insert_link_dict.keys():
+                url = "<a href={} target='_blank'>{}</a>".format(insert_link_dict[test], test)
+                results_repr[0] = results_repr[0].replace(test, url)
+                
 
-                if row.is_paired is True:
-                    paired_prefix = "Paired"
-                else:
-                    paired_prefix = "Unpaired"
+            results_repr.insert(-1, "The effect sizes and CIs are reported above as: \
+                                    <i>effect size</i> [<i>CI width</i>&emsp;<i>lower bound</i>;\
+                                    <i>upper bound</i>]")
 
-                diff      = '%s' % float('%.{}g'.format(sigfig) % row.mean_difference)
-                ci_low    = '%s' % float('%.{}g'.format(sigfig) % row.CI_lower_limit_BCa_corrected)
-                ci_high   = '%s' % float('%.{}g'.format(sigfig) % row.CI_upper_limit_BCa_corrected)
+            results_repr = "<br><br>".join(results_repr)
 
-                ref_name  = row.reference_group
-                expt_name = row.experimental_group
-                ref_n     = len(df[ref_name])
-                expt_n    = len(df[expt_name])
+            original = "if the null hypothesis of zero difference is true."
+            new = "<em>if the null hypothesis of zero difference is true</em>; "
 
-                row_out = "{0} mean difference of {1} (n={2}) minus {3} \
-                (n={4}) <br>&emsp;{5} [{6} CI&emsp;{7}; {8}]<br>".format(
-                    paired_prefix,
-                     ref_name, ref_n,
-                     expt_name, expt_n,
-                     diff, CI,
-                     ci_low, ci_high)
-                results.append(row_out)
 
-            results = "<br>".join(results)
+            results = results_repr.replace("\n", "<br>")\
+                      .replace("size(s),<br>if", "size(s), if")\
+                      .replace(original, new)\
+                      .replace("p-value", "<i>P</i> value")
 
             legend  = 'Suggested Figure Legend:<br>\
                         <div style="font-size:20px">{0}</div>\
                         <br>Results:<div style="font-size:20px">\
-                        {1}<br><i>The suggested template (used above) is:<br>\
-                        `mean difference` [`CI width`&emsp;`lower bound`;\
-                        `upper bound`]</i></div>'.format(figure_legend, results)
+                        {1}they are included here to satisfy a common \
+                        requirement of scientific journals. \
+                        </div>'.format(figure_legend, results)
 
             # Return all desired outputs.
             return jsonify(png        = png,
                            svg        = svg,
-                           csv        = b.values.tolist(),
-                           columns    = list(b),
-                           table_html = stats,
+                           csv        = stats_table.values.tolist(),
+                           columns    = list(stats_table),
                            legend     = legend
                            )
 

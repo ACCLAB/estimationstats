@@ -111,7 +111,7 @@
 		</p>
 
 		<p>
-			The resampling distribution of the difference in means approaches a normal distribution. This is due to the <a href='https://en.wikipedia.org/wiki/Central_limit_theorem'>Central Limit Theorem</a>: a large number of independent random samples will approach a normal distribution even if the underlying population is not normally distributed.
+			The resampling distribution of the difference in means approaches a normal distribution. This is due to the <a href='https://en.wikipedia.org/wiki/Central_limit_theorem'>Central Limit Theorem</a>: the means of independent random samples will approach a normal distribution even if the underlying population is not normally distributed.
 		</p>
 
 		<p>

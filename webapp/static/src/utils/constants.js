@@ -7,6 +7,22 @@ export const plotTypes = {
 	SHARED_CONTROL: { type: 'shared-control', name: 'Shared control' }
 };
 
+/* Define effect sizes */
+export const unpairedEffectSizes = {
+	MEAN_DIFF: { type: 'mean_diff', name: 'Mean difference', desc: 'The difference between the means of each group.' },
+	MEDIAN_DIFF: { type: 'median_diff', name: 'Median difference', desc: 'The difference between the medians of each group.' },
+	COHENS_D: { type: 'cohens_d', name: "Cohen's d", desc: 'The difference in means, divided by the pooled standard deviation of the two samples. This is useful for comparing effect sizes across experiments.' },
+	HEDGES_G: { type: 'hedges_g', name: "Hedges' g", 	desc: "Cohen's d corrected for small-sample bias." },
+	CLIFFS_DELTA: { type: 'cliffs_delta', name: "Cliff's delta", desc: 'The likelihood that a random selection from the test sample is larger than a random selection from the control group.' }
+};
+
+export const pairedEffectSizes = {
+	MEAN_DIFF: { type: 'mean_diff', name: 'Mean difference', desc: 'The difference between the means of each group.' },
+	MEDIAN_DIFF: { type: 'median_diff', name: 'Median difference', desc: 'The difference between the medians of each group.' },
+	COHENS_D: { type: 'cohens_d', name: "Cohen's d", desc: 'The difference in means, divided by the pooled standard deviation of the two samples. This is useful for comparing effect sizes across experiments.' },
+	HEDGES_G: { type: 'hedges_g', name: "Hedges' g", 	desc: "Cohen's d corrected for small-sample bias." }
+};
+
 /** Define download file types */
 export const fileTypes = {
 	PNG: { extension: 'png', name: 'PNG' },

@@ -23,16 +23,16 @@
 			The web application was built in <a href="https://flask.pocoo.org" target="_blank">Flask</a> and <a href='https://vuejs.org/'>Vue.js</a> by Hung Nguyen.
 		</p>
 		<p>
-			The layout uses fonts and typography designed by <a href='https://practicaltypography.com/end-credits.html#bio' target="_blank">Matthew Butterick</a>. Typefaces designed by <a href='https://cargocollective.com/jonnypinhorn' target='blank'>Jonny Pinhorn</a> were used in the exemplar plots.
+			The layout uses fonts and typography designed by <a href='https://practicaltypography.com/about-matthew-butterick.html' target="_blank">Matthew Butterick</a>. Typefaces designed by <a href='https://cargocollective.com/jonnypinhorn' target='blank'>Jonny Pinhorn</a> were used in the exemplar plots.
 		</p>
 		<p>
-			This site is © 2017-2018 Adam Claridge-Chang and Joses Ho. All rights reserved.
+			This site is © 2017-2019 Adam Claridge-Chang and Joses Ho. All rights reserved.
 		</p>
 		<br>
 
 		<h5>How to cite</h5>
 		<p>
-			<b>Moving beyond P values: Everyday data analysis with estimation plots</b>
+			<b><a href='https://doi.org/10.1101/377978'  target='_blank'>Moving beyond P values: Everyday data analysis with estimation plots</a></b>
 			<br>
 			Joses Ho, Tayfun Tumkaya, Sameer Aryal, Hyungwon Choi, Adam Claridge-Chang
 			<br>

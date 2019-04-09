@@ -48,12 +48,12 @@ npm run build
 First, create and add the staging remote to your repo.
 ```shell
 heroku git:remote -a staging-remote-appname
-git remote rename heroku contrast-staging
+git remote rename heroku staging
 ```
 
 Then, push the testing branch to the master branch on the staging remote.
 ```shell
-git push contrast-staging testing-branch:master
+git push staging testing-branch:master
 ```
 
 ## Deployment

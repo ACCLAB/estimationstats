@@ -7,6 +7,9 @@ import 'materialize-css';
 import './scss/style.scss';
 import VueAnalytics from 'vue-analytics';
 import vueSlider from 'vue-slider-component';
+// import VueMathjax from 'vue-mathjax';
+
+// import VTooltip from 'v-tooltip';
 import(/* webpackPrefetch: true */ 'vue-handsontable-official');
 
 // Using Imports
@@ -41,6 +44,10 @@ Vue.use(VueAnalytics, {
 	}
 });
 
+// Vue.use(VTooltip);
+
+// Vue.use(VueMathjax);
+
 /* eslint-disable no-new */
 new Vue({
 	el: '#app',
@@ -50,6 +57,9 @@ new Vue({
 
 export default {
 	components: {
-		vueSlider // VueSlideBar
+		vueSlider
+		// 'vue-mathjax': VueMathjax
+		// VueSlideBar
+		// VTooltip
 	}
 };

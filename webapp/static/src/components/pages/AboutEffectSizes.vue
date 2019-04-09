@@ -31,6 +31,9 @@
     <br>
     where
 		<vue-mathjax :formula="pooledSDFormula"></vue-mathjax>
+		and
+		<vue-mathjax :formula="controlCount"></vue-mathjax>
+		<vue-mathjax :formula="testCount"></vue-mathjax>
 		In other words, this is a <i>standardized</i> effect size, where the mean difference is expressed in terms of the pooled standard deviation of the samples.
 		<br>
 		<br>
@@ -78,6 +81,8 @@ export default {
 			mu: '$\\mu$',
 			meanDiffFormula: '$$\\text{Mean difference} = \\overline{x}_{Test} -  \\overline{x}_{Control}$$',
 			medianDiffFormula: '$$\\text{Median difference} = \\widetilde{x}_{Test} -  \\widetilde{x}_{Control}$$',
+			testCount: '$$\\text{Number of observations in test sample} = n_{Test}$$',
+			controlCount: '$$\\text{Number of observations in control sample} = n_{Control}$$',
 			cohenDFormula: "$$\\text{Cohen's}\\ \\mathit{d} = {\\overline{x}_{Test} -  \\overline{x}_{Control}\\over \\text{StDev}_{pooled}}$$",
 			pooledSDFormula: '$$ \\text{StDev}_{pooled} = \\sqrt{{(n_{Test} - 1)\\times \\text{StDev}_{Test} + (n_{Control} - 1)\\times \\text{StDev}_{Control} \\over n_{Test} + n_{Control} -2}} $$',
 			hedgesGFormula: "$$\\text{Hedges'}\\ \\mathit{g} = {{\\overline{x}_{Test} -  \\overline{x}_{Control}\\over \\text{StDev}_{pooled}}} \\times F$$",

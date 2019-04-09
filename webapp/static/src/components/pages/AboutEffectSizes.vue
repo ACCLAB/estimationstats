@@ -44,7 +44,7 @@
     <vue-mathjax :formula="hedgesGFormula"></vue-mathjax>
 		where <i>F</i> can be approximated by
 		<vue-mathjax :formula="FApprox"></vue-mathjax>
-		Here at EstmationStats.com, we use the exact form for <i>F</i>, which employs the <a href='https://en.wikipedia.org/wiki/Gamma_function' taget='_blank'>gamma function</a> (Γ):
+		Here at EstimationStats.com, we use the exact form for <i>F</i>, which employs the <a href='https://en.wikipedia.org/wiki/Gamma_function' taget='_blank'>gamma function</a> (Γ):
 		<vue-mathjax :formula="FExact"></vue-mathjax>
 		and <i>e</i> refers to the degrees of freedom: 
 		<vue-mathjax :formula="DegFree"></vue-mathjax>

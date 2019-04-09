@@ -38,7 +38,7 @@
 		<br>
 		<br>
 		
-    <h5>Hedges's <i>g</i></h5>
+    <h5>Hedges' <i>g</i></h5>
     In <a href='https://journals.sagepub.com/doi/10.3102/10769986006002107' target='_blank'>1981</a>, <a href='https://www.ipr.northwestern.edu/faculty-experts/fellows/hedges.html' target='_blank'>Larry Hedges</a> showed that Cohen's <i>d</i> can be <a href='https://en.wikipedia.org/wiki/Bias_of_an_estimator'>biased</a> for small samples. That is to say, if the samples sizes are small, Cohen's <i>d</i> tends to overestimate the true effect size.
 		
 		To solve this problem, Hedges introduced a <i>correction factor</i>:
@@ -55,14 +55,14 @@
     <br>
     <br>
 		
-    <h5>Cliffs' delta</h5>
+    <h5>Cliff's delta</h5>
 		Named after <a href='https://en.wikipedia.org/wiki/Norman_Cliff' target='_blank'>Norman Cliff</a>, who came up with this effect size in <a href='https://psycnet.apa.org/record/1994-08169-001' target='_blank'>1993</a>, Cliff's delta is a measure of <i>ordinal dominance</i>, ie. how often the values from the test sample are larger than values from the control sample.
 		<br>
 		<vue-mathjax :formula="cliffsDeltaFormula"></vue-mathjax>
 		where # denotes the number of times a value from the test sample exceeds (or is lesser than) values in the control sample.
 		<br>
 		<br>
-		Cliffs' delta ranges from -1 to 1; it can also be thought of as a measure of the degree of overlap between the two samples. An attractive aspect of this effect size is that it does not make an assumptions about the underlying distributions that the samples were drawn from.
+		Cliff's delta ranges from -1 to 1; it can also be thought of as a measure of the degree of overlap between the two samples. An attractive aspect of this effect size is that it does not make an assumptions about the underlying distributions that the samples were drawn from.
 		<br>
 		<br>
     

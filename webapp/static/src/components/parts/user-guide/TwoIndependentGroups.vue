@@ -8,14 +8,14 @@
 		</p>
 		
 		<p>
-			To replace this outmoded method, estimation uses a <i>seperate but aligned axes</i> to show the experimental intervention’s effect size. In addition, this plot presents the effect size as a <i>bootstrap 95% confidence interval</i> (95% CI) on a separate but aligned axes. where the effect size is displayed to the right of the war data, and the mean of the test group is aligned with the effect size. 
+			To replace this outmoded method, estimation uses a <i>separate but aligned axes</i> to show the experimental intervention’s effect size. In addition, this plot presents the effect size as a <i>bootstrap 95% confidence interval</i> (95% CI) to the right of the raw data, with the mean of the test group aligned with the effect size. 
 		</p>
 
 		<p>
 			<img src="../../../../static/img/exemplars/two-group-unpaired.svg" align="center" style="vertical-align:top;margin-top:10px;margin-bottom:10px;margin: -30px 20px" width="100%"/>
 			
 		</p>
-		 This t-test counterpart was first described by <a href="https://www.bmj.com/content/292/6522/746">Martin Gardner and Douglas J. Altman in 1986</a>, so we call this the Gardner-Altman two-groups mean-difference estimation plot.
+		 This t-test counterpart was first described by <a href='https://www.independent.co.uk/news/people/obituary-professor-martin-gardner-1470261.html' target='_blank'>Martin Gardner</a> and <a href='https://www.bmj.com/content/361/bmj.k2588' target='_blank'>Douglas J. Altman</a> in <a href="https://www.bmj.com/content/292/6522/746">1986</a>, so we call this the Gardner-Altman two-groups mean-difference estimation plot.
 		</p>
 		
 		<p>

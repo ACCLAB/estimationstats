@@ -140,6 +140,10 @@
 			<p>
 				Thus, Efron developed the <a href='https://en.wikipedia.org/wiki/Bootstrapping_(statistics)#History'>bias-corrected and accelerated bootstrap</a> (BCa bootstrap) to account for the skew whilst obtaining the central 95% of the distribution. Here at estmationstats.com, we apply the BCa correction to the resampling bootstrap distributions of the effect size.
 		</p>
+		
+		<p>
+			It must be noted that bootstrapping "may not give very accurate coverage in a small-sample non-parametric situation" (<a href='https://www.jstor.org/stable/2669773' target='_blank'>Efron 2000</a>); caution is warranted if your dataset is very small or contains severe outliers.
+		</p>
 		<br>
 
 

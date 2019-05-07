@@ -1,1 +1,1 @@
-web: gunicorn run:app --preload --workers 2 --threads 2
+web: gunicorn run:app --preload --workers 3 --threads 3 --max-requests 100

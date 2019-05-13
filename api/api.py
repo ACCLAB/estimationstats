@@ -243,31 +243,32 @@ class Analyze(Resource):
             
             # # DEBUG: 
             # print("creating plot.")
-            
-            f = es.plot(**plot_kwargs)
+            f = es.plot(**plot_kwargs);
             
             # # DEBUG: 
             # print("creating results table.") 
-            
-
-            
             stats_table = es.results.copy()
             stats_table.loc[:, "ci"] = stats_table.ci\
                                          .astype(str)\
                                         .str.cat(np.repeat("%", len(stats_table)))
+
             stats_table.drop(columns=["bootstraps", "bca_interval_idx", 
                                      "pct_interval_idx", "random_seed",
                                      "pct_low", "pct_high"], 
                              inplace=True)
+
             stats_table.rename(columns={"control": "control_group",
                                        "test": "test_group",
                                        "ci": "ci_width",
                                        "bca_low": "ci_lower_limit",
                                        "bca_high": "ci_upper_limit"},
                                 inplace=True)
+            
+            stats_table.fillna("Undefined", inplace=True)
             stats_table.index += 1
 
-
+            # # DEBUG: 
+            # print("creating image.") 
             # Prepare PNG output.
             img = io.BytesIO()
             plt.savefig(img, format='png', **savefig_kwargs)
@@ -279,7 +280,9 @@ class Analyze(Resource):
             plt.savefig(img, format='svg', **savefig_kwargs)
             img.seek(0)
             svg = base64.b64encode(img.getvalue()).decode()
-
+            
+            # # DEBUG: 
+            # print("formatting text.") 
             results_repr = es.__repr__()
             results_repr = results_repr.split("\n\n")[1:-1]
             
@@ -310,7 +313,17 @@ class Analyze(Resource):
                         {1}they are included here to satisfy a common \
                         requirement of scientific journals. \
                         </div>'.format(figure_legend, results)
-
+            # # DEBUG: 
+            # print("return output.") 
+            # 
+            # # DEBUG:
+            # print(legend)
+            # print("\n")
+            # print(stats_table.values.tolist())
+            
+            # close the plot to save memory!
+            plt.close()
+            
             # Return all desired outputs.
             return jsonify(png        = png,
                            svg        = svg,
@@ -318,10 +331,8 @@ class Analyze(Resource):
                            columns    = list(stats_table),
                            legend     = legend
                            )
-
-            # close the plot to save memory!
-            plt.close()
-
+                           
+                           
         except Exception as e:
             print(e) # Use to debug.
             abort(400, 'Error: {}'.format(e))

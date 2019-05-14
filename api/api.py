@@ -29,6 +29,11 @@ class Analyze(Resource):
             if request.files:
                 # Read in the uploaded file.
                 df = pd.read_csv(request.files['file'])
+                
+                # Discard rows, then columns, that are totally empty.
+                df.dropna(axis=0, how='all', inplace=True)
+                df.dropna(axis=1, how='all', inplace=True)
+
                 # Plot arguments
                 plotType = request.form['plotType']
 

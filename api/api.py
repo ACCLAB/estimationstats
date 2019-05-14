@@ -4,7 +4,7 @@ matplotlib.use('Agg') # Set appropriate rendering backend.
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import seaborn as sns
+
 import io
 import base64
 from flask import request, jsonify, abort
@@ -251,16 +251,9 @@ class Analyze(Resource):
             # # DEBUG: 
             # print("creating results table.") 
             
-            stats_table = es.statistical_tests
-            # stats_table = es.results.copy()
             stats_table.loc[:, "ci"] = stats_table.ci\
                                          .astype(str)\
                                         .str.cat(np.repeat("%", len(stats_table)))
-
-            # stats_table.drop(columns=["bootstraps", "bca_interval_idx", 
-            #                          "pct_interval_idx", "random_seed",
-            #                          "pct_low", "pct_high"], 
-            #                  inplace=True)
 
             stats_table.rename(columns={"control": "control_group",
                                        "test": "test_group",

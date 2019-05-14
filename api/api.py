@@ -221,13 +221,11 @@ class Analyze(Resource):
             
             plot_kwargs['es_marker_size'] = float(request.form['es_markersize'])
             
+            # # DEBUG: 
+            # print(load_kwargs['idx'])
+            
             # Create the dabest object for analysis.
             dabest_object = dabest.load(df, **load_kwargs)
-            
-            # Create the plot.
-            
-            # plt.rcParams['ytick.major.size'] = 10
-            # plt.rcParams['xtick.major.size'] = 10
             
             plot_kwargs['dpi'] = 200
             if effect_size == "mean_diff":
@@ -247,15 +245,17 @@ class Analyze(Resource):
             
             # # DEBUG: 
             # print("creating results table.") 
-            stats_table = es.results.copy()
+            
+            stats_table = es.statistical_tests
+            # stats_table = es.results.copy()
             stats_table.loc[:, "ci"] = stats_table.ci\
                                          .astype(str)\
                                         .str.cat(np.repeat("%", len(stats_table)))
 
-            stats_table.drop(columns=["bootstraps", "bca_interval_idx", 
-                                     "pct_interval_idx", "random_seed",
-                                     "pct_low", "pct_high"], 
-                             inplace=True)
+            # stats_table.drop(columns=["bootstraps", "bca_interval_idx", 
+            #                          "pct_interval_idx", "random_seed",
+            #                          "pct_low", "pct_high"], 
+            #                  inplace=True)
 
             stats_table.rename(columns={"control": "control_group",
                                        "test": "test_group",

@@ -251,6 +251,8 @@ class Analyze(Resource):
             # # DEBUG: 
             # print("creating results table.") 
             
+            stats_table = es.statistical_tests.copy()
+            
             stats_table.loc[:, "ci"] = stats_table.ci\
                                          .astype(str)\
                                         .str.cat(np.repeat("%", len(stats_table)))

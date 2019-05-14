@@ -221,6 +221,16 @@ class Analyze(Resource):
             # If this is a paired plot, add an ID column.
             if load_kwargs['paired'] is True:
                 df["ID"] = pd.Series(range(1, len(df)))
+                
+                # Re-shape the damn thing in lieu of updating DABEST.
+                df = pd.melt(df, id_vars="ID").dropna()
+                
+            else:
+                # Re-shape the damn thing in lieu of updating DABEST.
+                df = pd.melt(df).dropna()
+                
+            load_kwargs['x'] = 'variable'
+            load_kwargs['y'] = 'value'
 
             plot_kwargs['raw_marker_size']  = float(request.form['swarm_dotsize'])
             

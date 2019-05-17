@@ -1,4 +1,4 @@
-dabest==0.2.3
+dabest==0.2.4
 matplotlib>=3.0
 pandas>=0.24
 numpy>=1.16

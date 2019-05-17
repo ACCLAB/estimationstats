@@ -4,6 +4,7 @@ matplotlib.use('Agg') # Set appropriate rendering backend.
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import seaborn as sns
 
 import io
 import base64
@@ -51,11 +52,6 @@ class Analyze(Resource):
             else:
                 CI = 95
             load_kwargs['ci'] = float(CI)
-            
-            # kwargs['context']         = 'notebook'
-            # kwargs['font_scale']      = 1.4
-            # kwargs['group_summaries'] = 'mean_sd'
-            # kwargs['cumming_vertical_spacing'] = 0.05
 
             # Add y-axis label
             if 'yaxisLabel' in request.form:
@@ -90,6 +86,11 @@ class Analyze(Resource):
                              if len(t) == 2]
             flattened_pairs = [element for tup in paired_columns
                                for element in tup]
+                               
+            # precompute the viridis palettes.
+            viridis_palette_paired = sns.color_palette("viridis", len(flattened_pairs))
+            viridis_palette_shared = sns.color_palette("viridis", len(numerical_cols))
+            
 
             # # If 'color' or 'colour' is a column in `df`,
             # # use it to determine the color.
@@ -138,7 +139,7 @@ class Analyze(Resource):
                 
                 load_kwargs['id_col'] = "ID"
                 
-                figure_legend = figure_legend = "The paired {0} between \
+                figure_legend = "The paired {0} between \
                 {1} and {2} is shown in the above Gardner-Altman \
                 estimation plot. Both groups are plotted on the left axes \
                 as a slopegraph: each paired set of observations is connected \
@@ -157,8 +158,12 @@ class Analyze(Resource):
                 
                 load_kwargs['paired'] = False
                 
-                plot_kwargs['custom_palette'] = dict(zip(flattened_pairs, 
-                                                         combi17))
+                if len(flattened_pairs) > len(combi17):
+                    plot_kwargs['custom_palette'] = dict(zip(flattened_pairs, 
+                                                             viridis_palette_paired))
+                else:
+                    plot_kwargs['custom_palette'] = dict(zip(flattened_pairs, 
+                                                             combi17))
                 
                 plot_kwargs['float_contrast'] = False
                 
@@ -201,8 +206,12 @@ class Analyze(Resource):
 
                 load_kwargs['paired'] = False
                 
-                plot_kwargs['custom_palette'] = dict(zip(numerical_cols, 
-                                                         combi17))
+                if len(numerical_cols) > len(combi17):
+                    plot_kwargs['custom_palette'] = dict(zip(numerical_cols, 
+                                                             viridis_palette_shared))
+                else:
+                    plot_kwargs['custom_palette'] = dict(zip(numerical_cols, 
+                                                             combi17))
                                                          
                 # plot_kwargs['fig_size'] = (1. * len(numerical_cols), 7)
                 
@@ -254,8 +263,6 @@ class Analyze(Resource):
             elif effect_size == "cliffs_delta":
                 es = dabest_object.cliffs_delta
             
-            # # DEBUG: 
-            # print("creating plot.")
             f = es.plot(**plot_kwargs);
             
             # # DEBUG: 

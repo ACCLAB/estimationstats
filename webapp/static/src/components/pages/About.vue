@@ -32,11 +32,13 @@
 
 		<h5>How to cite</h5>
 		<p>
-			<b><a href='https://doi.org/10.1101/377978'  target='_blank'>Moving beyond P values: Everyday data analysis with estimation plots</a></b>
+			<b>Moving beyond P values: Everyday data analysis with estimation plots</b>
 			<br>
 			Joses Ho, Tayfun Tumkaya, Sameer Aryal, Hyungwon Choi, Adam Claridge-Chang
 			<br>
-			<a href='https://doi.org/10.1101/377978' target='_blank'>https://doi.org/10.1101/377978</a>
+			Nature Methods 2019, 1548-7105. DOI: <a href="https://dx.doi.org/10.1038/s41592-019-0470-3" target="_blank">10.1038/s41592-019-0470-3</a>
+			<br>
+			<a href="https://rdcu.be/bHhJ4" target="_blank">Free-to-view PDF</a>
 		</p>
 		<br>
 

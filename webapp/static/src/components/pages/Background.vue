@@ -8,7 +8,7 @@
 
 
 
-		<h5>Introducing Estimation Statistics</h5>
+		<h4>Introducing Estimation Statistics</h4>
 		<p>
 			Estimation statistics is a simple <a href='https://thenewstatistics.com/itns/' target='blank'>framework</a> that—while avoiding the pitfalls of significance testing—uses familiar statistical concepts: means, mean differences, and error bars. More importantly, it focuses on the effect size of one's experiment/intervention, as opposed to significance testing.
 		</p>
@@ -24,7 +24,7 @@
 
 
 
-		<h5>The Inadequacy of Common Plots</h5>
+		<h4>The Inadequacy of Common Plots</h4>
 		<p>
 			Let's say we have performed an experiment with 30 control subjects, and 30 test subjects. We begin our data analysis by making a barplot of the data.
 
@@ -32,7 +32,7 @@
 				<img src="../../../static/img/background/barplot.png" align="centre"  class="responsive-img"/>
 			</p>
 
-			The barplot has several shortcomings, despite enjoying widespread usage in academic journals. We're not the first ones (see <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>this</a>,  <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>this</a>, or <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>that</a>) to point out the myriad flaws with the barplot. Importantly, the barplot does not show us the effect size.
+			The barplot has several shortcomings, even though its use in academic journals is endemic. We're not the first ones (see <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>this</a>,  <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>this</a>, or <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>that</a>) to point out the myriad flaws with the barplot. Importantly, the barplot does not show us the effect size.
 		</p>
 
 		<p>
@@ -54,7 +54,7 @@
 
 
 
-		<h5>Introducing the Estimation Plot</h5>
+		<h4>Introducing the Estimation Plot</h4>
 		<p>
 			<p>
 				<img src="../../../static/img/background/two-group-estimation-plot.png" align="centre" class="responsive-img"/>
@@ -75,7 +75,7 @@
 
 
 
-		<h5>The Bootstrap Confidence Interval: A Quick Primer</h5>
+		<h4>The Bootstrap Confidence Interval: A Quick Primer</h4>
 		<p>
 			In a typical scientific experiment, we are interested in two populations (Control and Test), and whether there is a difference between their means (µTest - µControl).
 		</p>
@@ -148,7 +148,7 @@
 
 
 
-		<h5>An estimation plot for your type of data</h5>
+		<h4>An estimation plot for your type of data</h4>
 		<p>
 			For each of the most routine significance tests, there is an estimation replacement:
 
@@ -204,7 +204,7 @@
 
 
 
-		<h5>Estimation Plots: The Way Forward</h5>
+		<h4>Estimation Plots: The Way Forward</h4>
 		Relative to conventional plots, estimation plots offer five key benefits:
 
 		<table style="width:100%" align='centre'>

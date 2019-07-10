@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5>What is an effect size?</h5>
+    <h4>What is an effect size?</h4>
     An effect size is simply the magnitude (size) of a phenomenon of interest (the effect). Experimental and empirical science seeks an answer to the question, "What is the difference between the control group and the test group?" <router-link :to="{ name: 'background'}">Estimation statistics</router-link>, with its focus on effect sizes and confidence intervals, provides a quantitative answer. (Null-hypothesis significance testing, on the other hand, merely answers the question "Is there a difference?)
     <br>
     <br>
@@ -9,7 +9,7 @@
     <br>
     
     <a name="about-mean-diff"></a>
-    <h5>Mean difference</h5>
+    <h4>Mean difference</h4>
     The effect size most familiar to both scientist and layperson is the difference of means. It is simply the mean of the control group subtracted from that of the test group:
     <br>
     <vue-mathjax :formula="meanDiffFormula"></vue-mathjax>
@@ -17,14 +17,14 @@
     <br>
 		
     <a name="about-median-diff"></a>
-    <h5>Median difference</h5>
+    <h4>Median difference</h4>
     Sometimes, if the data is not normally distributed, or if the data is bounded, the difference between medians might be a better effect size.
     <br>
     <vue-mathjax :formula="medianDiffFormula"></vue-mathjax>
     <br>
     <br>
 		  
-    <h5>Cohen's <i>d</i></h5>
+    <h4>Cohen's <i>d</i></h4>
     First mooted by psychologist <a href='https://www.nytimes.com/1998/02/07/nyregion/jacob-cohen-74-psychologist-and-pioneer-in-statistical-studies.html' target='_blank'>Jacob Cohen</a> in <a href='https://www.ncbi.nlm.nih.gov/pubmed/13880271' target='_blank'>1962</a>, Cohen's <i>d</i> is the mean difference between two groups, divided by the pooled standard deviation of both groups.
     <br>
     <vue-mathjax :formula="cohenDFormula"></vue-mathjax>
@@ -38,7 +38,7 @@
 		<br>
 		<br>
 		
-    <h5>Hedges' <i>g</i></h5>
+    <h4>Hedges' <i>g</i></h4>
     In <a href='https://journals.sagepub.com/doi/10.3102/10769986006002107' target='_blank'>1981</a>, <a href='https://www.ipr.northwestern.edu/faculty-experts/fellows/hedges.html' target='_blank'>Larry Hedges</a> showed that Cohen's <i>d</i> can be <a href='https://en.wikipedia.org/wiki/Bias_of_an_estimator'>biased</a> for small samples. That is to say, if the samples sizes are small, Cohen's <i>d</i> tends to overestimate the true effect size.
 		
 		To solve this problem, Hedges introduced a <i>correction factor</i>:
@@ -55,7 +55,7 @@
     <br>
     <br>
 		
-    <h5>Cliff's delta</h5>
+    <h4>Cliff's delta</h4>
 		Named after <a href='https://en.wikipedia.org/wiki/Norman_Cliff' target='_blank'>Norman Cliff</a>, who came up with this effect size in <a href='https://psycnet.apa.org/record/1994-08169-001' target='_blank'>1993</a>, Cliff's delta is a measure of <i>ordinal dominance</i>, ie. how often the values from the test sample are larger than values from the control sample.
 		<br>
 		<vue-mathjax :formula="cliffsDeltaFormula"></vue-mathjax>

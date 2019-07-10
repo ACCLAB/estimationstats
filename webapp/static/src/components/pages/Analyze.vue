@@ -58,7 +58,7 @@
 					<template v-else>
 						<HotTable :settings="hotSettingsMultiGroup"></HotTable>
 						<div class="row col">
-							<div style="font-size:20px">This 
+							<div style="font-size:0.8rem">This 
 							<a href='https://www.rdocumentation.org/packages/PairedData/versions/0.9.9/topics/anscombe2'>preloaded dataset</a> consists of four sets of paired samples (n=15) giving the same paired t-test <i>P</i> value, despite vastly divergent graphical relationships.
 							</div>
 						</div>
@@ -90,7 +90,7 @@
 			<div class="col content">
 					Effect Size.
 				<br>
-				<span class="text" style="font-size:20px">
+				<span class="text" style="font-size:0.8rem">
 					Choose your effect size. Mouse-over each effect size for a short description, or click <router-link :to="{ name: 'abouteffsizes'}">here</router-link>.
 					<!-- <button v-tooltip.top-center="{
 						content: es_descs,
@@ -491,6 +491,7 @@
 							
 							<!-- Figure Legend and results are inserted below. -->
 							<p v-html="analyzedData.legend"></p>
+
 					</template>
 					</div>
 				</div>
@@ -540,7 +541,7 @@
 				<div class="row col">
 					Download results.
 					<br>
-					<span class="text" style="font-size:20px">
+					<span class="text" style="font-size:0.8rem">
 						Plots are available in SVG or PNG formats.
 						<br>The table of statistics can be downloaded as a CSV text file.
 					</span>
@@ -556,13 +557,30 @@
 
 				<div class="row">
 					<div class="file-field input-field col s12">
+						
 						<div class="btn btn-large" @click="onDownload" :class="{disabled:_.isEmpty(analyzedData)}">
 							<span>
 								<i class="medium material-icons left pe-7s-cloud-download"></i>
 								<span class="left">Download</span>
 							</span>
 						</div>
+						
 					</div>
+					
+					<br>
+					<br>
+					
+					<div class="row">
+						<template v-if="_.has(analyzedData, 'png')">
+							<br>
+							<br>
+							<span class="text" style="font-size:0.75rem; font-style:italic;">
+								<!-- Mild Panic Button. -->
+								Spotted something amiss? Send your feedback <a href='mailto:estimationstats@googlegroups.com'>here</a>.
+							</span>
+						</template>
+					</div>
+					
 				</div>
 			</div>
 		</div>

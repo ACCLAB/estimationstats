@@ -57,12 +57,12 @@ body.loading * {
   html {
     font-size: 21px !important;
   }
-  
-  
+
+
   .hide-on-med-and-down {
       display: none !important;
     }
-  
+
   .main {
       padding-left: 300px;
   }
@@ -71,7 +71,7 @@ body.loading * {
       width: 85%;
       max-width: 35rem !important;
   }
-  
+
   .container #app {
     width: 100%;
     align: center;
@@ -82,7 +82,7 @@ body.loading * {
    width: 100%;
    margin-top: 3rem;
   }
-} 
+}
 
 
 
@@ -144,6 +144,7 @@ footer .credit {
 }
 
 footer .menu {
+		font-size: 1rem;
     position: relative;
     left: -20px;
 }
@@ -260,7 +261,7 @@ a, a.active, a:hover {
 }
 
 .handsontable th, .handsontable td {
-  width: 75%;
+  width: auto;
   margin-top: 1rem !important;
   font-size: 1rem !important;
 }
@@ -374,6 +375,14 @@ i.circle-number {
 
 .no-margin-bot {
     margin-bottom: 0px !important;
+}
+
+.preloader-wrapper.active {
+	margin-top: 5%;
+	margin-left: 25%;
+  margin-right: 25%;
+	margin-bottom: 5%;
+	/* width: 50%; */
 }
 
 .tooltip {

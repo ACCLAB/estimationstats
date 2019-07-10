@@ -6,12 +6,14 @@
 			</div> -->
 		</div>
 		<div class="row valign-wrapper">
+
 			<div class="col s2 center-align">
 				<router-link exact :to="{ name: 'home' }" class="grey-text text-darken-1">
 					<img class="logo" src="./../../../static/img/Logo-resize.svg">
 				</router-link>
 			</div>
-			<div class="col s12">
+
+			<div class="col s10 center-align">
 				<div class="menu center-align">
 
 					<router-link exact :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}" class="grey-text text-darken-1">{{ plotTypes.UNPAIRED.name }}</router-link>

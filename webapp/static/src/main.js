@@ -46,7 +46,7 @@ Vue.use(VueAnalytics, {
 });
 
 // Vue.use(LoadScript);
-// 
+
 // Vue.loadScript("https://platform.twitter.com/widgets.js");
 
 // Vue.use(VTooltip);

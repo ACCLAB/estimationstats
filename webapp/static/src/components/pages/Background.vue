@@ -207,7 +207,7 @@
 		<h5>Estimation Plots: The Way Forward</h5>
 		Relative to conventional plots, estimation plots offer five key benefits:
 
-		<table style="width:95%" align='centre'>
+		<table style="width:100%" align='centre'>
 	  <tr>
 			<th>   </th>
 	    <th>Bars-and-Stars</th>

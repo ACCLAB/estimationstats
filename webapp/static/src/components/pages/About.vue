@@ -39,6 +39,7 @@
 		<p>
 			This site is © 2017-2019 Adam Claridge-Chang and Joses Ho. All rights reserved.
 		</p>
+		
 		<br>
 
 		<h5>How to cite</h5>
@@ -53,14 +54,14 @@
 		</p>
 		<br>
 
-		<h5>Contact</h5>
+		<!-- <h5>Contact</h5>
 		<p>
 			You can reach us on Twitter: <a href="https://twitter.com/EstimationStats?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="true">@EstimationStats</a>.
 		</p>
 
 		<p>
-			You can also send questions, feedback, suggestions <a href='http://www.claridgechang.net/contact.html' target='_blank'>here</a>.
-		</p>
+			You can also send questions, feedback, suggestions <a href='mailto:estimationstats@googlegroups.com'>here</a>.
+		</p> -->
 
 	</div>
 </template>

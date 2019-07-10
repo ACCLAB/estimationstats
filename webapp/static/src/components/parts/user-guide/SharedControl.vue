@@ -8,7 +8,7 @@
 			A shared-control estimation plot presents the mean differences between a single control (the first column of your spreadsheet) and each of the intervention groups.
 		</p>
 
-		<img src="../../../../static/img/exemplars/shared-control.svg" align="centre" width="100%" style="margin: 0px 40px"/>
+		<img src="../../../../static/img/exemplars/shared-control.svg" class="responsive-img"/>
 
 		<p><i>
 			<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}">

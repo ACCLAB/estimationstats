@@ -13,6 +13,17 @@
 		<p>
 			To read more about the authors’ research, please visit the Claridge-Chang <a href='http://www.claridgechang.net/' target='_blank'>lab webpage</a>.
 		</p>
+		
+		<br>
+		
+		<h5>Contact</h5>
+		<p>
+			<!-- <a href="https://twitter.com/EstimationStats?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @EstimationStats</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+			Twitter: <a href="https://twitter.com/EstimationStats?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="true">@EstimationStats</a>. 
+			<br>
+			You can also post questions, feedback, and suggestions to our <a href='https://groups.google.com/forum/#!forum/estimationstats' target="-blank">Google Groups</a>.
+		</p>
+
 		<br>
 
 		<h5>The website</h5>

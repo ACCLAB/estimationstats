@@ -8,7 +8,7 @@
 
 
 
-		<h5>Introducing Estimation Statistics</h5>
+		<h4>Introducing Estimation Statistics</h4>
 		<p>
 			Estimation statistics is a simple <a href='https://thenewstatistics.com/itns/' target='blank'>framework</a> that—while avoiding the pitfalls of significance testing—uses familiar statistical concepts: means, mean differences, and error bars. More importantly, it focuses on the effect size of one's experiment/intervention, as opposed to significance testing.
 		</p>
@@ -24,21 +24,21 @@
 
 
 
-		<h5>The Inadequacy of Common Plots</h5>
+		<h4>The Inadequacy of Common Plots</h4>
 		<p>
 			Let's say we have performed an experiment with 30 control subjects, and 30 test subjects. We begin our data analysis by making a barplot of the data.
 
 			<p>
-				<img src="../../../static/img/background/barplot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+				<img src="../../../static/img/background/barplot.png" align="centre"  class="responsive-img"/>
 			</p>
 
-			The barplot has several shortcomings, despite enjoying widespread usage in academic journals. We're not the first ones (see <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>this</a>,  <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>this</a>, or <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>that</a>) to point out the myriad flaws with the barplot. Importantly, the barplot does not show us the effect size.
+			The barplot has several shortcomings, even though its use in academic journals is endemic. We're not the first ones (see <a href='https://www.nature.com/articles/nmeth.2837' target='blank'>this</a>,  <a href='http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128' target='blank'>this</a>, or <a href='https://onlinelibrary.wiley.com/doi/full/10.1111/ejn.13400' target='blank'>that</a>) to point out the myriad flaws with the barplot. Importantly, the barplot does not show us the effect size.
 		</p>
 
 		<p>
 			So next, we use a boxplot to visualize the data.
 			<p>
-				<img src="../../../static/img/background/boxplot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+				<img src="../../../static/img/background/boxplot.png" align="centre" class="responsive-img"/>
 			</p>
 			Unfortunately, the boxplot still doesn't show all our data. We still lack information about the underlying distribution of your data. Is it normally distributed? Is there skew in the points? What is the sample size? More importantly, boxplots do not display the effect size.
 		</p>
@@ -46,7 +46,7 @@
 		<p>
 			To display several data points across one or more categories,  we can use the jitter plot.
 			<p>
-				<img src="../../../static/img/background/jitter.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+				<img src="../../../static/img/background/jitter.png" align="centre" class="responsive-img"/>
 			</p>
 			Jitter plots avoid overlapping datapoints (i.e. datapoints with the same y-value) by adding a random factor to each point along the orthogonal x-axes. Thus, while a jitter plot displays all datapoints (implicitly indicating the sample size visually), it might not accurately depict the underlying distribution of the data.
 		</p>
@@ -54,10 +54,10 @@
 
 
 
-		<h5>Introducing the Estimation Plot</h5>
+		<h4>Introducing the Estimation Plot</h4>
 		<p>
 			<p>
-				<img src="../../../static/img/background/two-group-estimation-plot.png" align="centre" height="550px" style="margin: 0px 100px -10px"/>
+				<img src="../../../static/img/background/two-group-estimation-plot.png" align="centre" class="responsive-img"/>
 			</p>
 
 			Shown above is a <a href='https://en.wikipedia.org/wiki/Estimation_statistics#Gardner-Altman_plot'>Gardner-Altman estimation plot</a>. (We have named the plot after <a href='https://www.independent.co.uk/news/people/obituary-professor-martin-gardner-1470261.html'>Martin J. Gardner</a> and <a href='https://www.bmj.com/content/361/bmj.k2588'>Douglas Altman</a>, who are credited with <a href='https://www.bmj.com/content/bmj/292/6522/746.full.pdf'>creating the design</a> in 1986.) An estimation plot has two key features:
@@ -75,19 +75,19 @@
 
 
 
-		<h5>The Bootstrap Confidence Interval: A Quick Primer</h5>
+		<h4>The Bootstrap Confidence Interval: A Quick Primer</h4>
 		<p>
 			In a typical scientific experiment, we are interested in two populations (Control and Test), and whether there is a difference between their means (µTest - µControl).
 		</p>
 		<p>
-			<img src ="../../../static/img/background/population_mean.png" align="centre" height="150px" style="margin: 0px 50px 0px"/>
+			<img src ="../../../static/img/background/population_mean.png" class="responsive-img"/>
 		</p>
 
 		<p>
 			We go about this by collecting observations from the control population, and from the test population.
 		</p>
 		<p>
-			<img src ="../../../static/img/background/population_one_observation.png" align="centre" height="300px" style="margin: 0px 50px 0px"/>
+			<img src ="../../../static/img/background/population_one_observation.png" class="responsive-img"/>
 		</p>
 
 		<p>
@@ -107,7 +107,7 @@
 		</p>
 
 		<p>
-			<img src ="../../../static/img/background/three-resamples.png" align="centre" height="800px" style="margin: 0px 50px 0px"/>
+			<img src ="../../../static/img/background/three-resamples.png" class="responsive-img"/>
 		</p>
 
 		<p>
@@ -133,7 +133,7 @@
 			While resampling distributions of the difference in means often have a normal distribution, it is not uncommon to encounter a skewed distribution.
 		</p>
 		<p>
-			<img src ="../../../static/img/background/explaining-bca-bootstrap.png" align="centre" height="300px" style="margin: 0px 50px 0px"/>
+			<img src ="../../../static/img/background/explaining-bca-bootstrap.png" class="responsive-img"/>
 		</p>
 
 
@@ -148,7 +148,7 @@
 
 
 
-		<h5>An estimation plot for your type of data</h5>
+		<h4>An estimation plot for your type of data</h4>
 		<p>
 			For each of the most routine significance tests, there is an estimation replacement:
 
@@ -156,7 +156,7 @@
 				<li>
 					Unpaired Student’s t-test → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">Two-group estimation plot</router-link>
 					<br>
-					<img src="../../../static/img/exemplars/two-group-unpaired.png" align="center" height="550px" style="margin: -10px 25px 50px"/>
+					<img src="../../../static/img/exemplars/two-group-unpaired.png" class="responsive-img"/>
 				</li>
 
 
@@ -167,7 +167,7 @@
 					The Gardner-Altman estimation plot can also display effect sizes for repeated measures (<i>aka</i> a paired experimental design) using a <a href='http://charliepark.org/slopegraphs/'>Tufte slopegraph</a> instead of a swarmplot.
 				</p>
 					<p>
-						<img src="../../../static/img/exemplars/two-group-paired.png" align="center" height="550px" style="margin: -10px 25px 50px"/>
+						<img src="../../../static/img/exemplars/two-group-paired.png" class="responsive-img"/>
 					</p>
 				</li>
 
@@ -180,7 +180,7 @@
 					</p>
 
 					<p>
-						<img src="../../../static/img/exemplars/multi-two-group-unpaired.png" align="center" height="550px" style="margin: -5px 25px 50px"/>
+						<img src="../../../static/img/exemplars/multi-two-group-unpaired.png" class="responsive-img"/>
 						<br>
 						The effect size and 95% CIs are still plotted on a separate axes, but unlike the Gardner-Altman plot, this axes is positioned beneath the raw data. Such a design frees up visual space in the upper panel, allowing the display of summary measurements (mean ± standard deviation) for each group. These are shown as gapped lines to the right of each group. The mean of each group is indicated as a gap in the line, adhering to Edward Tufte’s dictum to <a href='https://medium.com/@plotlygraphs/maximizing-the-data-ink-ratio-in-dashboards-and-slide-deck-7887f7c1fab'>keep the data-ink ratio low</a>.
 					</p>
@@ -189,13 +189,13 @@
 				<li>
 					Repeated measures ANOVA → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">Multi paired estimation plot</router-link>
 					<br>
-							<img src="../../../static/img/exemplars/multi-two-group-paired.png" align="center" height="550px" style="margin: -5px 25px 50px"/>
+							<img src="../../../static/img/exemplars/multi-two-group-paired.png" class="responsive-img"/>
 				</li>
 
 				<li>
 					Ordered groups ANOVA → <router-link :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}">Shared-control estimation plot</router-link>
 					<br>
-					<img src="../../../static/img/exemplars/shared-control.png" align="center" height="550px" style="margin: -5px 25px 50px"/>
+					<img src="../../../static/img/exemplars/shared-control.png" class="responsive-img"/>
 				</li>
 			</ol>
 
@@ -204,10 +204,10 @@
 
 
 
-		<h5>Estimation Plots: The Way Forward</h5>
+		<h4>Estimation Plots: The Way Forward</h4>
 		Relative to conventional plots, estimation plots offer five key benefits:
 
-		<table style="width:95%" align='centre'>
+		<table style="width:100%" align='centre'>
 	  <tr>
 			<th>   </th>
 	    <th>Bars-and-Stars</th>

@@ -7,64 +7,131 @@
  */
 
 html {
-    font-size: 26px !important;
-    font-family: "ConcourseRegular", "Roboto", "Work Sans", sans-serif !important;
+  font-family: "ConcourseRegular", "Roboto", "Work Sans", sans-serif !important;
 }
 
 body.loading * {
     cursor: wait!important;
 }
 
-@media only screen and (max-width: 1200px) {
-    body {
-        font-size: 1.5rem;
-    }
 
-   .container #home {
-       margin-top: 3rem;
-   }
-
-    .hide-on-med-and-down {
-        display: none !important;
-    }
-
-    footer {
-        font-size: 1.2rem;
-    }
-
-    .row .col.number {
-        width: 65px !important;
-    }
-}
-
-@media only screen and (min-width: 993px) {
-    .container {
-        width: 80% !important;
-    }
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 12px !important;
+  }
 }
 
 
-@media only screen and (min-width: 993px) {
-    .main {
-        padding-left: 300px;
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  html {
+    font-size: 15px !important;
+  }
+}
+
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  html {
+    font-size: 17px !important;
+  }
+}
+
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  html {
+    font-size: 19px !important;
+  }
+
+}
+
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  html {
+    font-size: 21px !important;
+  }
+
+
+  .hide-on-med-and-down {
+      display: none !important;
     }
 
-    .container {
-        width: 85%;
-        max-width: 35rem !important;
-    }
+  .main {
+      padding-left: 300px;
+  }
+
+  .container {
+      width: 85%;
+      max-width: 35rem !important;
+  }
+
+  .container #app {
+    width: 100%;
+    align: center;
+  }
+
+
+  .container #home {
+   width: 100%;
+   margin-top: 3rem;
+  }
 }
+
+
+
+
+
+
 
 .main {
     margin: 25px;
 }
 
+
+
 .container {
     line-height: 1.4;
 }
 
+.container #app {
+  width: 100%;
+  align: center;
+}
+
+
+.container #home {
+ width: 100%;
+ margin-top: 3rem;
+}
+
+
+
+body {
+  font-size: 1.5rem;
+}
+
+
+.row .col.number {
+  width: 20px !important;
+}
+
+.responsive-img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  align: center;
+}
+
 footer {
-    margin-top: 2.5rem;
+  font-size: 1.2rem;
+  margin-top: 2.5rem;
 }
 
 footer img.logo {
@@ -77,6 +144,7 @@ footer .credit {
 }
 
 footer .menu {
+		font-size: 1rem;
     position: relative;
     left: -20px;
 }
@@ -106,23 +174,24 @@ a, a.active, a:hover {
 
 .file-field .btn, .btn-large {
     position: static;
-    float: left;
+    /* float: left; */
     text-transform: none;
-    height: 2rem!important;
-    line-height: 2rem!important;
+    height: 3rem !important;
+    line-height: 3rem!important;
     padding: 0 1px;
-    min-width: 180px;
+    min-width: 50%;
     text-align: center;
     box-shadow: none;
 }
 
 .btn-large span {
-    font-size: 1rem;
+    font-size: 1.5rem;
     display: inline-block;
 }
 
 .btn-large i {
-    font-size: 1.5rem!important;
+    align: centre;
+    font-size: 2rem!important;
     margin-right: 5px!important;
 }
 
@@ -192,12 +261,13 @@ a, a.active, a:hover {
 }
 
 .handsontable th, .handsontable td {
-    margin-top: 20px !important;
-    font-size: 0.7rem !important;
+  width: auto;
+  margin-top: 1rem !important;
+  font-size: 1rem !important;
 }
 
 .handsontable th, .handsontable td {
-    line-height: 1rem !important;
+  line-height: 1rem !important;
 }
 
 #app nav, .navbar-fixed {
@@ -222,13 +292,13 @@ i.circle-number {
 }
 
 [type="radio"] + label:before, [type="radio"] + label:after {
-    height: 30px!important;
-    width: 30px!important;
+    height: 1.2rem!important;
+    width: 1.2rem!important;
 }
 
 [type="radio"]:not(:checked) + label, [type="radio"]:checked + label {
-    font-size: 1rem!important;
-    padding: 8px 20px 0px 45px!important;
+    font-size: 1.2rem!important;
+    padding: 0.25rem 2rem 2rem 2rem!important;
     color: rgba(0, 0, 0, 0.87);
 }
 
@@ -245,7 +315,7 @@ i.circle-number {
 
 .page-title {
     font-family: "ConcourseRegularThin";
-    font-size: 3rem;
+    font-size: 2.75rem;
     margin-bottom: 1rem;
 }
 
@@ -257,13 +327,13 @@ i.circle-number {
 
 .title.main-title{
     font-family: "ConcourseRegular";
-    font-size: 2rem;
+    font-size: 1.75rem;
     letter-spacing: 5px;
 }
 
 .title.sub-title{
     font-family: "ConcourseRegular";
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     letter-spacing: 2px;
 }
 
@@ -289,22 +359,30 @@ i.circle-number {
     font-family: "AdvocateRegular";
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 1rem !important;
+    font-size: 1.4rem !important;
     line-height: 2rem !important;
     display: table-cell;
     vertical-align: bottom;
 }
 
 .row .col.number {
-    width: 50px;
+    width: 3rem;
 }
 
 .row .col.content {
-    width: calc(100% - 0.75rem - 50px);
+    width: calc(100% - 0.8rem - 50px);
 }
 
 .no-margin-bot {
     margin-bottom: 0px !important;
+}
+
+.preloader-wrapper.active {
+	margin-top: 5%;
+	margin-left: 25%;
+  margin-right: 25%;
+	margin-bottom: 5%;
+	/* width: 50%; */
 }
 
 .tooltip {

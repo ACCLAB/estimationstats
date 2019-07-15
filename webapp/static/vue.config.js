@@ -1,5 +1,5 @@
 module.exports = {
-	baseUrl: process.env.NODE_ENV === 'production' ? '/static/dist/' : '/',
+	publicPath: process.env.NODE_ENV === 'production' ? '/static/dist/' : '/',
 	configureWebpack: {
 		resolve: {
 			alias: {

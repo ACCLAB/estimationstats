@@ -7,6 +7,7 @@ import 'materialize-css';
 import './scss/style.scss';
 import VueAnalytics from 'vue-analytics';
 import vueSlider from 'vue-slider-component';
+// import LoadScript from 'vue-plugin-load-script';
 // import VueMathjax from 'vue-mathjax';
 
 // import VTooltip from 'v-tooltip';
@@ -43,6 +44,10 @@ Vue.use(VueAnalytics, {
 		sendHitTask: isProd
 	}
 });
+
+// Vue.use(LoadScript);
+
+// Vue.loadScript("https://platform.twitter.com/widgets.js");
 
 // Vue.use(VTooltip);
 

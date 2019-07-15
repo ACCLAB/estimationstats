@@ -6,7 +6,7 @@
 			Sometimes it is possible and preferable to take measurements from a single group before and after an intervention: the paired observations design. Since the groups being compared comprise of observations from the same individuals, the estimation plot uses a <a href="http://charliepark.org/slopegraphs/">slopegraph</a> (first introduced by Edward Tufte) to depict each pair of repeated observations.
 		</p>
 		
-		<img src="../../../../static/img/exemplars/two-group-paired.svg" align="center" width="100%" style="margin: 25px 50px"/>
+		<img src="../../../../static/img/exemplars/two-group-paired.svg" class="responsive-img">
 
 
 		<p>

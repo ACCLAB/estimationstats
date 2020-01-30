@@ -1,7 +1,7 @@
 dabest==0.3.0
 matplotlib~=3.0
 pandas~=0.25.3
-numpy~=1.16
+numpy~=1.17
 seaborn~=0.9
 lqrt~=0.3
 gunicorn==19.9

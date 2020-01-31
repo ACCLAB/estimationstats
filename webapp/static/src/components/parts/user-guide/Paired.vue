@@ -18,7 +18,7 @@
 
 		<p><i>
 			<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.PAIRED.type }}">
-				Back to {{ plotTypes.PAIRED.name }} analysis
+				Back to {{ plotTypes.PAIRED.back_link }} analysis
 			</router-link>
 		</i></p>
 

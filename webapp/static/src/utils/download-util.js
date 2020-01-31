@@ -20,7 +20,7 @@ export function downloadByContent(fileName, content) {
 		// Create download hyperlink
 		let link = document.createElement('a');
 		link.setAttribute('href', content);
-		link.setAttribute('download', `download_${fileName}`);
+		link.setAttribute('download', `output_${fileName}`);
 		link.dispatchEvent(event);
 	}
 }

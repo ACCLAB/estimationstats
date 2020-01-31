@@ -315,21 +315,31 @@ class Analyze(Resource):
 
             results_repr = "<br><br>".join(results_repr)
 
-            original = "if the null hypothesis of zero difference is true."
-            new = "<em>if the null hypothesis of zero difference is true</em>; "
+            # original = "if the null hypothesis of zero difference is true."
+            # new = "<em>if the null hypothesis of zero difference is true</em>; "
 
 
             results = results_repr.replace("\n", "<br>")\
                       .replace("size(s),<br>if", "size(s), if")\
-                      .replace(original, new)\
-                      .replace("p-value", "<i>P</i> value")
+                      .replace("p-value", "<i>P</i> value")\
+                      .replace("For each", "For each permutation")
 
             legend  = 'Suggested Figure Legend:<br>\
                         <div style="font-size:1.2rem">{0}</div>\
                         <br>Results:<div style="font-size:1.2rem">\
-                        {1}they are included here to satisfy a common \
+                        {1} They are included here to satisfy a common \
                         requirement of scientific journals. \
-                        </div>'.format(figure_legend, results)
+                        <br><i>Read more about the <a href="https://en.wikipedia.org/wiki/Resampling_(statistics)#Permutation_tests" target="_blank">permutation t-test</a>.\
+                        </i></div>'.format(figure_legend, results)
+                        
+            citation = '<br>Citation:<br>\
+                        <div style="font-size:1.2rem">\
+                        If you use this figure in a publication, \
+                        please cite us.<br> \
+                        <b>Moving beyond P values: Everyday data analysis with estimation plots</b><br>\
+                        Joses Ho, Tayfun Tumkaya, Sameer Aryal, Hyungwon Choi, Adam Claridge-Chang<br>\
+                        <i>Nature Methods</i> 2019, 1548-7105. \
+                        <a href="https://doi.org/10.1038/s41592-019-0470-3">10.1038/s41592-019-0470-3</a></div>'
             # # DEBUG:
             # print("return output.")
             #
@@ -346,7 +356,7 @@ class Analyze(Resource):
                            svg        = svg,
                            csv        = stats_table.values.tolist(),
                            columns    = list(stats_table),
-                           legend     = legend
+                           legend     = legend + citation
                            )
 
 

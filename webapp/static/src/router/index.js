@@ -55,7 +55,7 @@ const router = new Router({
 			meta: {
 				title: 'Estimation Stats',
 				noHeader: true,
-				breadcrumb: 'Estimation Stats'
+				breadcrumb: 'Estimation stats'
 			}
 		},
 		{
@@ -63,9 +63,9 @@ const router = new Router({
 			name: 'background',
 			component: Background,
 			meta: {
-				title: 'What is Estimation Stats?',
+				title: 'What is estimation?',
 				anchor: '',
-				breadcrumb: 'What is Estimation Stats?'
+				breadcrumb: 'What is estimation?'
 			}
 		},
 
@@ -76,7 +76,7 @@ const router = new Router({
 			props: true,
 			meta: {
 				anchor: '',
-				breadcrumb: 'Find Out More'
+				breadcrumb: 'Find out more'
 			}
 		},
 
@@ -104,7 +104,7 @@ const router = new Router({
 			component: AboutEffectSizes,
 			meta: {
 				anchor: '',
-				breadcrumb: 'About Effect Sizes'
+				breadcrumb: 'About effect sizes'
 			}
 		},
 		{

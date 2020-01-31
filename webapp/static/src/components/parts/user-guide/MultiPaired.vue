@@ -2,7 +2,7 @@
 	<div>
 
 		<p>
-			To compare two or more paired experiments, you can use a multi paired plot. A multi paired plot tiles 2 more more paired plots, allowing for comparison of several paired experiments side by side.
+			To compare two or more paired experiments, you can use a multiple paired Cumming plot. A multiple paired plot tiles 2 more more paired plots, allowing for comparison of several paired experiments side by side.
 		</p>
 
 		<p>
@@ -13,7 +13,7 @@
 
 		<p><i>
 			<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">
-				Back to {{ plotTypes.MULTI_PAIRED.name }} analysis
+				Back to {{ plotTypes.MULTI_PAIRED.back_link }} analysis
 			</router-link>
 		</i></p>
 

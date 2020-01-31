@@ -15,11 +15,11 @@
 			<img src="../../../../static/img/exemplars/two-group-unpaired.svg" class="responsive-img"/>
 			
 		</p>
-		 This t-test counterpart was first described by <a href='https://www.independent.co.uk/news/people/obituary-professor-martin-gardner-1470261.html' target='_blank'>Martin Gardner</a> and <a href='https://www.bmj.com/content/361/bmj.k2588' target='_blank'>Douglas J. Altman</a> in <a href="https://www.bmj.com/content/292/6522/746">1986</a>, so we call this the Gardner-Altman two-groups mean-difference estimation plot.
+		 This t-test counterpart was first described by <a href='https://www.independent.co.uk/news/people/obituary-professor-martin-gardner-1470261.html' target='_blank'>Martin Gardner</a> and <a href='https://www.bmj.com/content/361/bmj.k2588' target='_blank'>Douglas J. Altman</a> in <a href="https://www.bmj.com/content/292/6522/746">1986</a>, so we call this the Gardner-Altman two-groups estimation plot.
 		</p>
 		
 		<p>
-			There is also a related <router-link :to="{ name: 'user-guide', params: { plotType: plotTypes.PAIRED.type }}">estimation plot</router-link> for repeated measures or paired observations.
+			There is also a related estimation plot for <router-link :to="{ name: 'user-guide', params: { plotType: plotTypes.PAIRED.type }}">repeated measures or paired observations</router-link>.
 		</p>
 			
 
@@ -27,7 +27,7 @@
 
 		<p><i>
 			<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">
-				Back to {{ plotTypes.UNPAIRED.name }} analysis
+				Back to {{ plotTypes.UNPAIRED.back_link }} analysis
 			</router-link>
 		</i></p>
 

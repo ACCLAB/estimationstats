@@ -28,7 +28,7 @@
 			</div>
 			<div class="col s6">
 				<router-link :to="{ name: 'background'}">
-					What is Estimation Statistics?
+					What is estimation?
 				</router-link>
 			</div>
 			<div class="col s6">
@@ -50,29 +50,29 @@
 
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.UNPAIRED.type }}">
-					{{ plotTypes.UNPAIRED.name }}
+					{{ plotTypes.UNPAIRED.home_name }}
 				</router-link>
 			</div>
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.PAIRED.type }}">
-					{{ plotTypes.PAIRED.name }}
+					{{ plotTypes.PAIRED.home_name }}
 				</router-link>
 			</div>
 
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI.type }}">
-					{{ plotTypes.MULTI.name }}
+					{{ plotTypes.MULTI.home_name }}
 				</router-link>
 			</div>
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.MULTI_PAIRED.type }}">
-					{{ plotTypes.MULTI_PAIRED.name }}
+					{{ plotTypes.MULTI_PAIRED.home_name }}
 				</router-link>
 			</div>
 
 			<div class="col s6">
 				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}">
-					{{ plotTypes.SHARED_CONTROL.name }}
+					{{ plotTypes.SHARED_CONTROL.home_name }}
 				</router-link>
 			</div>
 		</div>

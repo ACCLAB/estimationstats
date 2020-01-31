@@ -612,7 +612,6 @@ export default {
 	data() {
 		let self = this;
 		return {
-			es_descs: 'Hello does this work ah.',
 			ci: 95,
 			swarm_dotsize: 5,
 			es_markersize: 8,
@@ -722,9 +721,8 @@ export default {
 	},
 	computed: {
 		plotName() {
-			// Find analyzing plot by plot type
 			let analyzePlot = _.find(_.values(constants.plotTypes), plot => plot.type === this.plotType);
-			return analyzePlot ? analyzePlot.name : '';
+			return analyzePlot ? analyzePlot.home_name : '';
 		},
 		analyable() {
 			// if (_.isEmpty(this.hotData)) { }

@@ -34,7 +34,7 @@ export default {
 		title() {
 			// Find analyzing plot by plot type
 			let analyzePlot = _.find(_.values(constants.plotTypes), plot => plot.type === this.plotType);
-			return `${analyzePlot ? analyzePlot.name : ''}`;
+			return `${analyzePlot ? analyzePlot.about_title : ''}`;
 		},
 		userGuide() {
 			if (this.plotType === constants.plotTypes.UNPAIRED.type) {

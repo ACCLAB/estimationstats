@@ -12,7 +12,7 @@
 
 		<p><i>
 			<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.SHARED_CONTROL.type }}">
-				Back to {{ plotTypes.SHARED_CONTROL.name }} analysis
+				Back to {{ plotTypes.SHARED_CONTROL.back_link }} analysis
 			</router-link>
 		</i></p>
 

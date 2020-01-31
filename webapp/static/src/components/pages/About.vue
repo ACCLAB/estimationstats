@@ -3,12 +3,12 @@
 		<h4>The authors</h4>
 		<p>
 			<img src="../../../static/img/people/adam.png" align="left" height="200px" style="margin: 10px 30px 0px 0px"/>
-			As a behavioral scientist, <a href ='https://twitter.com/adamcchang'>Adam Claridge-Chang</a> became frustrated with significance testing; he retrained in estimation statistics by reading textbooks and articles by <a href='http://as.wiley.com/WileyCDA/WileyTitle/productCd-0727913751.html' target='_blank'>Altman</a>, <a href='https://effectsizefaq.com/about/' target='_blank'>Ellis</a>, <a href='https://www.routledge.com/Introduction-to-the-New-Statistics-Estimation-Open-Science-and-Beyond/Cumming-Calin-Jageman/p/book/9781138825529' target='_blank'>Cumming</a>, <a href='https://www.ics.uci.edu/~sternh/courses/210/cohen94_pval.pdf' target='_blank'>Cohen</a>, and <a href='http://as.wiley.com/WileyCDA/WileyTitle/productCd-EHEP002313.html'>Borenstein</a>. Noting that the suite of methods went by several names, Adam wrote a <a href='https://en.wikipedia.org/wiki/Estimation_statistics'>Wikipedia entry</a> and published an <a href='https://doi.org/10.5281/zenodo.60156'>editorial</a> branding the framework as <em>estimation statistics</em>.
+			As a behavioral scientist, <a href ='https://twitter.com/adamcchang'>Adam Claridge-Chang</a> became frustrated with significance testing; he retrained in estimation statistics by reading textbooks and articles by <a href='http://as.wiley.com/WileyCDA/WileyTitle/productCd-0727913751.html' target='_blank'>Altman</a>, <a href='https://effectsizefaq.com/about/' target='_blank'>Ellis</a>, <a href='https://www.routledge.com/Introduction-to-the-New-Statistics-Estimation-Open-Science-and-Beyond/Cumming-Calin-Jageman/p/book/9781138825529' target='_blank'>Cumming</a>, <a href='https://www.ics.uci.edu/~sternh/courses/210/cohen94_pval.pdf' target='_blank'>Cohen</a>, and <a href='https://as.wiley.com/WileyCDA/WileyTitle/productCd-EHEP002313.html' target='_blank'>Borenstein</a>. Noting that the suite of methods went by several names, Adam wrote a <a href='https://en.wikipedia.org/wiki/Estimation_statistics' target='_blank'>Wikipedia entry</a> and, with Pryseley Assam, published an <a href='https://doi.org/10.5281/zenodo.60156' target="_blank">editorial</a> branding the framework as <em>estimation statistics</em>. With <a href="https://twitter.com/_sameeraryal" target="_blank">Sameer Aryal</a> and <a href="https://twitter.com/TumkayaTayfun" target="_blank">Tayfun Tumkaya</a>, he developed a <a href="https://www.github.com/DABEST-matlab" target="_blank">Matlab version of DABEST</a>. With Joses, he refined the design of estimation plots to make them more transparent and visually appealing. 
 		</p>
 		<br>
 		<p>
 			<img src="../../../static/img/people/joses.jpg" align="left" height="170px" style="margin: 10px 30px 0px 0px"/>
-			Then, he and <a href='https://www.twitter.com/jacuzzijo' target='_blank'>Joses Ho</a> created the DABEST package (Data Analysis with Bootstrap ESTimation) in <a href='https://www.github.com/ACCLAB/DABEST-Python'>Python</a>, <a href='https://www.github.com/dabestr' target='_blank'>R</a> and <a href='https://www.github.com/DABEST-Matlab' target='_blank'>Matlab</a> to make estimation tools more widely available. This web application was built to make estimation available to everyone, including those who haven’t gotten around to learning to code.
+	    To make estimation tools more widely available, <a href="https://www.josesho.com" target="_blank">Joses Ho</a> led the development of the DABEST packages (Data Analysis with Bootstrap ESTimation) in <a href="https://www.github.com/ACCLAB/dabestr" target="_blank">R</a> and <a href="https://www.github.com/ACCLAB/DABEST-Python" target="_blank">Python</a>. He broadened the utility of estimation plots by adding new graphical representations of several effect sizes, including plots of standardized effect sizes. To make estimation graphics accessible to all scientists (including non-coders), Joses also led the implementation of estimationstats.com.
 		</p>
 		<p>
 			To read more about the authors’ research, please visit the Claridge-Chang <a href='http://www.claridgechang.net/' target='_blank'>lab webpage</a>.
@@ -54,7 +54,7 @@
 			The layout uses fonts and typography designed by <a href='https://practicaltypography.com/about-matthew-butterick.html' target="_blank">Matthew Butterick</a>. Typefaces designed by <a href='https://cargocollective.com/jonnypinhorn' target='blank'>Jonny Pinhorn</a> were used in the exemplar plots.
 		</p>
 		<p>
-			This site is © 2017-2019 Adam Claridge-Chang and Joses Ho. All rights reserved.
+			This site is © 2017-2020 Adam Claridge-Chang and Joses Ho. All rights reserved.
 		</p>
 		
 		<br>

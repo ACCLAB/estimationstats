@@ -11,8 +11,12 @@ html {
 }
 
 body.loading * {
-    cursor: wait!important;
+    cursor: wait !important;
 }
+
+/* h5 {
+  font-size: 1.2rem !important;
+} */
 
 
 /* Extra small devices (phones, 600px and down) */

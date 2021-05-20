@@ -331,15 +331,18 @@ class Analyze(Resource):
                         requirement of scientific journals. \
                         <br><i>Read more about the <a href="https://en.wikipedia.org/wiki/Resampling_(statistics)#Permutation_tests" target="_blank">permutation t-test</a>.\
                         </i></div>'.format(figure_legend, results)
-                        
+
             citation = '<br>Citation:<br>\
                         <div style="font-size:1.2rem">\
                         If you use this figure in a publication, \
                         please cite us.<br> \
-                        <b>Moving beyond P values: Everyday data analysis with estimation plots</b><br>\
+                        <div style="margin-left: 1.5em;"> \
+                        <b>Moving beyond P values: data analysis with estimation graphics.</b><br>\
                         Joses Ho, Tayfun Tumkaya, Sameer Aryal, Hyungwon Choi, Adam Claridge-Chang<br>\
-                        <i>Nature Methods</i> 2019, 1548-7105. \
-                        <a href="https://doi.org/10.1038/s41592-019-0470-3">10.1038/s41592-019-0470-3</a></div>'
+                        Nature Methods 16, 565–566 (2019). \
+                        <a href="https://doi.org/10.1038/s41592-019-0470-3">10.1038/s41592-019-0470-3</a> \
+                        </div> \
+                        </div>'
             # # DEBUG:
             # print("return output.")
             #

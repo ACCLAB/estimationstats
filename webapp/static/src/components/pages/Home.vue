@@ -1,6 +1,5 @@
 <template>
 	<div id="home">
-		<div class="row"></div>
 		<div class="row">
 			<div class="col s6 offset-s6">
 				<img width="100%" src="./../../../static/img/Curve.svg">
@@ -21,28 +20,43 @@
 
 
 		<div class="row"></div>
+
+
 		<div class="row">
 			<div class="col s12">
 				<span id="begin" class="title">Intro</span>
 				<div class="divider heavy"></div>
 			</div>
+
+
 			<div class="col s6">
 				<router-link :to="{ name: 'background'}">
 					What is estimation?
 				</router-link>
 			</div>
+
 			<div class="col s6">
 				<router-link :to="{ name: 'getcode'}">
 					Get the code
 				</router-link>
-				<!-- <a href='https://github.com/ACCLAB/DABEST-python' target='_blank'>Get the code</a> -->
 			</div>
+
 			<div class="col s6">
-				<router-link :to="{ name: 'about'}">About this site</router-link>
+				<router-link :to="{ name: 'about'}">
+					About this site
+				</router-link>
 			</div>
+
+			<div class="col s6">
+				<router-link :to="{ name: 'readthepaper'}">
+					Read the paper
+				</router-link>
+			</div>
+
 		</div>
 
 		<div class="row">
+
 			<div class="col s12">
 				<span id="plot" class="title">Plot</span>
 				<div class="divider heavy"></div>
@@ -75,6 +89,7 @@
 					{{ plotTypes.SHARED_CONTROL.home_name }}
 				</router-link>
 			</div>
+
 		</div>
 
 		<!-- <div class="row">

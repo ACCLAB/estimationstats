@@ -90,6 +90,12 @@
 				</router-link>
 			</div>
 
+			<div class="col s6">
+				<router-link :to="{ name: 'analyze', params: { plotType: plotTypes.REPEATED_MEASURES.type }}">
+					{{ plotTypes.REPEATED_MEASURES.home_name }}
+				</router-link>
+			</div>
+
 		</div>
 
 		<!-- <div class="row">

@@ -4,7 +4,8 @@ export const plotTypes = {
 	PAIRED: { type: 'paired', home_name: 'Paired', footer_name: 'Paired', about_title: 'Paired Gardner-Altman plot', back_link: 'paired groups' },
 	MULTI: { type: 'multi', home_name: 'Multiple two-groups', footer_name: 'Multi two-groups', about_title: 'Multi two-group Cumming plot', back_link: 'multiple two-groups' },
 	MULTI_PAIRED: { type: 'multi-paired', home_name: 'Multiple paired', footer_name: 'Multi paired', about_title: 'Multi paired Cumming plot', back_link: 'multiple paired' },
-	SHARED_CONTROL: { type: 'shared-control', home_name: 'Shared control', footer_name: 'Shared control', about_title: 'Shared control Cumming plot', back_link: 'shared control' }
+	SHARED_CONTROL: { type: 'shared-control', home_name: 'Shared control', footer_name: 'Shared control', about_title: 'Shared control Cumming plot', back_link: 'shared control' },
+	REPEATED_MEASURES: { type: 'repeated-measures', home_name: 'Repeated measures', footer_name: 'Repeated measures', about_title: 'Repeated measures', back_link: 'repeated measures' }
 };
 
 /* Define effect sizes */

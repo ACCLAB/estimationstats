@@ -24,6 +24,9 @@
 				<template v-else-if="plotType === plotTypes.SHARED_CONTROL.type">
 					Use this page to make a plot of experiments that share one reference control group.
 				</template>
+				<template v-else-if="plotType === plotTypes.REPEATED_MEASURES.type">
+					Use this page to make a plot of experiments comparing each group to a shared control. For now, we have added control vs. group i or baseline.
+				</template>
 				<router-link :to="{ name: 'user-guide', params: { plotType: plotType }}">Find out more.</router-link>
 			</div>
 		</div>

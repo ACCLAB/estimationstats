@@ -200,7 +200,7 @@ class Analyze(Resource):
                                                         len(paired_columns),
                                                         CI)
 
-            else:
+            elif plotType == 'shared-control':
                 # Shared control plot
                 load_kwargs['idx'] = numerical_cols
 
@@ -226,9 +226,37 @@ class Analyze(Resource):
                                                 len(numerical_cols) - 1,
                                                 numerical_cols[0],
                                                 CI)
+                
+            else:
+                load_kwargs['idx'] = numerical_cols
+
+                load_kwargs['paired'] = "baseline"
+
+                load_kwargs['id_col'] = "ID"
+
+                if len(numerical_cols) > len(combi17):
+                    plot_kwargs['custom_palette'] = dict(zip(numerical_cols,
+                                                             viridis_palette_shared))
+                else:
+                    plot_kwargs['custom_palette'] = dict(zip(numerical_cols,
+                                                             combi17))
+
+                
+                figure_legend = "The {0} for {1} \
+                comparisons against the shared control {2} \
+                are shown in the above Cumming estimation plot. \
+                The raw data is plotted on the upper axes. On the \
+                lower axes, mean differences are plotted as bootstrap \
+                sampling distributions. Each mean difference is depicted \
+                as a dot. Each {3}% confidence interval is indicated by the \
+                ends of the vertical error bars.".format(effect_size_print,
+                                                len(numerical_cols) - 1,
+                                                numerical_cols[0],
+                                                CI)
+
 
             # If this is a paired plot, add an ID column.
-            if load_kwargs['paired'] is True:
+            if load_kwargs['paired'] is True or "baseline":
                 df["ID"] = pd.Series(range(0, len(df)))
 
                 # Re-shape the damn thing in lieu of updating DABEST.

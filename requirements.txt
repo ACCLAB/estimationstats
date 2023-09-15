@@ -5,7 +5,7 @@ numpy~=1.17
 seaborn~=0.9
 lqrt~=0.3
 gunicorn==19.9
-Flask==1.0
+Flask==2.0.3
 Flask-Cors==3.0
 Flask-Material==0.1.1
 Flask-RESTful==0.3.7

@@ -28,4 +28,6 @@ es_print_dict = {"mean_diff": "mean difference",
                  "median_diff": "median difference",
                  "cohens_d": "Cohen's <i>d</i>",
                  "hedges_g": "Hedges' <i>g</i>",
-                 "cliffs_delta": "Cliff's delta"}
+                 "cliffs_delta": "Cliff's delta",
+                 "cohens_h": "Cohen's <i>h</i>"
+                 }

@@ -1,92 +1,96 @@
-/* Custom Stylesheet */
-/**
- * Use this file to override Materialize files so you can update
- * the core Materialize files in the future
- *
- * Made By MaterializeCSS.com
- */
+  /* Custom Stylesheet */
+  /**
+  * Use this file to override Materialize files so you can update
+  * the core Materialize files in the future
+  *
+  * Made By MaterializeCSS.com
+  */
 
-html {
-  font-family: "ConcourseRegular", "Roboto", "Work Sans", sans-serif !important;
-}
-
-body.loading * {
-    cursor: wait !important;
-}
-
-/* h5 {
-  font-size: 1.2rem !important;
-} */
-
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
   html {
-    font-size: 12px !important;
-  }
-}
-
-
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  html {
-    font-size: 15px !important;
-  }
-}
-
-
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  html {
-    font-size: 17px !important;
-  }
-}
-
-
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  html {
-    font-size: 19px !important;
+    font-family: "ConcourseRegular", "Roboto", "Work Sans", sans-serif !important;
   }
 
-}
+  body.loading * {
+      cursor: wait !important;
+  }
+
+  /* h5 {
+    font-size: 1.2rem !important;
+  } */
 
 
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  html {
-    font-size: 21px !important;
+  /* Extra small devices (phones, 600px and down) */
+  @media only screen and (max-width: 600px) {
+    html {
+      font-size: 12px !important;
+    }
   }
 
 
-  .hide-on-med-and-down {
-      display: none !important;
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    html {
+      font-size: 15px !important;
+    }
+  }
+
+
+
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    html {
+      font-size: 17px !important;
+    }
+  }
+
+
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    html {
+      font-size: 19px !important;
     }
 
-  .main {
-      padding-left: 300px;
   }
 
-  .container {
-      width: 85%;
-      max-width: 35rem !important;
-  }
 
-  .container #app {
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    html {
+      font-size: 21px !important;
+    }
+
+    .small-text-size {
+      font-size: 18px !important; 
+    }
+
+
+    .hide-on-med-and-down {
+        display: none !important;
+      }
+
+    .main {
+        padding-left: 300px;
+    }
+
+    .container {
+        width: 85%;
+        max-width: 35rem !important;
+    }
+
+    .container #app {
+      width: 100%;
+      align: center;
+    }
+
+
+    .container #home {
     width: 100%;
-    align: center;
+    margin-top: 3rem;
+    }
   }
-
-
-  .container #home {
-   width: 100%;
-   margin-top: 3rem;
-  }
-}
 
 
 
@@ -139,6 +143,7 @@ footer {
 }
 
 footer img.logo {
+    max-width: 100%;
     width: 70%;
 }
 
@@ -275,10 +280,19 @@ a, a.active, a:hover {
 }
 
 #app nav, .navbar-fixed {
-    color: #000000;
-    height: 120px!important;
-    background-color: #ffffff;
-    box-shadow: none;
+  color: #000000;
+  height: 120px!important;
+  background-color: #ffffff;
+  box-shadow: none;
+}
+
+.navbar-fixed img {
+  max-height: 80px; 
+}
+
+.navbar-fixed a {
+  text-decoration: none; 
+  color: #0073e6; 
 }
 
 nav h1 {
@@ -324,21 +338,25 @@ i.circle-number {
 }
 
 .title {
-    font-family: "AdvocateRegular";
+    font-family: "TwoBlock";
     font-weight: 700;
-    text-transform: uppercase;
 }
 
 .title.main-title{
-    font-family: "ConcourseRegular";
-    font-size: 1.75rem;
-    letter-spacing: 5px;
+  font-family: "ConcourseRegular";
+  font-variant: small-caps;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+  text-transform: lowercase;
+} .title.main-title:first-letter {
+  text-transform: uppercase;
 }
 
 .title.sub-title{
-    font-family: "ConcourseRegular";
-    font-size: 1.25rem;
-    letter-spacing: 2px;
+  font-family: "ConcourseRegular";
+  font-size: 1.0rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .divider.heavy {
@@ -360,9 +378,8 @@ i.circle-number {
 }
 
 .breadcrumb {
-    font-family: "AdvocateRegular";
+    font-family: "TwoBlock";
     font-weight: 700;
-    text-transform: uppercase;
     font-size: 1.4rem !important;
     line-height: 2rem !important;
     display: table-cell;

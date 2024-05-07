@@ -21,8 +21,6 @@ class Analyze(Resource):
 
         # Common settings for saving as PNG and SVG.
         savefig_kwargs = {'transparent': True,
-                          # ensure no white background on plot
-                          'frameon': False,
                           'bbox_inches': 'tight'}
 
         try:
@@ -78,8 +76,11 @@ class Analyze(Resource):
             # Handle the columns for plotting.
             dt = df.dtypes
             numerical_cols = dt[dt != 'object'].index.tolist()
+            non_numerical_cols = dt[dt == 'object'].index.tolist()
 
-            first_two_columns = (numerical_cols[0], numerical_cols[1])
+
+            if len(numerical_cols) > 1:
+              first_two_columns = (numerical_cols[0], numerical_cols[1])
             paired_columns = [t for t in
                                 [tuple(numerical_cols[i:i + 2])
                                 for i in range(0, len(numerical_cols), 2)]
@@ -101,23 +102,22 @@ class Analyze(Resource):
             # Obtain the desired effect size.
             effect_size = request.form['effect_size']
             effect_size_print = es_print_dict[effect_size]
+            load_kwargs['delta2'] = False
 
 
 
             if plotType == 'two-independent-groups':
                 # two independent groups plot
                 load_kwargs['idx'] = first_two_columns
+                load_kwargs['paired'] = None
 
-                load_kwargs['paired'] = False
 
                 plot_kwargs['custom_palette'] = dict(zip(first_two_columns,
                                                          combi17))
-
                 if effect_size == "Cliff's delta":
                     plot_type = "Cumming"
                 else:
                     plot_type = "Gardner-Altman"
-
                 figure_legend = "The {0} between {1} and {2} \
                 is shown in the above {3} estimation plot. \
                 Both groups are plotted on the left axes; \
@@ -134,8 +134,8 @@ class Analyze(Resource):
             elif plotType == 'paired':
                 # paired plot
                 load_kwargs['idx'] = first_two_columns
+                load_kwargs['paired'] = "baseline"
 
-                load_kwargs['paired'] = True
 
                 load_kwargs['id_col'] = "ID"
 
@@ -155,8 +155,7 @@ class Analyze(Resource):
             elif plotType == 'multi':
                 # Multiple groups plot
                 load_kwargs['idx'] = paired_columns
-
-                load_kwargs['paired'] = False
+                load_kwargs['paired'] = None
 
                 if len(flattened_pairs) > len(combi17):
                     plot_kwargs['custom_palette'] = dict(zip(flattened_pairs,
@@ -176,12 +175,10 @@ class Analyze(Resource):
                 ends of the vertical error bars.".format(effect_size_print,
                                                     len(paired_columns),
                                                         CI)
-
             elif plotType == 'multi-paired':
                 # Multi-paired plot
                 load_kwargs['idx'] = paired_columns
-
-                load_kwargs['paired'] = True
+                load_kwargs['paired'] = "baseline"
 
                 load_kwargs['id_col'] = "ID"
 
@@ -203,8 +200,7 @@ class Analyze(Resource):
             elif plotType == 'shared-control':
                 # Shared control plot
                 load_kwargs['idx'] = numerical_cols
-
-                load_kwargs['paired'] = False
+                load_kwargs['paired'] = None
 
                 if len(numerical_cols) > len(combi17):
                     plot_kwargs['custom_palette'] = dict(zip(numerical_cols,
@@ -227,12 +223,19 @@ class Analyze(Resource):
                                                 numerical_cols[0],
                                                 CI)
                 
-            else:
+            elif plotType == 'repeated-measures':
                 load_kwargs['idx'] = numerical_cols
 
                 load_kwargs['paired'] = "baseline"
 
                 load_kwargs['id_col'] = "ID"
+                
+                figure_legend = "The paired mean difference between Control and multiple Test conditions is displayed in the above Cumming estimation plot. The top panel consists of a slopegraph whereby each line represents a set of Control and Test observations from an individual. The bottom panel shows the distribution of the bootstrapped-resampled paired mean difference between each Test condition and the Control. In each effect size half-violin plot, the black dot denotes the mean of the distribution and the black vertical bars indicate 95% confidence intervals."
+
+            elif plotType == 'proportion': 
+                load_kwargs['idx'] = numerical_cols
+                load_kwargs['paired'] = None
+                load_kwargs['proportional'] = True
 
                 if len(numerical_cols) > len(combi17):
                     plot_kwargs['custom_palette'] = dict(zip(numerical_cols,
@@ -241,43 +244,117 @@ class Analyze(Resource):
                     plot_kwargs['custom_palette'] = dict(zip(numerical_cols,
                                                              combi17))
 
+                figure_legend = "The white part in the bar represents the proportion of observations in the dataset that do not belong to the category, which is equivalent to the proportion of 0 in the data. The colored part represents the proportion of observations that belong to the category, which is equivalent to the proportion of 1 in the data. The error bars in the plot display the mean and ± standard deviation of each group as gapped lines. The gap represents the mean, while the vertical ends represent the standard deviation. The bootstrap effect sizes are plotted on the right axis."
                 
-                figure_legend = "The {0} for {1} \
-                comparisons against the shared control {2} \
-                are shown in the above Cumming estimation plot. \
-                The raw data is plotted on the upper axes. On the \
-                lower axes, mean differences are plotted as bootstrap \
-                sampling distributions. Each mean difference is depicted \
-                as a dot. Each {3}% confidence interval is indicated by the \
-                ends of the vertical error bars.".format(effect_size_print,
-                                                len(numerical_cols) - 1,
-                                                numerical_cols[0],
-                                                CI)
+            elif plotType == 'proportion-paired': 
+                load_kwargs['idx'] = numerical_cols
 
+                load_kwargs['proportional'] = True
+
+                load_kwargs['paired'] = "baseline"
+                    
+                load_kwargs['id_col'] = "ID"
+
+                figure_legend = "The upper part (grey part) of the bar represents the proportion of observations in the dataset that do not belong to the category, which is equivalent to the proportion of 0 in the data. The lower part represents the proportion of observations that belong to the category or successes, which is equivalent to the proportion of 1 in the data. The width of each bar in each xticks represent the proportion of corresponding label in the group, and the strip denotes the paired relationship for each observation.  The bootstrap effect sizes are plotted on the bottom axis."
+                          
+            elif plotType == 'delta-delta':
+                load_kwargs['delta2'] = True
+                load_kwargs['paired'] = None
+
+                try:
+                    load_kwargs['experiment'] = str(request.form['experiment'])
+                except KeyError as e:
+                    abort(400, description=f"Missing value for label of experiements (field 8)")
+
+                try:
+                    x_values = request.form['x'].split(',')
+                except KeyError as e:
+                    abort(400, description=f"Missing value for variables to be plotted on horizontal axis and for dot/line color (field 9)")
+
+                load_kwargs['x'] = list(x_values)
+
+                try: 
+                  load_kwargs['y'] = str(request.form['yaxisLabel'])
+                #default value of y to Value
+                except KeyError as e:
+                    load_kwargs['y'] = 'Value'
+
+                if effect_size == "Cliff's delta":
+                    plot_type = "Cumming"
+                else:
+                    plot_type = "Gardner-Altman"
+                    figure_legend = "The top panel consists of swarm plots of all the individuals in each sample; the left portion of the bottom axis shows the distribution of the bootstrapped-resampled mean differences between each pair of conditions within a treatment group - the primary deltas; the right portion of the bottom axis shows the distribution of the delta-delta effect size - the overall delta with all the control quantities subtracted from it. In each effect size half-violin plot, the black dot denotes the mean of the distribution and the black vertical bars indicate 95% confidence intervals."
+            elif plotType == 'delta-delta-paired':
+                load_kwargs['delta2'] = True
+                load_kwargs['paired'] = "baseline"
+                load_kwargs['id_col'] = "ID"
+                try:
+                    load_kwargs['experiment'] = str(request.form['experiment'])
+                except KeyError as e:
+                    abort(400, description=f"Missing value for label of experiements (field 8)")
+                    
+                try:
+                    x_values = request.form['x'].split(',')
+                except KeyError as e:
+                    abort(400, description=f"Missing value for variables to be plotted on horizontal axis and for dot/line color (field 9)")                
+                load_kwargs['x'] = list(x_values)
+                try: 
+                  load_kwargs['y'] = str(request.form['yaxisLabel'])
+                #default value of y to Value
+                except KeyError as e:
+                    load_kwargs['y'] = 'Value'
+                figure_legend = "The top panel consists two slope graphs of paired samples; the left portion of the bottom axis shows the distribution of the bootstrapped-resampled mean differences between each pair of conditions within a treatment group - the primary deltas; the right portion of the bottom axis shows the distribution of the delta-delta effect size - the overall delta with all the control quantities subtracted from it. In each effect size half-violin plot, the black dot denotes the mean of the distribution and the black vertical bars indicate 95% confidence intervals."
+                
+            elif plotType == 'mini-meta':
+                tuple_of_pairs = tuple((numerical_cols[i], numerical_cols[i + 1]) for i in range(0, len(numerical_cols), 2))
+                load_kwargs['idx'] = tuple_of_pairs
+                load_kwargs['mini_meta'] = True
+                load_kwargs['paired'] = None
+
+                if len(numerical_cols) > len(combi17):
+                    plot_kwargs['custom_palette'] = dict(zip(numerical_cols,
+                                                             viridis_palette_shared))
+                else:
+                    plot_kwargs['custom_palette'] = dict(zip(numerical_cols,
+                                                             combi17))
+                if effect_size == "Cliff's delta":
+                    plot_type = "Cumming"
+                else:
+                    plot_type = "Gardner-Altman"
+                    
+                figure_legend = "The mean difference between Control and Test is displayed in the above Cumming estimation plot showing the data for each experimental replicate as well as the calculated weighted delta. The top panel consists of swarm plots of all the individuals in each sample. Gapped lines are displayed alongside the swarm plots, representing the mean (gap) and the SD (lines) of the sample. The bottom panel shows the distribution of the bootstrapped-resampled mean difference between each test and control comparison. The final (rightmost) curve represents the weighted effect size, which takes into account each experimental replicate effect size and their respective sample size. In each effect size half-violin plot, the black dot denotes the mean of the distribution and the black vertical bars indicate 95% confidence intervals."
+                
+            else:
+                tuple_of_pairs = tuple((numerical_cols[i], numerical_cols[i + 1]) for i in range(0, len(numerical_cols), 2))
+                load_kwargs['idx'] = tuple_of_pairs
+                load_kwargs['mini_meta'] = True                    
+                load_kwargs['paired'] = 'baseline'
+                load_kwargs['id_col'] = "ID"
+
+                figure_legend = "The paired mean difference between Control and Test is displayed in the above Cumming estimation plot showing the data for each experimental replicate as well as the calculated weighted delta. The top panel consists of a set of slopegraphs whereby each line represents an individual paired observation. The bottom panel shows the distribution of the bootstrapped-resampled paired mean difference between each test and control comparison. The final (rightmost) curve represents the weighted effect size, which takes into account each experimental replicate effect size and their respective sample size. In each effect size half-violin plot, the black dot denotes the mean of the distribution and the black vertical bars indicate 95% confidence intervals."
 
             # If this is a paired plot, add an ID column.
-            if load_kwargs['paired'] is True or "baseline":
+            if load_kwargs['paired'] == "baseline" and load_kwargs['delta2'] != True:
                 df["ID"] = pd.Series(range(0, len(df)))
 
                 # Re-shape the damn thing in lieu of updating DABEST.
                 df = pd.melt(df, id_vars="ID").dropna()
-
-            else:
-                # Re-shape the damn thing in lieu of updating DABEST.
+            elif load_kwargs['delta2'] != True:
                 df = pd.melt(df).dropna()
 
-            load_kwargs['x'] = 'variable'
-            load_kwargs['y'] = 'value'
 
-            plot_kwargs['raw_marker_size']  = float(request.form['swarm_dotsize'])
+            if load_kwargs['delta2'] != True:
+              load_kwargs['x'] = 'variable'
+              load_kwargs['y'] = 'value'
 
+            plot_kwargs['raw_marker_size'] = float(request.form['swarm_dotsize'])
             plot_kwargs['es_marker_size'] = float(request.form['es_markersize'])
-
+              
             # # DEBUG:
             # print(load_kwargs['idx'])
-
             # Create the dabest object for analysis.
             dabest_object = dabest.load(df, **load_kwargs)
+            #print(dabest_object)
 
             plot_kwargs['dpi'] = 200
             if effect_size == "mean_diff":
@@ -290,11 +367,13 @@ class Analyze(Resource):
                 es = dabest_object.hedges_g
             elif effect_size == "cliffs_delta":
                 es = dabest_object.cliffs_delta
+            elif effect_size == "cohens_h":
+                es = dabest_object.cohens_h
 
             f = es.plot(**plot_kwargs);
 
             # # DEBUG:
-            # print("creating results table.")
+            print("creating results table.")
 
             stats_table = es.statistical_tests.copy()
 
@@ -313,7 +392,7 @@ class Analyze(Resource):
             stats_table.index += 1
 
             # # DEBUG:
-            # print("creating image.")
+            print("creating image.")
             # Prepare PNG output.
             img = io.BytesIO()
             plt.savefig(img, format='png', **savefig_kwargs)
@@ -327,7 +406,7 @@ class Analyze(Resource):
             svg = base64.b64encode(img.getvalue()).decode()
 
             # # DEBUG:
-            # print("formatting text.")
+            print("formatting text.")
             results_repr = es.__repr__()
             results_repr = results_repr.split("\n\n")[1:-1]
 
@@ -371,10 +450,10 @@ class Analyze(Resource):
                         <a href="https://doi.org/10.1038/s41592-019-0470-3">10.1038/s41592-019-0470-3</a> \
                         </div> \
                         </div>'
-            # # DEBUG:
-            # print("return output.")
-            #
-            # # DEBUG:
+            # DEBUG:
+            print("return output.")
+            
+            # DEBUG:
             # print(legend)
             # print("\n")
             # print(stats_table.values.tolist())
@@ -393,4 +472,4 @@ class Analyze(Resource):
 
         except Exception as e:
             print(e) # Use to debug.
-            abort(400, 'Error: {}'.format(e))
+            abort(400, 'bruh Error: {}'.format(e))

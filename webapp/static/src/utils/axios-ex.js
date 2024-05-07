@@ -10,7 +10,7 @@ import * as common from '@/utils/common.js';
 // Create axios instance
 let config = {
 	baseURL: common.getBaseURL(),
-	timeout: 60000
+	timeout: 120000
 };
 let instance = axios.create(config);
 

@@ -7,11 +7,12 @@ import 'materialize-css';
 import './scss/style.scss';
 import VueAnalytics from 'vue-analytics';
 import vueSlider from 'vue-slider-component';
+import VueGtag from 'vue-gtag';
 // import LoadScript from 'vue-plugin-load-script';
 // import VueMathjax from 'vue-mathjax';
 
 // import VTooltip from 'v-tooltip';
-import(/* webpackPrefetch: true */ 'vue-handsontable-official');
+// import(/* webpackPrefetch: true */ 'vue-handsontable-official');
 
 // Using Imports
 Vue.use(VueBreadcrumbs, {
@@ -32,6 +33,14 @@ Vue.config.productionTip = false;
 
 // analytics code
 const isProd = process.env.NODE_ENV === 'production';
+Vue.use(VueGtag, {
+	config: {
+		id: 'G-8WBRRDG3DP',
+		params: {
+			send_page_view: false
+		}
+	}
+}, router);
 
 Vue.use(VueAnalytics, {
 	id: 'UA-118265936-1',
